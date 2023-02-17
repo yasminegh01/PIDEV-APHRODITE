@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Diagnostic index{% endblock %}
+
+{% block body %}
+    <h1>Diagnostic index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Age</th>
+                <th>Overweight</th>
+                <th>Cigarettes</th>
+                <th>RecentlyInjured</th>
+                <th>HighCholesterol</th>
+                <th>HyperTension</th>
+                <th>Diabetes</th>
+                <th>Symptoms</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for diagnostic in diagnostics %}
+            <tr>
+                <td>{{ diagnostic.id }}</td>
+                <td>{{ diagnostic.age }}</td>
+                <td>{{ diagnostic.overweight }}</td>
+                <td>{{ diagnostic.cigarettes }}</td>
+                <td>{{ diagnostic.recentlyInjured }}</td>
+                <td>{{ diagnostic.highCholesterol }}</td>
+                <td>{{ diagnostic.hyperTension }}</td>
+                <td>{{ diagnostic.diabetes }}</td>
+                <td>{{ diagnostic.symptoms ? diagnostic.symptoms|join(', ') : '' }}</td>
+                <td>{{ diagnostic.date ? diagnostic.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_diagnostic_show', {'id': diagnostic.id}) }}">show</a>
+                    <a href="{{ path('app_diagnostic_edit', {'id': diagnostic.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_diagnostic_new') }}">Create new</a>
+{% endblock %}
