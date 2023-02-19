@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Diagnostic{% endblock %}
+
+{% block body %}
+    <h1>Diagnostic</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ diagnostic.id }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ diagnostic.age }}</td>
+            </tr>
+            <tr>
+                <th>Overweight</th>
+                <td>{{ diagnostic.overweight }}</td>
+            </tr>
+            <tr>
+                <th>Cigarettes</th>
+                <td>{{ diagnostic.cigarettes }}</td>
+            </tr>
+            <tr>
+                <th>RecentlyInjured</th>
+                <td>{{ diagnostic.recentlyInjured }}</td>
+            </tr>
+            <tr>
+                <th>HighCholesterol</th>
+                <td>{{ diagnostic.highCholesterol }}</td>
+            </tr>
+            <tr>
+                <th>HyperTension</th>
+                <td>{{ diagnostic.hyperTension }}</td>
+            </tr>
+            <tr>
+                <th>Diabetes</th>
+                <td>{{ diagnostic.diabetes }}</td>
+            </tr>
+            <tr>
+                <th>Symptoms</th>
+                <td>{{ diagnostic.symptoms ? diagnostic.symptoms|join(', ') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ diagnostic.date ? diagnostic.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_diagnostic_index') }}">back to list</a>
+
+    <a href="{{ path('app_diagnostic_edit', {'id': diagnostic.id}) }}">edit</a>
+
+    {{ include('diagnostic/_delete_form.html.twig') }}
+{% endblock %}

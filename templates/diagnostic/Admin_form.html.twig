@@ -1,0 +1,63 @@
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+<button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+
+
+
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Create Diagnostic</h1>
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.age, 'Age') }}
+        {{ form_widget(form.age, { 'attr': {'class': 'form-control form-control-line'} }) }}
+        {{ form_errors(form.age) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.overweight, 'Overweight') }}
+        {{ form_widget(form.overweight, { 'attr': {'class': 'form-control form-control-line'} }) }}
+        {{ form_errors(form.overweight) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.cigarettes, 'Cigarettes') }}
+        {{ form_widget(form.cigarettes, { 'attr': {'class': 'form-control form-control-line'} }) }}
+        {{ form_errors(form.cigarettes) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.recentlyInjured, 'Recently Injured') }}
+        {{ form_widget(form.recentlyInjured, { 'attr': {'class': 'form-control form-control-line'} }) }}
+        {{ form_errors(form.recentlyInjured) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.highCholesterol, 'High Cholesterol') }}
+        {{ form_widget(form.highCholesterol, { 'attr': {'class': 'form-control form-control-line'} }) }}
+        {{ form_errors(form.highCholesterol) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.hyperTension, 'Hyper Tension') }}
+        {{ form_widget(form.hyperTension, { 'attr': {'class': 'form-control form-control-line'} }) }}
+        {{ form_errors(form.hyperTension) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.diabetes, 'Diabetes') }}
+        {{ form_widget(form.diabetes, { 'attr': {'class': 'form-control form-control-line'} }) }}
+        {{ form_errors(form.diabetes) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.symptoms, 'Symptoms') }}
+        {{ form_widget(form.symptoms, { 'attr': {'class': 'form-control form-control-line'} }) }}
+        {{ form_errors(form.symptoms) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.date, 'Date') }}
+        {{ form_widget(form.date, { 'attr': {'class': 'form-control form-control-line'} }) }}
+        {{ form_errors(form.date) }}
+    </div>
+    <button type="submit" class="btn btn-success text-white">Create</button>
+    {{ form_end(form) }}
+{% endblock %}
