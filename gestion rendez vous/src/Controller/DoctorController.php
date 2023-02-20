@@ -10,7 +10,7 @@ class DoctorController extends AbstractController
     #[Route('/form', name: 'app_doctor')]
     public function index(): Response
     {
-        return $this->render('admin/rendezVous/form.html.twig', [
+        return $this->render('admin/appointment_resquest/form.html.twig', [
             'controller_name' => 'DoctorController',
         ]);
     }

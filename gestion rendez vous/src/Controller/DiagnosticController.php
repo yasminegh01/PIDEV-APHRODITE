@@ -42,7 +42,7 @@ class DiagnosticController extends AbstractController
             return $this->redirectToRoute('app_diagnostic_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('diagnostic/new.html.twig', [
+        return $this->renderForm('diagnostic/new_admin.html.twig', [
             'diagnostic' => $diagnostic,
             'form' => $form,
         ]);
@@ -62,7 +62,7 @@ class DiagnosticController extends AbstractController
             return $this->redirectToRoute('app_diagnostic_index_admin', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/diagnostic/new.html.twig', [
+        return $this->renderForm('templates/admin/appointment_resquest/new_admin.html.twig', [
             'diagnostic' => $diagnostic,
             'form' => $form,
         ]);
@@ -106,7 +106,7 @@ class DiagnosticController extends AbstractController
             return $this->redirectToRoute('app_diagnostic_index_admin', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/diagnostic/new.html.twig', [
+        return $this->renderForm('admin/diagnostic/new_admin.html.twig', [
             'diagnostic' => $diagnostic,
             'form' => $form,
         ]);
