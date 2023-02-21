@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+    {% block body %}
+    <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <meta name="copyright" content="Aphrotdite,INC, https://Aphrotdite.com/">
+
+  <title>Aphrotdite - votre grossesse notre engagement</title>
+
+  <link rel="stylesheet" href="{{ asset('../assets/css/maicons.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('../assets/css/bootstrap.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('../assets/vendor/owl-carousel/css/owl.carousel.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('../assets/vendor/animate/animate.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('../assets/css/theme.css') }}">
+  
+</head>
+
+      <div class="page-banner overlay-dark bg-image" style="background-image: url({{ asset('../assets/img/bg_image_1.jpg') }});">
+    <div class="banner-section">
+      <div class="container text-center wow fadeInUp">
+        <nav aria-label="Breadcrumb">
+          <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Blog</li>
+          </ol>
+        </nav>
+        <h1 class="font-weight-normal">Our Blog</h1>
+      </div> <!-- .container -->
+    </div> <!-- .banner-section -->
+  </div> <!-- .page-banner -->
+<div class="container body-container">
+                                {% block header_navigation_links %}
+                                    <li>
+                                        <a href="{{ path('blog_index') }}">
+                                            <i class="fa fa-home" aria-hidden="true"></i> {{ 'menu.homepage'|trans }}
+                                        </a>
+                                    </li>
+
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <li>
+                                            <a href="{{ path('admin_post_index') }}">
+                                                <i class="fa fa-lock" aria-hidden="true"></i> {{ 'menu.admin'|trans }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endblock %}
+
+                                <li>
+                                    <a href="{{ path('blog_search') }}"> <i class="fa fa-search"></i> {{ 'menu.search'|trans }}</a>
+                                </li>
+
+                                {% if app.user %}
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="user">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            <span class="caret"></span>
+                                            <span class="sr-only">{{ app.user.fullname }}</span>
+                                        </a>
+                                        <ul class="dropdown-menu user" role="menu" aria-labelledby="user">
+                                            <li>
+                                                <a href="{{ path('user_edit') }}">
+                                                    <i class="fa fa-edit" aria-hidden="true"></i> {{ 'menu.user'|trans }}
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="{{ logout_path() }}">
+                                                    <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'menu.logout'|trans }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="locales">
+                                        <i class="fa fa-globe" aria-hidden="true"></i>
+                                        <span class="caret"></span>
+                                        <span class="sr-only">{{ 'menu.choose_language'|trans }}</span>
+                                    </a>
+                                    <ul class="dropdown-menu locales" role="menu" aria-labelledby="locales">
+                                        {% for locale in locales() %}
+                                            <li {% if app.request.locale == locale.code %}aria-checked="true" class="active"{% else %}aria-checked="false"{% endif %} role="menuitem"><a href="{{ path(app.request.get('_route', 'blog_index'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">{{ locale.name|capitalize }} <small>{{ locale.code[0:2] }}</small></a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+    
+            {% block main %}
+            
+            {% endblock %}
+
+            {% block sidebar %}
+                <div class="section actions">
+                    <a href="{{ path('admin_post_new') }}" class="btn btn-lg btn-block btn-success">
+                        <i class="fa fa-plus" aria-hidden="true"></i> {{ 'action.create_post'|trans }}
+                    </a>
+                </div>
+            {% endblock %}
+</div>
+{% endblock %}
+

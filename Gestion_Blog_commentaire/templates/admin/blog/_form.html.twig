@@ -1,0 +1,43 @@
+{#
+    By default, forms enable client-side validation. This means that you can't
+    test the server-side validation errors from the browser. To temporarily
+    disable this validation, add the 'novalidate' attribute:
+
+    {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+#}
+
+{% if show_confirmation|default(false) %}
+    {% set attr = {'data-confirmation': 'true'} %}
+    <div class="modal fade" id="confirmationModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>{{ 'delete_post_modal.title'|trans }}</h4>
+                <p>{{ 'delete_post_modal.body'|trans }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnNo" data-dismiss="modal">
+                    <i class="fa fa-ban" aria-hidden="true"></i> {{ 'label.cancel'|trans }}
+                </button>
+                <button type="button" class="btn btn-danger" id="btnYes" data-dismiss="modal">
+                    <i class="fa fa-trash" aria-hidden="true"></i> {{ 'label.delete_post'|trans }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{{ form_start(form, {attr: attr|default({})}) }}
+    {{ form_widget(form) }}
+
+    <button type="submit" class="{{ button_css|default("btn btn-primary") }}">
+        <i class="fa fa-save" aria-hidden="true"></i> {{ button_label|default('label.create_post'|trans) }}
+    </button>
+
+    {% if include_back_to_home_link|default(false) %}
+        <a href="{{ path('admin_post_index') }}" class="btn btn-link">
+            <i class="fa fa-list-alt" aria-hidden="true"></i> {{ 'action.back_to_list'|trans }}
+        </a>
+    {% endif %}
+{{ form_end(form) }}
