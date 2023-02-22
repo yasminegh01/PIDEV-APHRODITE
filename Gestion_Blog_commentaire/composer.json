@@ -20,6 +20,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.11",
         "league/commonmark": "^2.1",
+        "sensio/framework-extra-bundle": "^6.2",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "^6.2",
         "symfony/console": "^6.2",
