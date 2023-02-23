@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Comment{% endblock %}
+
+{% block body %}
+    <h1>Create new Comment</h1>
+
+    {% if not form.vars.valid %}
+            <div class="alert alert-danger" role="alert">
+                {{ form_errors(form.content) }}
+            </div>
+    {% endif %}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+    <a href="{{ path('app_comment_index') }}">back to list</a>
+{% endblock %}

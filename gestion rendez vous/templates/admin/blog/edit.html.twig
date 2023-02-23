@@ -1,0 +1,92 @@
+{% extends 'admin/aside.html.twig' %}
+
+{% block body %}
+
+{% block main %}
+    <h1>{{ 'title.edit_post'|trans({'id': post.id}) }}</h1>
+
+                    {% if app.session.flashBag.has('success') %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                        {% for message in app.flashes('success') %}
+                            {{ message|trans }}
+                        {% endfor %}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <script>
+                    //5 sec bech thidde
+                        document.addEventListener("DOMContentLoaded", function() {
+                            const alert = document.querySelector('.alert');
+                            alert.classList.add('show');
+                            setTimeout(function() {
+                                alert.classList.remove('show');
+                            }, 5000);
+                        });
+                    </script>
+                {% endif %}
+{% if not form.vars.valid %}
+            <div class="alert alert-danger" role="alert">
+                {# {{ form_label(form.title) }} #}
+                {# {{ form_widget(form.title) }} #}
+                {{ form_errors(form.title) }}
+                {# {{ form_label(form.summary) }} #}
+                {# {{ form_widget(form.summary) }} #}
+                {{ form_errors(form.summary) }}
+                {# {{ form_label(form.content) }} #}
+                {# {{ form_widget(form.content) }} #}
+                {{ form_errors(form.content) }}
+            </div>
+    {% endif %}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.summary) }}
+        {{ form_row(form.content) }}
+        {{ form_row(form.publishedAt) }}
+        {{ form_row(form.tags) }}   
+    {{ include('admin/blog/_form.html.twig', {
+        form: form,
+        button_label: 'action.save'|trans,
+        include_back_to_home_link: true,
+    }, with_context = false) }}
+{% endblock %}
+
+{% block sidebar %}
+    <div class="section">
+        <a href="{{ path('admin_post_show', {id: post.id}) }}" class="btn btn-lg btn-block btn-success">
+            <i class="fa fa-eye" aria-hidden="true"></i> {{ 'action.show_post'|trans }}
+        </a>
+    </div>
+
+    <div class="section actions">
+        <div class="modal fade" id="confirmationModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>{{ 'delete_post_modal.title'|trans }}</h4>
+                <p>{{ 'delete_post_modal.body'|trans }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnNo" data-dismiss="modal">
+                    <i class="fa fa-ban" aria-hidden="true"></i> {{ 'label.cancel'|trans }}
+                </button>
+                <button type="button" class="btn btn-danger" id="btnYes" data-dismiss="modal">
+                    <i class="fa fa-trash" aria-hidden="true"></i> {{ 'label.delete_post'|trans }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<form action="{{ url('admin_post_delete', {id: post.id}) }}" method="post" data-confirmation="true" id="delete-form">
+    <input type="hidden" name="token" value="{{ csrf_token('delete') }}" />
+    <button type="submit" class="btn btn-lg btn-block btn-danger">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+        {{ 'action.delete_post'|trans }}
+    </button>
+</form>
+    </div>
+
+    
+
+{% endblock %}
+{% endblock %}

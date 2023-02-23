@@ -18,12 +18,18 @@ class FichePatient
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message:"symptome field is required")]
+    #[Assert\Length(min: 5,minMessage: "minumuim 5 caracter")]
     private ?string $symptome = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message:"medicament field is required")]
+    #[Assert\Length(min: 5,minMessage: "minumuim 5 caracter")]
     private ?string $medicament = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message:"progres field is required")]
+    #[Assert\Length(min:10,minMessage: "minumuim 5 caracter")]
     private ?string $progres = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]

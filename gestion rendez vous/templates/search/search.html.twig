@@ -1,0 +1,30 @@
+{% extends 'basetest.html.twig' %}
+
+{% block body %}
+{% block javascripts %}
+    
+    {{ encore_entry_script_tags('search') }}
+{% endblock %}
+
+
+
+{% block main %}
+
+    <form action="{{ path('user_blog_search') }}" method="get">
+        <div class="form-group">
+            <input name="q"
+                   class="form-control search-field"
+                   placeholder="{{ 'post.search_for'|trans }}"
+                   autocomplete="off"
+                   value="{{ query }}"
+                   autofocus
+                   data-no-results-message="{{ 'post.search_no_results'|trans }}"
+            >
+        </div>
+    </form>
+    
+{% endblock %}
+
+
+
+{% endblock %}

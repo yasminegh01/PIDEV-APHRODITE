@@ -1,0 +1,73 @@
+
+
+
+
+
+<h1>Create Diagnostic</h1>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+<div class="form-group">
+    {{ form_label(form.name, 'Name') }}
+
+    {{ form_widget(form.name, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    <div class="my-custom-class-for-errors">
+    {{ form_errors(form.name) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ form_label(form.lastname, 'Last Name') }}
+    {{ form_widget(form.lastname, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    {{ form_errors(form.lastname) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.birthday, 'Date of Birth') }}
+    {{ form_widget(form.birthday, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    {{ form_errors(form.birthday) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.gender, 'gender') }}
+    {{ form_widget(form.gender, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    {{ form_errors(form.gender) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.phonenumber, 'Phone Number') }}
+    {{ form_widget(form.phonenumber, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    {{ form_errors(form.phonenumber) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.email, 'email') }}
+    {{ form_widget(form.email, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    {{ form_errors(form.email) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.new_old, 'Have you ever applied to our facility before?') }}
+    {{ form_widget(form.new_old, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    {{ form_errors(form.new_old) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.appointmentprocedure, 'Which procedure do you want to make an appointment for?') }}
+    {{ form_widget(form.appointmentprocedure, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    {{ form_errors(form.appointmentprocedure) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.appointmentdate, 'Preferred Appointment Date') }}
+    {{ form_widget(form.appointmentdate, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    {{ form_errors(form.appointmentdate) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.appointmentime, 'Time') }}
+    {{ form_widget(form.appointmentime, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    {{ form_errors(form.appointmentime) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.type, 'Type') }}
+    {{ form_widget(form.type, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    {{ form_errors(form.type) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.lien, 'Lien') }}
+    {{ form_widget(form.lien, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    {{ form_errors(form.lien) }}
+</div>
+
+<button type="submit" class="btn btn-success text-white">Create</button>
+{{ form_end(form) }}

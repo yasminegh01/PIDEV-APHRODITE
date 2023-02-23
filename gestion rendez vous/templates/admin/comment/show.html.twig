@@ -1,0 +1,39 @@
+{% extends 'admin/aside.html.twig' %}
+
+{% block title %}Comment{% endblock %}
+
+{% block body %}
+    <h1>Comment</h1>
+
+    <table class="table">
+        <tbody>
+ <tr>
+                <th>Id Comment</th>
+                <td>{{ comment.id }}</td>
+            </tr>
+            <tr>
+                <th>PublishedAt</th>
+                <td>{{ comment.publishedAt ? comment.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+                
+            </tr>
+            <tr>
+                <th>Content of Comment</th>
+                <td>{{ comment.content }}</td>
+            </tr>
+            <tr>
+                <th>Post title</th>
+                <td>{{ comment.post.title }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>{{ comment.author }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_app_comment_index') }}">back to list</a>
+
+    <a href="{{ path('admin_app_comment_edit', {'id': comment.id}) }}">edit</a>
+
+    {{ include('admin/comment/_delete_form.html.twig') }}
+{% endblock %}
