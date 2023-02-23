@@ -1,8 +1,9 @@
-{% extends 'aside.html.twig' %}
+{% extends 'admin/aside.html.twig' %}
 
 {% block title %}FichePatient index{% endblock %}
 
 {% block body %}
+    <div class="container body-container">
     <h1>FichePatient index</h1>
 
     <table class="table">
@@ -37,5 +38,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_fiche_patient_new') }}">Create new</a>
+{#    <a href="{{ path('app_fiche_patient_new') }}">Create new</a>#}
+    </div>
 {% endblock %}

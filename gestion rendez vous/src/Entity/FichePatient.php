@@ -26,6 +26,10 @@ class FichePatient
     #[ORM\Column(type: Types::TEXT)]
     private ?string $progres = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?AppointmentRequest $rendezVous = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +79,18 @@ class FichePatient
     public function setProgres(string $progres): self
     {
         $this->progres = $progres;
+
+        return $this;
+    }
+
+    public function getRendezVous(): ?AppointmentRequest
+    {
+        return $this->rendezVous;
+    }
+
+    public function setRendezVous(AppointmentRequest $rendezVous): self
+    {
+        $this->rendezVous = $rendezVous;
 
         return $this;
     }

@@ -15,11 +15,4 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
         ]);
     }
-    #[Route('/admin', name: 'app_admin')]
-    public function indexadmine(): Response
-    {
-        return $this->render('aside.html.twig', [
-            'controller_name' => 'BaseController',
-        ]);
-    }
 }

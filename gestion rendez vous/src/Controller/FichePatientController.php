@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\FichePatient;
 use App\Form\FichePatientType;
+use App\Repository\AppointmentRequestRepository;
 use App\Repository\FichePatientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\AppointmentRequest;
 
 #[Route('/fiche/patient')]
 class FichePatientController extends AbstractController
@@ -21,12 +23,16 @@ class FichePatientController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_fiche_patient_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, FichePatientRepository $fichePatientRepository): Response
+
+
+    #[Route('/new/{id}', name: 'app_fiche_patient_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, FichePatientRepository $fichePatientRepository,AppointmentRequest $id): Response
     {
         $fichePatient = new FichePatient();
+        $fichePatient->setRendezVous($id);
         $form = $this->createForm(FichePatientType::class, $fichePatient);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $fichePatientRepository->save($fichePatient, true);
@@ -75,4 +81,5 @@ class FichePatientController extends AbstractController
 
         return $this->redirectToRoute('app_fiche_patient_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }
