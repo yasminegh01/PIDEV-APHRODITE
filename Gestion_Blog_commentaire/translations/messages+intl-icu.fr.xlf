@@ -92,6 +92,18 @@
                 <source>title.comment_error</source>
                 <target>Il y a eu une erreur lors de la publication de votre commentaire.</target>
             </trans-unit>
+            <trans-unit id="comment.created_successfully">
+                <source>comment.created_successfully</source>
+                <target>Votre commentaire a été publiée</target>
+            </trans-unit>
+            <trans-unit id="comment.updated_successfully">
+                <source>comment.updated_successfully</source>
+                <target>votre commentaire a été mis a jour </target>
+            </trans-unit>
+            <trans-unit id="comment.deleted_successfully">
+                <source>comment.deleted_successfully</source>
+                <target>votre commentaire a été supprimer</target>
+            </trans-unit>
             <trans-unit id="title.edit_user">
                 <source>title.edit_user</source>
                 <target>Modifier l'utilisateur</target>

@@ -1,27 +1,44 @@
 {% extends 'basetest.html.twig' %}
-{% block blog %} active {% endblock %}
 
 
 {% block main %}
     <h1>{{ post.title }}</h1>
+                {% if app.session.flashBag.has('success') %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                        {% for message in app.flashes('success') %}
+                            {{ message|trans }}
+                        {% endfor %}
 
+                    </div>
+                    <script>
+                    //5 sec bech thidde
+                        document.addEventListener("DOMContentLoaded", function() {
+                            const alert = document.querySelector('.alert');
+                            alert.classList.add('show');
+                            setTimeout(function() {
+                                alert.classList.remove('show');
+                            }, 5000);
+                        });
+                    </script>
+                {% endif %}
     <p class="post-metadata">
         <span class="metadata"><i class="fa fa-calendar"></i> {{ post.publishedAt|format_datetime('long', 'medium', '', 'UTC') }}</span>
         <span class="metadata"><i class="fa fa-user"></i> {{ post.author.fullName }}</span>
     </p>
 
     {{ post.content|markdown_to_html|sanitize_html }}
-                {% if not post.tags.empty %}
-                    <p class="post-tags">
-                        {% for tag in post.tags %}
-                            <a href="{{ path('blog_index', {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}"
-                            class="label label-{{ tag.name == app.request.query.get('tag') ? 'success' : 'default' }}"
-                            >
-                                <i class="fa fa-tag"></i> {{ tag.name }}
-                            </a>
-                        {% endfor %}
-                    </p>
-                {% endif %}
+
+    {% if not post.tags.empty %}
+    <p class="post-tags">
+        {% for tag in post.tags %}
+            <a href="{{ path('blog_index', {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}"
+               class="label label-{{ tag.name == app.request.query.get('tag') ? 'success' : 'default' }}" style="color: black;"
+            >
+                <i class="fa fa-tag"></i> {{ tag.name }}
+            </a>
+        {% endfor %}
+    </p>
+{% endif %}
 
 
     <div id="post-add-comment" class="well">
@@ -83,7 +100,7 @@
     {# the parent() function includes the contents defined by the parent template
       ('base.html.twig') for this block ('sidebar'). This is a very convenient way
       to share common contents in different templates #}
-   
+    
 
 
 {% endblock %}

@@ -3,18 +3,20 @@
 {% block body %}
 {% block main %}
     <h1>{{ 'title.post_new'|trans }}</h1>
-<div class="alert alert-danger" role="alert">
-  {# {{ form_label(form.title) }} #}
-  {# {{ form_widget(form.title) }} #}
-  {{ form_errors(form.title) }}
-  {# {{ form_label(form.summary) }} #}
-  {# {{ form_widget(form.summary) }} #}
-  {{ form_errors(form.summary) }}
-  {# {{ form_label(form.content) }} #}
-  {# {{ form_widget(form.content) }} #}
-  {{ form_errors(form.content) }}
-</div>
-    {{ form_start(form) }}
+    {% if not form.vars.valid %}
+            <div class="alert alert-danger" role="alert">
+                {# {{ form_label(form.title) }} #}
+                {# {{ form_widget(form.title) }} #}
+                {{ form_errors(form.title) }}
+                {# {{ form_label(form.summary) }} #}
+                {# {{ form_widget(form.summary) }} #}
+                {{ form_errors(form.summary) }}
+                {# {{ form_label(form.content) }} #}
+                {# {{ form_widget(form.content) }} #}
+                {{ form_errors(form.content) }}
+            </div>
+    {% endif %}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
         {{ form_row(form.title) }}
         {{ form_row(form.summary) }}
         {{ form_row(form.content) }}
@@ -31,6 +33,7 @@
             <i class="fa fa-list-alt" aria-hidden="true"></i> {{ 'action.back_to_list'|trans }}
         </a>
     {{ form_end(form) }}
+    
 {% endblock %}
 
 

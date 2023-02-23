@@ -25,7 +25,29 @@
 
       
 <div class="container body-container">
-    
+
+                {% if app.session.flashBag.has('success') %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                        {% for message in app.flashes('success') %}
+                            {{ message|trans }}
+                        {% endfor %}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <script>
+                    //5 sec bech thidde
+                        document.addEventListener("DOMContentLoaded", function() {
+                            const alert = document.querySelector('.alert');
+                            alert.classList.add('show');
+                            setTimeout(function() {
+                                alert.classList.remove('show');
+                            }, 5000);
+                        });
+                    </script>
+                {% endif %}
+
+   
             {% block main %}
                 <h1>{{ 'title.post_list'|trans }}</h1>
 

@@ -53,13 +53,30 @@
       <div class="container">
         <a href="/" style="display:block; width:25%; height:10%;"><img style="display:block; width:100%; height:100%;" src="{{ asset('../assets/img/aphrodite.png') }}" alt="Aphrodite"></a>
         <form action="#">
-          <div class="input-group input-navbar">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="icon-addon1"><span class="mai-search"></span></span>
+        <a href="{{ path('user_blog_search') }}" class="input-group input-navbar" >
+            <div class="input-group input-navbar" >
+            <a href="{{ path('user_blog_search') }}" class="input-group-prepend" >
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="icon-addon1"><span class="mai-search"></span></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Enter keyword.." aria-label="Username" aria-describedby="icon-addon1"<a
+                class="srh-btn"><i class="ti-close"></i></a>
             </div>
-            <input type="text" class="form-control" placeholder="Enter keyword.." aria-label="Username" aria-describedby="icon-addon1">
-          </div>
+          </a>
         </form>
+
+                  {# <ul class="navbar-nav float-start me-auto">
+                    <!-- ============================================================== -->
+                    <!-- Search -->
+                    <!-- ============================================================== -->
+                    <li class="nav-item search-box"> <a class="nav-link waves-effect waves-dark"
+                    href="{{ path('blog_search') }}"><i class="ti-search"></i></a>
+                        <form class="app-search position-absolute">
+                            <input type="text" class="form-control" placeholder="Search &amp; enter"> <a
+                                    class="srh-btn"><i class="ti-close"></i></a>
+                        </form>
+                    </li>
+                </ul> #}
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupport" aria-controls="navbarSupport" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

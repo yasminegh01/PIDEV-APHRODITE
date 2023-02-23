@@ -196,4 +196,13 @@ class Post
     {
         return $this->tags;
     }
+
+    /**
+    * @return string
+    */
+    public function __toString()
+    {
+        return(string)$this->getId();
+    }
+
 }

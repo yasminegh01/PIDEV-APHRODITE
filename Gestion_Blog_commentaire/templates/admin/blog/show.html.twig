@@ -22,9 +22,9 @@
                     <p class="post-tags">
                         {% for tag in post.tags %}
                             <a href="{{ path('blog_index', {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}"
-                            class="label label-{{ tag.name == app.request.query.get('tag') ? 'success' : 'default' }}"
+                            class="label label-{{ tag.name == app.request.query.get('tag') ? 'success' : 'default' }}" style="color: black;"
                             >
-                                <i class="fa fa-tag"></i> {{ tag.name }}
+                                <i class=" fa fa-tag "></i> {{ tag.name }}
                             </a>
                         {% endfor %}
                     </p>
@@ -39,31 +39,7 @@
     </div>
 
     <div class="section">
-        <div class="modal fade" id="confirmationModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <h4>{{ 'delete_post_modal.title'|trans }}</h4>
-                <p>{{ 'delete_post_modal.body'|trans }}</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="btnNo" data-dismiss="modal">
-                    <i class="fa fa-ban" aria-hidden="true"></i> {{ 'label.cancel'|trans }}
-                </button>
-                <button type="button" class="btn btn-danger" id="btnYes" data-dismiss="modal">
-                    <i class="fa fa-trash" aria-hidden="true"></i> {{ 'label.delete_post'|trans }}
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<form action="{{ url('admin_post_delete', {id: post.id}) }}" method="post" data-confirmation="true" id="delete-form">
-    <input type="hidden" name="token" value="{{ csrf_token('delete') }}" />
-    <button type="submit" class="btn btn-lg btn-block btn-danger">
-        <i class="fa fa-trash" aria-hidden="true"></i>
-        {{ 'action.delete_post'|trans }}
-    </button>
-</form>
+        {{ include('admin/blog/_delete_form.html.twig', {post: post}, with_context = false) }}
     </div>
 
 

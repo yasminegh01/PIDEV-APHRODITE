@@ -5,41 +5,50 @@
 {% block main %}
     <h1>{{ 'title.edit_post'|trans({'id': post.id}) }}</h1>
 
-    {% if show_confirmation|default(false) %}
-    {% set attr = {'data-confirmation': 'true'} %}
-    <div class="modal fade" id="confirmationModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <h4>{{ 'delete_post_modal.title'|trans }}</h4>
-                <p>{{ 'delete_post_modal.body'|trans }}</p>
+                    {% if app.session.flashBag.has('success') %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                        {% for message in app.flashes('success') %}
+                            {{ message|trans }}
+                        {% endfor %}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <script>
+                    //5 sec bech thidde
+                        document.addEventListener("DOMContentLoaded", function() {
+                            const alert = document.querySelector('.alert');
+                            alert.classList.add('show');
+                            setTimeout(function() {
+                                alert.classList.remove('show');
+                            }, 5000);
+                        });
+                    </script>
+                {% endif %}
+{% if not form.vars.valid %}
+            <div class="alert alert-danger" role="alert">
+                {# {{ form_label(form.title) }} #}
+                {# {{ form_widget(form.title) }} #}
+                {{ form_errors(form.title) }}
+                {# {{ form_label(form.summary) }} #}
+                {# {{ form_widget(form.summary) }} #}
+                {{ form_errors(form.summary) }}
+                {# {{ form_label(form.content) }} #}
+                {# {{ form_widget(form.content) }} #}
+                {{ form_errors(form.content) }}
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="btnNo" data-dismiss="modal">
-                    <i class="fa fa-ban" aria-hidden="true"></i> {{ 'label.cancel'|trans }}
-                </button>
-                <button type="button" class="btn btn-danger" id="btnYes" data-dismiss="modal">
-                    <i class="fa fa-trash" aria-hidden="true"></i> {{ 'label.delete_post'|trans }}
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
-
-{{ form_start(form, {attr: attr|default({})}) }}
-    {{ form_widget(form) }}
-
-    <button type="submit" class="{{ button_css|default("btn btn-primary") }}">
-        <i class="fa fa-save" aria-hidden="true"></i> {{ button_label|default('label.create_post'|trans) }}
-    </button>
-
-    {% if include_back_to_home_link|default(false) %}
-        <a href="{{ path('admin_post_index') }}" class="btn btn-link">
-            <i class="fa fa-list-alt" aria-hidden="true"></i> {{ 'action.back_to_list'|trans }}
-        </a>
     {% endif %}
-{{ form_end(form) }}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.summary) }}
+        {{ form_row(form.content) }}
+        {{ form_row(form.publishedAt) }}
+        {{ form_row(form.tags) }}   
+    {{ include('admin/blog/_form.html.twig', {
+        form: form,
+        button_label: 'action.save'|trans,
+        include_back_to_home_link: true,
+    }, with_context = false) }}
 {% endblock %}
 
 {% block sidebar %}

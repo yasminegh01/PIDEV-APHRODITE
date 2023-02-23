@@ -159,7 +159,7 @@ class BlogController extends AbstractController
         $limit = $request->query->getInt('l', 10);
 
         if (!$request->isXmlHttpRequest()) {
-            return $this->render('blog/search.html.twig', ['query' => $query]);
+            return $this->render('admin/search.html.twig', ['query' => $query]);
         }
 
         $foundPosts = $posts->findBySearchQuery($query, $limit);

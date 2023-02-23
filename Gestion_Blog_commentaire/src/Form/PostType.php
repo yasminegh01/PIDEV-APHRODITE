@@ -67,7 +67,10 @@ class PostType extends AbstractType
             ])
             ->add('publishedAt', DateTimePickerType::class, [
                 'label' => 'label.published_at',
-                // 'help' => 'help.post_publication',
+                'disabled' => true, // This option disables the field and sets the "disabled" HTML attribute
+                'attr' => [
+                    'readonly' => true, // This attribute makes the field read-only
+                ],  
             ])
             ->add('tags', TagsInputType::class, [
                 'label' => 'label.tags',

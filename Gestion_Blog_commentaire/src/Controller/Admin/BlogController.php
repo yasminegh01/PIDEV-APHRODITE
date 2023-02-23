@@ -112,7 +112,7 @@ class BlogController extends AbstractController
 
         return $this->render('admin/blog/new.html.twig', [
             'post' => $post,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -145,7 +145,7 @@ class BlogController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'post.updated_successfully');
 
-            return $this->redirectToRoute('admin_post_edit', ['id' => $post->getId()]);
+            return $this->redirectToRoute('admin_post_index');
         }
 
         return $this->render('admin/blog/edit.html.twig', [
