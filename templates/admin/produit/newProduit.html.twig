@@ -1,0 +1,74 @@
+    {% extends 'admin/aside.html.twig' %}
+
+    
+    {% block body %}
+    <div class="page-wrapper">
+        
+        
+        
+        <div class="container-fluid">
+            
+            <div class="row">
+                
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                            </div>
+
+                            <h1> Produit</h1>
+                            {{ form_start(form,{attr:{'novalidate':'novalidate'}}) }}
+                            <div class="form-group">
+                                {{ form_label(form.nom, 'Nom') }}
+                                {{ form_widget(form.nom, { 'attr': {'class': 'form-control form-control-line'} }) }}
+                                {{ form_errors(form.nom) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.quantite, 'Quantite') }}
+                                {{ form_widget(form.quantite, { 'attr': {'class': 'form-control form-control-line'} }) }}
+                                {{ form_errors(form.quantite) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.prix, 'prix') }}
+                                {{ form_widget(form.prix, { 'attr': {'class': 'form-control form-control-line'} }) }}
+                                {{ form_errors(form.prix) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.categorie, 'Categorie') }}
+                                {{ form_widget(form.categorie, { 'attr': {'class': 'form-control form-control-line'} }) }}
+                                {{ form_errors(form.categorie) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.description, 'Description') }}
+                                {{ form_widget(form.description, { 'attr': {'class': 'form-control form-control-line'} }) }}
+                                {{ form_errors(form.description) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.image, 'image') }}
+                                {{ form_widget(form.image, { 'attr': {'class': 'form-control form-control-line'} }) }}
+                                {{ form_errors(form.image) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.promo, 'promo') }}
+                                {{ form_widget(form.promo, { 'attr': {'class': 'form-control form-control-line'} }) }}
+                                {{ form_errors(form.promo) }}
+                            </div>
+                            
+                            <button type="submit" class="btn btn-success text-white">Save</button>
+                            {{ form_end(form) }}
+
+                             <a href="{{ path('app_produit_liste') }}">back to list</a>
+
+
+                        </div>
+                    </div>
+            </div>
+           
+        </div>
+        
+    </div>
+   
+</div>
+
+    {% endblock %}
+

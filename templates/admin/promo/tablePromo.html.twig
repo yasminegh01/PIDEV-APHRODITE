@@ -1,0 +1,79 @@
+    {% extends 'admin/aside.html.twig' %}
+
+    
+    {% block body %}
+    <div class="page-wrapper">
+        
+        <div class="page-breadcrumb">
+            <div class="row align-items-center">
+                <div class="col-5">
+                    <h4 class="page-title">Promo</h4>
+
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="container-fluid">
+            
+            <div class="row">
+                <div class="col-12">
+
+
+
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                    <a href="{{ path('app_promotion_new') }}">Create new</a>
+
+
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Id</th>
+                                                    <th>DateDebutAt</th>
+                                                    <th>DateFinAt</th>
+                                                    <th>Pourcentage</th>
+                                                    <th>actions</th>
+                                                </tr>
+                                            </thead>
+                                    <tbody>
+                                        {% for promotion in promotions %}
+                                            <tr>
+                                                <td>{{ promotion.id }}</td>
+                                                <td>{{ promotion.dateDebutAt ? promotion.dateDebutAt|date('Y-m-d H:i:s') : '' }}</td>
+                                                <td>{{ promotion.dateFinAt ? promotion.dateFinAt|date('Y-m-d H:i:s') : '' }}</td>
+                                                <td>{{ promotion.pourcentage }}%</td>
+                                                <td>
+                                                    <form method="post" action="{{ path('app_promotion_delete', {'id': promotion.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promotion.id) }}">
+                                                        <button class="btn">Delete</button>
+                                                    </form>
+                                                    <a href="{{ path('app_promotion_edit', {'id': promotion.id}) }}">edit</a>
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="5">no records found</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+           
+        </div>
+        
+    </div>
+   
+</div>
+
+    {% endblock %}
+
