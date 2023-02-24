@@ -1,4 +1,49 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+<div class="form-group">
+    {{ form_label(form.name, 'Name') }}
+
+    {{ form_widget(form.name, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form.name) }}
+    </div>
+</div>
+
+<div class="form-group">
+    {{ form_label(form.symptome, 'symptome') }}
+
+    {{ form_widget(form.symptome, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form.symptome) }}
+    </div>
+</div>
+
+<div class="form-group">
+    {{ form_label(form.medicament, 'medicament') }}
+
+    {{ form_widget(form.medicament, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form.medicament) }}
+    </div>
+</div>
+
+<div class="form-group">
+    {{ form_label(form.progres, 'progres') }}
+
+    {{ form_widget(form.progres, { 'attr': {'class': 'form-control form-control-line'} }) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form.progres) }}
+    </div>
+</div>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+
+
+
+
+
+
+
+
+

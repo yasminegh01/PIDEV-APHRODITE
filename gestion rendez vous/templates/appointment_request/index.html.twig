@@ -5,25 +5,27 @@
 {% block body %}
 
 <div >
-    <h1>AppointmentRequest index</h1>
+    <h1>create new appoitment</h1>
 
     <div>
-    <table style="width: content-box;" class="table table-striped table-middle-aligned">
-        <thead>
+        <a href="{{ path('app_appointment_request_new_admin') }}" class="btn btn-info" role="button">Add new appointment</a>
+        <div class="row flex-nowrap overflow-auto">
+    <table class="table table-bordered" >
+        <thead class="thead-dark">
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Lastname</th>
                 <th scope="col">Birthday</th>
                 <th scope="col">Gender</th>
-                <th scope="col">Phonenumber</th>
+                <th scope="col">Phone Number</th>
                 <th scope="col">Email</th>
-                <th scope="col">New_old</th>
-                <th scope="col">Appointmentprocedure</th>
-                <th scope="col">Appointmentdate</th>
+                <th scope="col">New/old</th>
+                <th scope="col">Appointment procedure</th>
+                <th scope="col">Appointment date</th>
                 <th scope="col">Type</th>
                 <th scope="col">Lien</th>
-                <th scope="col">actions</th>
+                <th scope="col">Actions</th>
                 <th scope="col">create fiche patient</th>
             </tr>
         </thead>
@@ -44,11 +46,16 @@
                 <td>{{ appointment_request.type }}</td>
                 <td>{{ appointment_request.lien }}</td>
                 <td>
-                    <a href="{{ path('app_appointment_request_show', {'id': appointment_request.id}) }}">show</a>
-                    <a href="{{ path('app_appointment_request_edit', {'id': appointment_request.id}) }}">edit</a>
+                    <a href="{{ path('app_appointment_request_show', {'id': appointment_request.id}) }}" class="btn btn-success" role="button">show</a>
+                    <a href="{{ path('app_appointment_request_edit', {'id': appointment_request.id}) }}" class="btn btn-primary" role="button">edit</a>
+{#                    {% for fiche in fiche_patients %}#}
+{#                    {% endfor %}#}
+{#{% if fiche_patients.rendezVous == null  %}#}
+                <td><a href="{{ path('app_fiche_patient_new', {'id': appointment_request.id}) }}" class="btn btn-dark" role="button">Create </a></td>
+{#                {% else %}#}
+{#                    <h6>created</h6>#}
+{#                    {% endif %}#}
 
-
-                <td><a href="{{ path('app_fiche_patient_new', {'id': appointment_request.id}) }}">Create fiche patient</a></td>
 
                 </td>
             </tr>
@@ -59,8 +66,9 @@
         {% endfor %}
         </tbody>
     </table>
+        </div>
     </div>
 
-    <a href="{{ path('app_appointment_request_new_admin') }}">Create new</a>
+
 </div>
 {% endblock %}

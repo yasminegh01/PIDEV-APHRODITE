@@ -27,6 +27,8 @@ class AppointmentRequest
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[ORM\NotNull(message:"The birthday field cannot be null.")]
+//    #[Assert\Date]
+    #[Assert\GreaterThanOrEqual("18 years ago")]
     private ?\DateTimeInterface $birthday = null;
 
     #[ORM\Column(length: 255)]
@@ -54,6 +56,8 @@ class AppointmentRequest
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotBlank(message:"field is required")]
+//    #[Assert\Date]
+    #[Assert\GreaterThanOrEqual("18 years ago")]
     private ?\DateTimeInterface $appointmentdate = null;
 
     #[ORM\Column(length: 255)]

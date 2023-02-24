@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FichePatientRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FichePatientRepository::class)]
 class FichePatient
@@ -15,21 +16,23 @@ class FichePatient
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message:"name field is required")]
+    #[Assert\Length(min: 5,max: 30,minMessage: "minumuim 5 caracter",maxMessage:"max 30 caracter" )]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message:"symptome field is required")]
-    #[Assert\Length(min: 5,minMessage: "minumuim 5 caracter")]
+    #[Assert\Length(min: 5,max: 255,minMessage: "minumuim 5 caracter",maxMessage:"max 30 caracter")]
     private ?string $symptome = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message:"medicament field is required")]
-    #[Assert\Length(min: 5,minMessage: "minumuim 5 caracter")]
+    #[Assert\Length(min: 5,max: 255,minMessage: "minumuim 5 caracter",maxMessage:"max 255 caracter")]
     private ?string $medicament = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message:"progres field is required")]
-    #[Assert\Length(min:10,minMessage: "minumuim 5 caracter")]
+    #[Assert\Length(min:10,max: 500,minMessage: "minumuim 5 caracter",maxMessage:"max 500 caracter")]
     private ?string $progres = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]

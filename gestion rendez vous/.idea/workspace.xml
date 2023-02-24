@@ -5,7 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25f927c2-f906-403d-b2ec-352938f82e74" name="Changes" comment="second push DONE ✔">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/AppointmentRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/AppointmentRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/FichePatient.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/FichePatient.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/appointment_admin/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_admin/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/appointment_admin/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_admin/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/appointment_admin/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_admin/new.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/appointment_admin/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_admin/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/appointment_request/_delete_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/_delete_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/appointment_request/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/appointment_request/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/appointment_request/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/appointment_request/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/new.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/appointment_request/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/appointment_request/showrdv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/showrdv.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/fiche_patient/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/_form.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,22 +156,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Lou/PIDEV-APHRODITE/gestion rendez vous/templates&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Lou/PIDEV-APHRODITE/gestion rendez vous/templates",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Lou\PIDEV-APHRODITE\gestion rendez vous\templates" />
@@ -200,7 +215,7 @@
       <workItem from="1676976199306" duration="8452000" />
       <workItem from="1677012441750" duration="4186000" />
       <workItem from="1677068077585" duration="6403000" />
-      <workItem from="1677163186697" duration="17255000" />
+      <workItem from="1677163186697" duration="28385000" />
     </task>
     <task id="LOCAL-00001" summary="crud done ✔✔">
       <created>1676933481626</created>
