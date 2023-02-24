@@ -1,5 +1,5 @@
 {% block head %}
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
 <head>
@@ -235,63 +235,42 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">you have {{ diagnostics | length }} diagnostics</h4>
-
+                                <h4 class="card-title">you have {{ resultats | length }} results</h4>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Age</th>
-                                        <th scope="col">Overweight</th>
-                                        <th scope="col">Cigarettes</th>
-                                        <th scope="col">Recently Injured</th>
-                                        <th scope="col">High Cholesterol</th>
-                                        <th scope="col">Hyper Tension</th>
-                                        <th scope="col">Diabetes</th>
-                                        <th scope="col">Symptoms</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Actions</th>
-                                        <th scope="col">Result</th>
+                                        <th scope="col">Action</th>
+                                        <th scope="col">Possibility</th>
+                                        <th scope="col">Doctor Note</th>
+                                        <th scope="col">Urgency</th>
+                                        <th scope="col">Diagnostic date</th>
+                                        <th scope="col">actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for diagnostic in diagnostics %}
+                                    {% for resultat in resultats %}
                                         <tr>
-                                            <th scope="row">{{ diagnostic.id }}</th>
-                                            <td>{{ diagnostic.age }}</td>
-                                            <td>{{ diagnostic.overweight }}</td>
-                                            <td>{{ diagnostic.cigarettes }}</td>
-                                            <td>{{ diagnostic.RecentlyInjured }}</td>
-                                            <td>{{ diagnostic.highCholesterol }}</td>
-                                            <td>{{ diagnostic.hyperTension }}</td>
-                                            <td>{{ diagnostic.diabetes }}</td>
-                                            <td>{{ diagnostic.symptoms|join(', ') }}</td>
-                                            <td>{{ diagnostic.date|date('d/m/Y H:i') }}</td>
+                                            <th scope="row">{{ resultat.id }}</th>
+                                            <td>{{ resultat.action }}</td>
+                                            <td>{{ resultat.possibility }}</td>
+                                            <td>{{ resultat.doctorNote }}</td>
+                                            <td>{{ resultat.urgency }}</td>
+                                            <td>{{ resultat.diagnostic.date|date('d/m/Y H:i') }}</td>
                                             <td>
-                                                <a href="{{ path('app_diagnostic_edit_admin', {'id': diagnostic.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
-                                                <br>
-                                                <br>
-                                                {{ include('admin/diagnostic/_delete_form.html.twig') }}
-                                            </td>
-                                            <td>
-                                                {% if diagnostic.resultat is not null %}
-                                                    {{ diagnostic.resultat.action }}
-                                                {% else %}
-                                                    N/A
-                                                    <hr>
-                                                    <a href="{{ path('app_diagnostic_resultat_admin', {'id': diagnostic.id}) }}" class="btn btn-info btn-primary">saisir resultat</a>
-                                                {% endif %}
+                                                <a href="{{ path('app_resultat_edit', {'id': resultat.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+                                                <hr>
+                                                {{ include('admin/diagnostic/_delete_form_resultat.html.twig') }}
                                             </td>
                                         </tr>
-
                                     {% endfor %}
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
+
                     </div>
 
                 </div>

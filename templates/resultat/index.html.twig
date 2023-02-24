@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resultat index{% endblock %}
+
+{% block body %}
+    <h1>Resultat index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Action</th>
+                <th>Possibility</th>
+                <th>DoctorNote</th>
+                <th>Urgency</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for resultat in resultats %}
+            <tr>
+                <td>{{ resultat.id }}</td>
+                <td>{{ resultat.action }}</td>
+                <td>{{ resultat.possibility }}</td>
+                <td>{{ resultat.doctorNote }}</td>
+                <td>{{ resultat.urgency }}</td>
+                <td>
+                    <a href="{{ path('app_resultat_show', {'id': resultat.id}) }}">show</a>
+                    <a href="{{ path('app_resultat_edit', {'id': resultat.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_resultat_new') }}">Create new</a>
+{% endblock %}

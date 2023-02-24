@@ -20,17 +20,7 @@ class Diagnostic
     private ?int $id = null;
 
     #[ORM\Column(type: Types::STRING)]
-    #[Assert\Range(
-        min: 12,
-        max: 60,
-        notInRangeMessage: 'You must be between {{ min }}cm and {{ max }}cm tall to enter',
-    )]
-
-    #[Assert\Range(
-        min: 15,
-        max: 60,
-        notInRangeMessage: 'You must be between {{ min }} and {{ max }}',
-    )]
+   #[Assert\Range(min: 10,max: 50)]
     private ?int $age = null;
 
     #[ORM\Column(length: 255)]
@@ -71,6 +61,9 @@ class Diagnostic
      */
     #[Assert\DateTime]
     private ?\DateTimeInterface $date = null;
+
+    #[ORM\OneToOne(mappedBy: 'diagnostic', cascade: ['persist', 'remove'])]
+    private ?Resultat $resultat = null;
 
     public function getId(): ?int
     {
@@ -181,6 +174,28 @@ class Diagnostic
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getResultat(): ?Resultat
+    {
+        return $this->resultat;
+    }
+
+    public function setResultat(?Resultat $resultat): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($resultat === null && $this->resultat !== null) {
+            $this->resultat->setDiagnostic(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($resultat !== null && $resultat->getDiagnostic() !== $this) {
+            $resultat->setDiagnostic($this);
+        }
+
+        $this->resultat = $resultat;
 
         return $this;
     }

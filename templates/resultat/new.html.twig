@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Resultat{% endblock %}
+
+{% block body %}
+    <h1>Create new Resultat</h1>
+
+    {{ include('resultat/_form.html.twig') }}
+
+    <a href="{{ path('app_resultat_index') }}">back to list</a>
+{% endblock %}

@@ -71,6 +71,10 @@
             <li class="nav-item {% block index %}{% endblock %}" >
               <a class="nav-link" href="/">Home</a>
             </li>
+
+            <li class="nav-item {% block diagnostic %}{% endblock %}" >
+              <a class="nav-link" href="{{ path('app_diagnostic_index') }}">Diagnostic</a>
+            </li>
           
             <li class="nav-item {% block about %}{% endblock %}" >
               <a class="nav-link" href="about">About Us</a>
@@ -174,6 +178,13 @@
 <script src="../assets/vendor/wow/wow.min.js"></script>
 
 <script src="../assets/js/theme.js"></script>
+    {% block stylesheets %}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css">
+    {% endblock %}
+
+    {% block fullCalendar %}{% endblock %}
 
 </body>
 </html>
