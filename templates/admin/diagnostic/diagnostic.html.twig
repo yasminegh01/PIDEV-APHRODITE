@@ -235,10 +235,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">you have {{ diagnostics | length }} diagnostics</h4>
+                                <h4 class="card-title">you have {{ diagnostics | length }} diagnostics </h4>
 
                             </div>
                             <div class="table-responsive">
+                                <a href="{{ path('app_diagnostic_new_admin') }}" >ajouter</a>
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
@@ -277,7 +278,7 @@
                                             </td>
                                             <td>
                                                 {% if diagnostic.resultat is not null %}
-                                                    {{ diagnostic.resultat.action }}
+                                                    {{ diagnostic.resultat.action }}({{ diagnostic.resultat.possibility }}%)
                                                 {% else %}
                                                     N/A
                                                     <hr>
@@ -288,6 +289,10 @@
 
                                     {% endfor %}
                                     </tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('app_resultat_index') }}">return to result list</a></tr>
+                                    </td> </tr>
                                 </table>
 
                             </div>

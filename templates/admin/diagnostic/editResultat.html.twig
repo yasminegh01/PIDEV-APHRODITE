@@ -183,7 +183,7 @@
                                                  href="starter-kit.html" aria-expanded="false"><i class="mdi mdi-shopping"></i><span
                                     class="hide-menu">Product</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                 href="templates/admin/diagnostic/diagnostic.html.twig" aria-expanded="false"><i class="mdi mdi-thermometer-lines"></i><span
+                                                 href="starter-kit.html" aria-expanded="false"><i class="mdi mdi-thermometer-lines"></i><span
                                     class="hide-menu">Diagnostic</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                  href="error-404.html" aria-expanded="false"><i class="mdi mdi-alert-outline"></i><span
@@ -224,6 +224,8 @@
         <!-- ============================================================== -->
         <div class="container-fluid">
             <!-- ============================================================== -->
+
+
             <!-- Start Page Content -->
             <!-- ============================================================== -->
             <div class="row">
@@ -233,50 +235,29 @@
 
 
                     <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">you have {{ resultats | length }} results</h4>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Action</th>
-                                        <th scope="col">Possibility</th>
-                                        <th scope="col">Doctor Note</th>
-                                        <th scope="col">Urgency</th>
-                                        <th scope="col">Diagnostic date</th>
-                                        <th scope="col">actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for resultat in resultats %}
-                                        <tr>
-                                            <th scope="row">{{ resultat.id }}</th>
-                                            <td>{{ resultat.action }}</td>
-                                            <td>{{ resultat.possibility }}</td>
-                                            <td>{{ resultat.doctorNote }}</td>
-                                            <td>{{ resultat.urgency }}</td>
-                                            <td>{{ resultat.diagnostic.date|date('d/m/Y H:i') }}</td>
-                                            <td>
-                                                <a href="{{ path('app_resultat_edit', {'id': resultat.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
-                                                <hr>
-                                                {{ include('admin/diagnostic/_delete_form_resultat.html.twig') }}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-
-                                    </tbody>
-
-                                    <tr>
-                                        <td>
-                                        <a href="{{ path('app_diagnostic_index_admin') }}">return to diagnostic list</a></tr>
-                                    </td> </tr>
-                                </table>
-                            </div>
+                        {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+                        <div class="form-group">
+                            {{ form_label(form.action, 'Action') }}
+                            {{ form_widget(form.action, { 'attr': {'class': 'form-control'} }) }}
+                            {{ form_errors(form.action) }}
                         </div>
-
+                        <div class="form-group">
+                            {{ form_label(form.possibility, 'Possibility') }}
+                            {{ form_widget(form.possibility, { 'attr': {'class': 'form-control'} }) }}
+                            {{ form_errors(form.possibility) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.doctorNote, 'Doctor Note') }}
+                            {{ form_widget(form.doctorNote, { 'attr': {'class': 'form-control'} }) }}
+                            {{ form_errors(form.doctorNote) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.urgency, 'Urgency') }}
+                            {{ form_widget(form.urgency, { 'attr': {'class': 'form-control'} }) }}
+                            {{ form_errors(form.urgency) }}
+                        </div>
+                        <button type="submit" class="btn btn-success">Create Resultat</button>
+                        {{ form_end(form) }}
                     </div>
 
                 </div>

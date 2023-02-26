@@ -23,6 +23,7 @@ class DiagnosticController extends AbstractController
     {
         return $this->render('diagnostic/index.html.twig', [
             'diagnostics' => $diagnosticRepository->findAll(),
+            'symptoms' => $this->getSymptoms(),
         ]);
     }
 
@@ -42,16 +43,7 @@ class DiagnosticController extends AbstractController
         // Decode the JSON data into a PHP array
         $formData = json_decode($jsonData,true);
 
-        /*
-         [{"name":"who-radio","value":"self"},
-        {"name":"overweight","value":"Yes"},
-        {"name":"recentlyInjured","value":"Yes"},
-        {"name":"cholesterol","value":"Yes"},
-        {"name":"hyperTension","value":"Yes"},
-        {"name":"diabetes","value":"Yes"},
-        {"name":"age","value":"41"},
-        {"name":"symptoms","value":["symptom-2","symptom-3"]}]
-         */
+
 
 // Extract the form data values
         $overweight = $formData[1]['value'];
@@ -212,5 +204,34 @@ class DiagnosticController extends AbstractController
 
         return $resultat;
 
+    }
+    public function getSymptoms():array
+    {
+        return [
+        "Absent period",
+        "Breast tenderness",
+        "Morning sickness",
+        "Fatigue",
+        "Frequent urination",
+        "Food cravings or aversions",
+        "Mood swings",
+        "Headaches",
+        "Constipation",
+        "Heartburn",
+        "Back pain",
+        "Spotting or light bleeding",
+        "Darkening of the nipples",
+        "Fetal movement",
+        "Edema (swelling)",
+        "Shortness of breath",
+        "High blood pressure",
+        "Gestational diabetes",
+        "Preeclampsia",
+        "Eclampsia",
+        "Placenta previa",
+        "Premature labor",
+        "Miscarriage",
+        "Stillbirth"
+    ];
     }
 }

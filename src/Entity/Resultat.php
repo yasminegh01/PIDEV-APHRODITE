@@ -45,7 +45,7 @@ class Resultat
         return $this->action;
     }
 
-    public function setAction(string $action): self
+    public function setAction(?string $action): self
     {
         $this->action = $action;
 
@@ -69,7 +69,7 @@ class Resultat
         return $this->doctorNote;
     }
 
-    public function setDoctorNote(string $doctorNote): self
+    public function setDoctorNote(?string $doctorNote): self
     {
         $this->doctorNote = $doctorNote;
 
@@ -81,7 +81,7 @@ class Resultat
         return $this->urgency;
     }
 
-    public function setUrgency(string $urgency): self
+    public function setUrgency(?string $urgency): self
     {
         $this->urgency = $urgency;
 

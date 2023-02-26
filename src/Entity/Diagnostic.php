@@ -25,31 +25,33 @@ class Diagnostic
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Diagnostic.blank_content')]
+    #[Assert\NotNull]
     private ?string $overweight = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
     #[Assert\NotBlank(message:"Cigarettes field is required")]
 
     private ?string $cigarettes = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"recently injured field is required")]
-
+    #[Assert\NotNull]
     private ?string $recentlyInjured = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"hight Cholesterole field is required")]
-
+    #[Assert\NotNull]
     private ?string $highCholesterol = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"hyper tension field is required")]
-
+    #[Assert\NotNull]
     private ?string $hyperTension = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"diabetes field is required")]
-
+    #[Assert\NotNull]
     private ?string $diabetes = null;
 
     #[ORM\Column(type: Types::ARRAY)]
@@ -87,7 +89,7 @@ class Diagnostic
         return $this->overweight;
     }
 
-    public function setOverweight(string $overweight): self
+    public function setOverweight(?string $overweight): self
     {
         $this->overweight = $overweight;
 
@@ -99,7 +101,7 @@ class Diagnostic
         return $this->cigarettes;
     }
 
-    public function setCigarettes(string $cigarettes): self
+    public function setCigarettes(?string $cigarettes): self
     {
         $this->cigarettes = $cigarettes;
 
@@ -111,7 +113,7 @@ class Diagnostic
         return $this->recentlyInjured;
     }
 
-    public function setRecentlyInjured(string $recentlyInjured): self
+    public function setRecentlyInjured(?string $recentlyInjured): self
     {
         $this->recentlyInjured = $recentlyInjured;
 
@@ -123,7 +125,7 @@ class Diagnostic
         return $this->highCholesterol;
     }
 
-    public function setHighCholesterol(string $highCholesterol): self
+    public function setHighCholesterol(?string $highCholesterol): self
     {
         $this->highCholesterol = $highCholesterol;
 
@@ -135,7 +137,7 @@ class Diagnostic
         return $this->hyperTension;
     }
 
-    public function setHyperTension(string $hyperTension): self
+    public function setHyperTension(?string $hyperTension): self
     {
         $this->hyperTension = $hyperTension;
 
@@ -147,7 +149,7 @@ class Diagnostic
         return $this->diabetes;
     }
 
-    public function setDiabetes(string $diabetes): self
+    public function setDiabetes(?string $diabetes): self
     {
         $this->diabetes = $diabetes;
 

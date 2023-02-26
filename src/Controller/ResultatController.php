@@ -60,7 +60,7 @@ class ResultatController extends AbstractController
             return $this->redirectToRoute('app_resultat_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/diagnostic/newResult.html.twig', [
+        return $this->renderForm('admin/diagnostic/editResultat.html.twig', [
             'resultat' => $resultat,
             'form' => $form,
         ]);
