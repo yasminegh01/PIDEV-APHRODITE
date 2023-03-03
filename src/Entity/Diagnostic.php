@@ -53,6 +53,7 @@ class Diagnostic
     #[Assert\NotBlank(message:"diabetes field is required")]
     #[Assert\NotNull]
     private ?string $diabetes = null;
+    #[Ignore]
 
     #[ORM\Column(type: Types::ARRAY)]
     private array $symptoms = [];
@@ -63,6 +64,7 @@ class Diagnostic
      */
     #[Assert\DateTime]
     private ?\DateTimeInterface $date = null;
+    #[Ignore]
 
     #[ORM\OneToOne(mappedBy: 'diagnostic', cascade: ['persist', 'remove'])]
     private ?Resultat $resultat = null;

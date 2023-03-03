@@ -1,2 +1,0 @@
-# PIDEV-APHRODITE
-

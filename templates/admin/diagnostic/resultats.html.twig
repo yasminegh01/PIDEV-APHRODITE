@@ -86,12 +86,14 @@
                     <!-- ============================================================== -->
                     <li class="nav-item search-box"> <a class="nav-link waves-effect waves-dark"
                                                         href="javascript:void(0)"><i class="ti-search"></i></a>
-                        <form class="app-search position-absolute">
-                            <input type="text" class="form-control" placeholder="Search &amp; enter"> <a
+                        <form class="app-search position-absolute"  method="POST" action="{{ path('app_resultat_index') }}">
+                            <input type="text" class="form-control" placeholder="Search &amp; enter" id="searchTerm" name="searchTerm" value="{{ searchTerm }}"> <a
                                     class="srh-btn"><i class="ti-close"></i></a>
+
                         </form>
                     </li>
                 </ul>
+
                 <!-- ============================================================== -->
                 <!-- Right side toggle and nav items -->
                 <!-- ============================================================== -->
@@ -119,6 +121,11 @@
             </div>
         </nav>
     </header>
+
+
+
+
+
     <!-- ============================================================== -->
     <!-- End Topbar header -->
     <!-- ============================================================== -->
@@ -210,7 +217,7 @@
         <div class="page-breadcrumb">
             <div class="row align-items-center">
                 <div class="col-5">
-                    <h4 class="page-title">Diagnostics</h4>
+                    <h4 class="page-title">Results</h4>
 
                 </div>
 
@@ -237,6 +244,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">you have {{ resultats | length }} results</h4>
                             </div>
+
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
@@ -271,7 +279,7 @@
 
                                     <tr>
                                         <td>
-                                        <a href="{{ path('app_diagnostic_index_admin') }}">return to diagnostic list</a></tr>
+                                        <a href="{{ path('app_diagnostic_admin_search_sort') }}">return to diagnostic list</a></tr>
                                     </td> </tr>
                                 </table>
                             </div>
@@ -307,6 +315,36 @@
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
 </div>
+<form class="app-search position-absolute"  method="POST" action="{{ path('app_resultat_index') }}">
+    <div class="form-group row">
+
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-2">
+            <select class="form-control" id="sortField" name="sortField">
+                <option value="id" {% if sortField == 'id' %}selected{% endif %}>ID</option>
+                <option value="possibility" {% if sortField == 'possibility' %}selected{% endif %}>possibility</option>
+            </select>
+            <select class="form-control" id="sortOrder" name="sortOrder">
+                <option value="asc" {% if sortOrder == 'asc' %}selected{% endif %}>Ascending</option>
+                <option value="desc" {% if sortOrder == 'desc' %}selected{% endif %}>Descending</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-primary">Sort and Search</button>
+            <a href="{{ path('app_resultat_index') }}" class="btn btn-secondary">Reset</a>
+        </div>
+    </div>
+
+</form>
+
+
+</div>
+</div>
+</div>
+
+</form>
 <!-- ============================================================== -->
 <!-- End Wrapper -->
 <!-- ============================================================== -->

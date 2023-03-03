@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/diagnostic')]
@@ -27,11 +30,71 @@ class DiagnosticController extends AbstractController
         ]);
     }
 
-    #[Route('/admin', name: 'app_diagnostic_index_admin', methods: ['GET'])]
-    public function index_admin(DiagnosticRepository $diagnosticRepository): Response
+ /*   #[Route('/admin/sort', name: 'app_diagnostic_index_admin', methods: ['GET'])]
+    public function index_admin(Request $request,DiagnosticRepository $diagnosticRepository): Response
     {
+
+        $searchTerm = $request->request->get('searchTerm');
+        $sortField = $request->request->get('sortField');
+        $sortOrder = $request->request->get('sortOrder');
+
+        $diagnostic = $diagnosticRepository->searchSort($searchTerm, $sortField, $sortOrder);
+
         return $this->render('admin/diagnostic/diagnostic.html.twig', [
+            'diagnostics' => $diagnostic,
+            'searchTerm' => $searchTerm ,
+            'sortField' => $sortField,
+            'sortOrder' => $sortOrder,
+        ]);
+       /* return $this->render('admin/diagnostic/diagnostic.html.twig', [
             'diagnostics' => $diagnosticRepository->findAll(),
+        ]);
+  }*/
+
+
+
+     #[Route('/admin', name: 'app_diagnostic_admin_search_sort', methods: ['POST','GET'])]
+    public function searchSortBack(Request $request, DiagnosticRepository $diagnosticRepository): Response
+    {
+        $searchTerm = $request->request->get('searchTerm');
+        $sortField = $request->request->get('sortField');
+        $sortOrder = $request->request->get('sortOrder');
+
+        $diagnostic = $diagnosticRepository->searchSort($searchTerm, $sortField, $sortOrder);
+
+        return $this->render('admin/diagnostic/diagnostic.html.twig', [
+            'diagnostics' => $diagnostic,
+            'searchTerm' => $searchTerm ,
+            'sortField' => $sortField,
+            'sortOrder' => $sortOrder,
+        ]);
+        /* return $this->render('admin/diagnostic/diagnostic.html.twig', [
+         'diagnostics' => $diagnosticRepository->findAll(),
+     ]);
+}*/
+    }
+
+
+    /**
+     * @Route("/sort", name="app_diagnostic_sort", methods={"GET"})
+     */
+    public function sort(Request $request, DiagnosticRepository $diagnosticRepository): Response
+    {
+        // Get sorting parameters from query string
+        $sortBy = $request->query->get('sortBy', 'id');
+        $sortOrder = $request->query->get('sortOrder', 'asc');
+
+        // Get search parameter from query string
+        $searchTerm = $request->query->get('search', '');
+
+        // Get diagnostics using repository
+        $diagnostics = $diagnosticRepository->findBySearchTerm($searchTerm, $sortBy, $sortOrder);
+
+        return $this->render('admin/diagnostic/diagnostic.html.twig', [
+            'diagnostics' => $diagnostics,
+            'sortBy' => $sortBy,
+            'sortOrder' => $sortOrder,
+            'searchTerm' => $searchTerm
         ]);
     }
 
@@ -98,6 +161,43 @@ class DiagnosticController extends AbstractController
         ]);
     }
 
+
+    // ********************************    ajout JSON
+    #[Route('/JSON/new', name: 'app_diagnostic_new_JSON', methods: ['GET', 'POST'])]
+    public function ajouterDiagnosticAction(Request $request,DiagnosticRepository $diagnosticRepository): JsonResponse
+    {
+        $diagnostic = new Diagnostic();
+
+        $age = $request->get('age');
+        $overweight = $request->get('overweight');
+        $cigarettes = $request->get('cigarettes');
+        $recentlyInjured = $request->get('recentlyInjured');
+        $highCholesterol = $request->get('highCholesterol');
+        $hyperTension = $request->get('hyperTension');
+        $diabetes = $request->get('diabetes');
+        $symptoms = $request->get('symptoms');
+
+
+        $date = new \DateTime('now');
+
+        $diagnostic->setAge($age);
+        $diagnostic->setOverweight($overweight);
+        $diagnostic->setCigarettes($cigarettes);
+        $diagnostic->setRecentlyInjured($recentlyInjured);
+        $diagnostic->setHighCholesterol($highCholesterol);
+        $diagnostic->setHyperTension($hyperTension);
+        $diagnostic->setDiabetes($diabetes);
+        $diagnostic->setDate($date);
+        $diagnostic->setSymptoms($symptoms);
+
+        $diagnosticRepository->save($diagnostic,true);
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($diagnostic);
+        return new JsonResponse($formatted);
+    }
+
+
     #[Route('/{id}', name: 'app_diagnostic_show', methods: ['GET'])]
     public function show(Diagnostic $diagnostic): Response
     {
@@ -106,7 +206,7 @@ class DiagnosticController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_diagnostic_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_diagnostic_edit', methods: ['GET', 'POST']  )]
     public function edit(Request $request, Diagnostic $diagnostic, DiagnosticRepository $diagnosticRepository): Response
     {
         $form = $this->createForm(DiagnosticType::class, $diagnostic);
@@ -123,6 +223,48 @@ class DiagnosticController extends AbstractController
             'form' => $form,
         ]);
     }
+
+
+
+    // ************* modifier JSON
+    #[Route('/JSON/jsonedit', name: 'app_diagnostic_edit_json', methods: ['GET'])]
+    public function modifierDiagnosticAction(Request $request,DiagnosticRepository $diagnosticRepository): JsonResponse
+    {
+        $diagnostic = $diagnosticRepository->find($request->get('id'));
+
+        if (!$diagnostic) {
+            $formatted = ['error' => 'Diagnostic not found.'];
+            return new JsonResponse($formatted);
+        }
+
+        // Update the diagnostic properties with data from the request
+        $age = $request->get('age');
+        $overweight = $request->get('overweight');
+        $cigarettes = $request->get('cigarettes');
+        $recentlyInjured = $request->get('recentlyInjured');
+        $highCholesterol = $request->get('highCholesterol');
+        $hyperTension = $request->get('hyperTension');
+        $diabetes = $request->get('diabetes');
+        $symptoms = $request->get('symptoms');
+
+        // Update the diagnostic properties with the new values
+        $diagnostic->setAge($age);
+        $diagnostic->setOverweight($overweight);
+        $diagnostic->setCigarettes($cigarettes);
+        $diagnostic->setRecentlyInjured($recentlyInjured);
+        $diagnostic->setHighCholesterol($highCholesterol);
+        $diagnostic->setHyperTension($hyperTension);
+        $diagnostic->setDiabetes($diabetes);
+        $diagnostic->setSymptoms($symptoms);
+
+        $diagnosticRepository->save($diagnostic, true);
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($diagnostic);
+
+        return new JsonResponse($formatted);
+    }
+
 
     #[Route('/admin/{id}/edit', name: 'app_diagnostic_edit_admin', methods: ['GET', 'POST'])]
     public function edit_admin(Request $request, Diagnostic $diagnostic, DiagnosticRepository $diagnosticRepository): Response
@@ -165,11 +307,31 @@ class DiagnosticController extends AbstractController
     #[Route('/{id}', name: 'app_diagnostic_delete', methods: ['POST'])]
     public function delete(Request $request, Diagnostic $diagnostic, DiagnosticRepository $diagnosticRepository): Response
     {
-            $diagnosticRepository->remove($diagnostic, true);
+        $diagnosticRepository->remove($diagnostic, true);
 
 
         return $this->redirectToRoute('app_diagnostic_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    // ******************** JSON supprimer
+    #[Route('/JSON/delete', name: 'app_diagnostic_delete', methods: ['GET'])]
+    public function deleteDiagnosticAction(Request $request , DiagnosticRepository $diagnosticRepository) {
+        $id = $request->get("id");
+
+        $diagnostic = $diagnosticRepository->find($id);
+
+        if($diagnostic != null) {
+            $diagnosticRepository->remove($diagnostic,true);
+
+            $serializer = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serializer->normalize("Diagnostic has been deleted successfully.");
+            return new JsonResponse($formatted);
+        }
+
+        $formatted = ["error" => "Invalid diagnostic ID."];
+        return new JsonResponse($formatted);
+    }
+
 
     #[Route('/admin/{id}', name: 'app_diagnostic_delete_admin', methods: ['POST'])]
     public function delete_admin(Request $request, Diagnostic $diagnostic, DiagnosticRepository $diagnosticRepository): Response
@@ -179,6 +341,22 @@ class DiagnosticController extends AbstractController
 
         return $this->redirectToRoute('app_diagnostic_index_admin', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    // **************** affichage JSON
+    #[Route('/JSON/getAll', name: 'app_diagnostic_JSON', methods: ['GET'])]
+    public function getAllDiagnosticsAction(SerializerInterface $serializer, DiagnosticRepository $diagnosticRepository)
+    {
+        $diagnostics = $diagnosticRepository->findAll();
+        $json = $serializer->serialize($diagnostics, 'json', [
+            AbstractNormalizer::IGNORED_ATTRIBUTES => ['resultat'],
+        ]);
+
+        return new JsonResponse($json, 200, [], true);
+    }
+
+
+
 
     public function generateResult(Diagnostic $diagnostic):Resultat
     {
@@ -208,30 +386,30 @@ class DiagnosticController extends AbstractController
     public function getSymptoms():array
     {
         return [
-        "Absent period",
-        "Breast tenderness",
-        "Morning sickness",
-        "Fatigue",
-        "Frequent urination",
-        "Food cravings or aversions",
-        "Mood swings",
-        "Headaches",
-        "Constipation",
-        "Heartburn",
-        "Back pain",
-        "Spotting or light bleeding",
-        "Darkening of the nipples",
-        "Fetal movement",
-        "Edema (swelling)",
-        "Shortness of breath",
-        "High blood pressure",
-        "Gestational diabetes",
-        "Preeclampsia",
-        "Eclampsia",
-        "Placenta previa",
-        "Premature labor",
-        "Miscarriage",
-        "Stillbirth"
-    ];
+            "Absent period",
+            "Breast tenderness",
+            "Morning sickness",
+            "Fatigue",
+            "Frequent urination",
+            "Food cravings or aversions",
+            "Mood swings",
+            "Headaches",
+            "Constipation",
+            "Heartburn",
+            "Back pain",
+            "Spotting or light bleeding",
+            "Darkening of the nipples",
+            "Fetal movement",
+            "Edema (swelling)",
+            "Shortness of breath",
+            "High blood pressure",
+            "Gestational diabetes",
+            "Preeclampsia",
+            "Eclampsia",
+            "Placenta previa",
+            "Premature labor",
+            "Miscarriage",
+            "Stillbirth"
+        ];
     }
 }

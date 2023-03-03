@@ -38,6 +38,38 @@ class ResultatRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function searchSort($searchTerm, $sortField, $sortOrder)
+    {
+        $qb = $this->createQueryBuilder('r');
+        if ($searchTerm) {
+            $qb->andWhere($qb->expr()->orX(
+                $qb->expr()->like('r.id', ':searchTerm'),
+                $qb->expr()->like('r.action', ':searchTerm'),
+                $qb->expr()->like('r.possibility', ':searchTerm'),
+                $qb->expr()->like('r.doctorNote', ':searchTerm'),
+                $qb->expr()->like('r.urgency', ':searchTerm'),
+
+
+
+            ))->setParameter('searchTerm', '%'.$searchTerm.'%');
+        }
+
+        switch ($sortField) {
+            case 'id':
+            case 'action':
+            case 'possibility':
+            case 'doctorNote':
+            case 'urgency':
+
+            $qb->orderBy('r.'.$sortField, $sortOrder);
+                break;
+            default:
+                $qb->orderBy('r.id', 'ASC');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
 
 //    /**
 //     * @return Resultat[] Returns an array of Resultat objects

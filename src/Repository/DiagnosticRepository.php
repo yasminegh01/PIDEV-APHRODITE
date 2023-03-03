@@ -38,6 +38,61 @@ class DiagnosticRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+   /* public function findBySearchTerm(string $searchTerm, string $sortBy, string $sortOrder): array
+    {
+        $qb = $this->createQueryBuilder('d');
+
+        // Apply search term if provided
+        if (!empty($searchTerm)) {
+            $qb->andWhere('d.age LIKE :searchTerm OR d.symptoms LIKE :searchTerm')
+                ->setParameter('searchTerm', '%'.$searchTerm.'%');
+        }
+
+        // Apply sorting
+        $qb->orderBy('d.'.$sortBy, $sortOrder);
+
+        return $qb->getQuery()->getResult();
+    }
+   */
+    public function searchSort($searchTerm, $sortField, $sortOrder)
+    {
+        $qb = $this->createQueryBuilder('d');
+        if ($searchTerm) {
+            $qb->andWhere($qb->expr()->orX(
+                $qb->expr()->like('d.age', ':searchTerm'),
+                $qb->expr()->like('d.id', ':searchTerm'),
+                $qb->expr()->like('d.overweight', ':searchTerm'),
+                $qb->expr()->like('d.cigarettes', ':searchTerm'),
+                $qb->expr()->like('d.recentlyInjured', ':searchTerm'),
+                $qb->expr()->like('d.highCholesterol', ':searchTerm'),
+                $qb->expr()->like('d.hyperTension', ':searchTerm'),
+                $qb->expr()->like('d.diabetes', ':searchTerm'),
+                $qb->expr()->like('d.date', ':searchTerm'),
+
+
+            ))->setParameter('searchTerm', '%'.$searchTerm.'%');
+        }
+
+        switch ($sortField) {
+            case 'age':
+            case 'id':
+            case 'overweight':
+            case 'cigarettes':
+            case 'recently_injured':
+            case 'high_cholesterol':
+            case 'hyper_tension':
+            case 'diabetes':
+            case 'date':
+
+            $qb->orderBy('d.'.$sortField, $sortOrder);
+                break;
+            default:
+                $qb->orderBy('d.id', 'ASC');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
 
 //    /**
 //     * @return Diagnostic[] Returns an array of Diagnostic objects
