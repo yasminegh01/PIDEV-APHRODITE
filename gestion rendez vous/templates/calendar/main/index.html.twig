@@ -1,0 +1,594 @@
+{% extends 'calendar/basecal.html.twig' %}
+{% block title %}Calendrier{% endblock %}
+
+{% block stylesheets %}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="alternate" type="application/json+oembed" href="https://www.jotform.com/oembed/?format=json&amp;url=https%3A%2F%2Fform.jotform.com%2F230415772523553" title="oEmbed Form">
+    <link rel="alternate" type="text/xml+oembed" href="https://www.jotform.com/oembed/?format=xml&amp;url=https%3A%2F%2Fform.jotform.com%2F230415772523553" title="oEmbed Form">
+    <meta property="og:title" content="Online Doctor Appointment Form" >
+    <meta property="og:url" content="https://form.jotform.com/230415772523553" >
+    <meta property="og:description" content="Please click the link to complete this form." >
+    <meta name="slack-app-id" content="AHNMASS8M">
+{#    <meta property="og:image" content="https://cdn.jotfor.ms/assets/img/landing/opengraph.png" />#}
+{#    <meta property="og:image" content="https://cdn.jotfor.ms/assets/img/favicons/favicon-2021-light%402x.png" />#}
+{#    <link rel="shortcut icon" href="https://cdn.jotfor.ms/assets/img/favicons/favicon-2021-light%402x.png">#}
+    <script>
+        var favicon = document.querySelector('link[rel="shortcut icon"]');
+        window.isDarkMode = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if(favicon && window.isDarkMode) {
+            favicon.href = favicon.href.replaceAll('favicon-2021-light%402x.png', 'favicon-2021-dark%402x.png');
+        }
+    </script><link rel="canonical" href="https://form.jotform.com/230415772523553" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=1" />
+    <meta name="HandheldFriendly" content="true" />
+    <title>Online Doctor Appointment Form</title>
+    <style type="text/css">@media print{.form-section{display:inline!important}.form-pagebreak{display:none!important}.form-section-closed{height:auto!important}.page-section{position:initial!important}}</style>
+    <link type="text/css" rel="stylesheet" href="https://cdn01.jotfor.ms/themes/CSS/5e6b428acc8c4e222d1beb91.css?v=3.3.39374&themeRevisionID=63763808623532087895e4de"/>
+    <link type="text/css" rel="stylesheet" href="https://cdn02.jotfor.ms/css/styles/payment/payment_styles.css?3.3.39374" />
+    <link type="text/css" rel="stylesheet" href="https://cdn03.jotfor.ms/css/styles/payment/payment_feature.css?3.3.39374" />
+    <style>
+        #calendrier{
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+{#     <style type="text/css" id="form-designer-style">#}
+{#        /* Injected CSS Code */#}
+{#        /*PREFERENCES STYLE*/#}
+{#        .form-all {#}
+{#            font-family: Inter, sans-serif;#}
+{#        }#}
+{#        .form-all .qq-upload-button,#}
+{#        .form-all .form-submit-button,#}
+{#        .form-all .form-submit-reset,#}
+{#        .form-all .form-submit-print {#}
+{#            font-family: Inter, sans-serif;#}
+{#        }#}
+{#        .form-all .form-pagebreak-back-container,#}
+{#        .form-all .form-pagebreak-next-container {#}
+{#            font-family: Inter, sans-serif;#}
+{#        }#}
+{#        .form-header-group {#}
+{#            font-family: Inter, sans-serif;#}
+{#        }#}
+{#        .form-label {#}
+{#            font-family: Inter, sans-serif;#}
+{#        }#}
+
+{#        .form-label.form-label-auto {#}
+
+{#            display: block;#}
+{#            float: none;#}
+{#            text-align: left;#}
+{#            width: 100%;#}
+
+{#        }#}
+
+{#        .form-line {#}
+{#            margin-top: 12px;#}
+{#            margin-bottom: 12px;#}
+{#        }#}
+
+{#        .form-all {#}
+{#            max-width: 752px;#}
+{#            width: 100%;#}
+{#        }#}
+
+{#        .form-label.form-label-left,#}
+{#        .form-label.form-label-right,#}
+{#        .form-label.form-label-left.form-label-auto,#}
+{#        .form-label.form-label-right.form-label-auto {#}
+{#            width: 230px;#}
+{#        }#}
+
+{#        .form-all {#}
+{#            font-size: 16px#}
+{#        }#}
+{#        .form-all .qq-upload-button,#}
+{#        .form-all .qq-upload-button,#}
+{#        .form-all .form-submit-button,#}
+{#        .form-all .form-submit-reset,#}
+{#        .form-all .form-submit-print {#}
+{#            font-size: 16px#}
+{#        }#}
+{#        .form-all .form-pagebreak-back-container,#}
+{#        .form-all .form-pagebreak-next-container {#}
+{#            font-size: 16px#}
+{#        }#}
+
+{#        .supernova .form-all, .form-all {#}
+{#            background-color: #fff;#}
+{#        }#}
+
+{#        .form-all {#}
+{#            color: #000000;#}
+{#        }#}
+{#        .form-header-group .form-header {#}
+{#            color: #000000;#}
+{#        }#}
+{#        .form-header-group .form-subHeader {#}
+{#            color: #000000;#}
+{#        }#}
+{#        .form-label-top,#}
+{#        .form-label-left,#}
+{#        .form-label-right,#}
+{#        .form-html,#}
+{#        .form-checkbox-item label,#}
+{#        .form-radio-item label,#}
+{#        span.FITB .qb-checkbox-label,#}
+{#        span.FITB .qb-radiobox-label,#}
+{#        span.FITB .form-radio label,#}
+{#        span.FITB .form-checkbox label,#}
+{#        [data-blotid][data-type=checkbox] [data-labelid],#}
+{#        [data-blotid][data-type=radiobox] [data-labelid],#}
+{#        span.FITB-inptCont[data-type=checkbox] label,#}
+{#        span.FITB-inptCont[data-type=radiobox] label {#}
+{#            color: #000000;#}
+{#        }#}
+{#        .form-sub-label {#}
+{#            color: #1a1a1a;#}
+{#        }#}
+
+{#        .supernova {#}
+{#            background-color: #ecedf3;#}
+{#        }#}
+{#        .supernova body {#}
+{#            background: transparent;#}
+{#        }#}
+
+{#        .form-textbox,#}
+{#        .form-textarea,#}
+{#        .form-dropdown,#}
+{#        .form-radio-other-input,#}
+{#        .form-checkbox-other-input,#}
+{#        .form-captcha input,#}
+{#        .form-spinner input {#}
+{#            background-color: #fff;#}
+{#        }#}
+
+{#        .supernova {#}
+{#            height: 100%;#}
+{#            background-repeat: repeat;#}
+{#            background-attachment: scroll;#}
+{#            background-position: center top;#}
+{#        }#}
+{#        .supernova {#}
+{#            background-image: url("https://www.jotform.com/uploads/anil/form_files/max-oh-484288.444.jpg");#}
+{#        }#}
+{#        #stage {#}
+{#            background-image: url("https://www.jotform.com/uploads/anil/form_files/max-oh-484288.444.jpg");#}
+{#        }#}
+
+{#        .form-all {#}
+{#            background-image: none;#}
+{#        }#}
+
+{#        .ie-8 .form-all:before { display: none; }#}
+{#        .ie-8 {#}
+{#            margin-top: auto;#}
+{#            margin-top: initial;#}
+{#        }#}
+
+{#        /*PREFERENCES STYLE*//*__INSPECT_SEPERATOR__*/.supernova {#}
+{#                                                          background-image: linear-gradient(#f5f9f9, #87e3da);#}
+{#                                                          background-attachment: fixed;#}
+{#                                                      }#}
+
+{#        .form-all { box-shadow : 0 0 32px rgba(42, 42, 42, 0.16); }#}
+
+{#        .form-all,#}
+{#        #stage .formPage-stage.form-all,#}
+{#        .form-section.page-section {#}
+{#            border-radius : 6px;#}
+{#        }#}
+
+{#        .form-header-group.header-large {#}
+{#            padding: 24px 48px !important;#}
+{#            border-top: 1px solid #E0E0E0;#}
+{#            border-bottom: 0px solid #EEE;#}
+{#            margin-top: 12px;#}
+{#        }#}
+{#        /* Injected CSS Code */#}
+{#    </style>#}
+
+{#    <script src="https://cdn01.jotfor.ms/static/prototype.forms.js?3.3.39374" type="text/javascript"></script>#}
+{#    <script src="https://cdn02.jotfor.ms/static/jotform.forms.js?3.3.39374" type="text/javascript"></script>#}
+{#    <script src="https://cdn03.jotfor.ms/js/vendor/jquery-1.8.0.min.js?v=3.3.39374" type="text/javascript"></script>#}
+{#    <script defer src="https://cdn01.jotfor.ms/js/vendor/maskedinput.min.js?v=3.3.39374" type="text/javascript"></script>#}
+{#    <script defer src="https://cdn02.jotfor.ms/js/vendor/jquery.maskedinput.min.js?v=3.3.39374" type="text/javascript"></script>#}
+{#    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/punycode/1.4.1/punycode.js"></script>#}
+{#    <script src="https://cdn03.jotfor.ms/js/jotStorage.js?v=3.3.39374" type="text/javascript"></script>#}
+{#    <script src="https://cdn01.jotfor.ms/js/vendor/autoFill.min.js?v=3.3.39374" type="text/javascript"></script>#}
+{#    <script src="https://cdn02.jotfor.ms/s/umd/33571d9121b/for-appointment-field.js?v=3.3.39374" type="text/javascript"></script>#}
+{#    <script type="text/javascript">	JotForm.newDefaultTheme = true;#}
+{#        JotForm.extendsNewTheme = false;#}
+{#        JotForm.singleProduct = false;#}
+{#        JotForm.newPaymentUIForNewCreatedForms = false;#}
+{#        JotForm.newPaymentUI = true;#}
+
+{#        JotForm.init(function(){#}
+{#            /*INIT-START*/#}
+{#            JotForm.setPhoneMaskingValidator( 'input_23_full', '(###) ###-####' );#}
+{#            setTimeout(function() {#}
+{#                $('input_24').hint('ex: myname@example.com');#}
+{#            }, 20);#}
+
+{#            JotForm.calendarMonths = ["January","February","March","April","May","June","July","August","September","October","November","December"];#}
+{#            JotForm.appointmentCalendarDays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];#}
+{#            JotForm.calendarOther = "Today";#}
+{#            window.initializeAppointment({#}
+{#                text: { text: "Question", value: "Preferred Appointment Date " },#}
+{#                labelAlign: {#}
+{#                    text: "Label Align",#}
+{#                    value: "Top",#}
+{#                    dropdown: [#}
+{#                        ["Auto", "Auto"],#}
+{#                        ["Left", "Left"],#}
+{#                        ["Right", "Right"],#}
+{#                        ["Top", "Top"],#}
+{#                    ],#}
+{#                },#}
+{#                required: {#}
+{#                    text: "Required",#}
+{#                    value: "No",#}
+{#                    dropdown: [#}
+{#                        ["No", "No"],#}
+{#                        ["Yes", "Yes"],#}
+{#                    ],#}
+{#                },#}
+{#                description: { text: "Hover Text", value: "", textarea: true },#}
+{#                slotDuration: {#}
+{#                    text: "Slot Duration",#}
+{#                    value: "30",#}
+{#                    dropdown: [#}
+{#                        [15, "15 min"],#}
+{#                        [30, "30 min"],#}
+{#                        [45, "45 min"],#}
+{#                        [60, "60 min"],#}
+{#                        ["custom", "Custom min"],#}
+{#                    ],#}
+{#                    hint: "Select how long each slot will be.",#}
+{#                },#}
+{#                startDate: { text: "Start Date", value: "" },#}
+{#                endDate: { text: "End Date", value: "" },#}
+{#                intervals: {#}
+{#                    text: "Intervals",#}
+{#                    value: [#}
+{#                        { from: "09:00", to: "17:00", days: ["Mon", "Tue", "Wed", "Thu", "Fri"] },#}
+{#                    ],#}
+{#                    hint: "The hours will be applied to the selected days and repeated.",#}
+{#                },#}
+{#                useBlockout: {#}
+{#                    text: "Blockout Custom Dates",#}
+{#                    value: "No",#}
+{#                    dropdown: [#}
+{#                        ["No", "No"],#}
+{#                        ["Yes", "Yes"],#}
+{#                    ],#}
+{#                    hint: "Disable certain date(s) in the calendar.",#}
+{#                },#}
+{#                blockoutDates: {#}
+{#                    text: "Blockout dates",#}
+{#                    value: [{ startDate: "", endDate: "" }],#}
+{#                },#}
+{#                useLunchBreak: {#}
+{#                    text: "Lunch Time",#}
+{#                    value: "Yes",#}
+{#                    dropdown: [#}
+{#                        ["No", "No"],#}
+{#                        ["Yes", "Yes"],#}
+{#                    ],#}
+{#                    hint: "Enable lunchtime in the calendar.",#}
+{#                },#}
+{#                lunchBreak: {#}
+{#                    text: "Lunchtime hours",#}
+{#                    value: [{ from: "12:00", to: "14:00" }],#}
+{#                },#}
+{#                timezone: { text: "Timezone", value: "America/New_York (GMT-4:00)" },#}
+{#                timeFormat: {#}
+{#                    text: "Time Format",#}
+{#                    value: "",#}
+{#                    dropdown: [#}
+{#                        ["24 Hour", "24 Hour"],#}
+{#                        ["AM/PM", "AM/PM"],#}
+{#                    ],#}
+{#                    icon: "images/blank.gif",#}
+{#                    iconClassName: "toolbar-time_format_24",#}
+{#                },#}
+{#                months: {#}
+{#                    value: [#}
+{#                        "January",#}
+{#                        "February",#}
+{#                        "March",#}
+{#                        "April",#}
+{#                        "May",#}
+{#                        "June",#}
+{#                        "July",#}
+{#                        "August",#}
+{#                        "September",#}
+{#                        "October",#}
+{#                        "November",#}
+{#                        "December",#}
+{#                    ],#}
+{#                    hidden: true,#}
+{#                },#}
+{#                days: {#}
+{#                    value: [#}
+{#                        "Monday",#}
+{#                        "Tuesday",#}
+{#                        "Wednesday",#}
+{#                        "Thursday",#}
+{#                        "Friday",#}
+{#                        "Saturday",#}
+{#                        "Sunday",#}
+{#                    ],#}
+{#                    hidden: true,#}
+{#                },#}
+{#                startWeekOn: {#}
+{#                    text: "Start Week On",#}
+{#                    value: "",#}
+{#                    dropdown: [#}
+{#                        ["Monday", "Monday"],#}
+{#                        ["Sunday", "Sunday"],#}
+{#                    ],#}
+{#                    toolbar: false,#}
+{#                },#}
+{#                rollingDays: { text: "Rolling Days", value: "", toolbar: false },#}
+{#                prevMonthButtonText: { text: "Previous month", value: "" },#}
+{#                nextMonthButtonText: { text: "Next month", value: "" },#}
+{#                prevYearButtonText: { text: "Previous year", value: "" },#}
+{#                nextYearButtonText: { text: "Next year", value: "" },#}
+{#                prevDayButtonText: { text: "Previous day", value: "" },#}
+{#                nextDayButtonText: { text: "Next day", value: "" },#}
+{#                appointmentType: { hidden: true, value: "single" },#}
+{#                autoDetectTimezone: { hidden: true, value: "Yes" },#}
+{#                dateFormat: { hidden: true, value: "mm/dd/yyyy" },#}
+{#                maxAttendee: { hidden: true, value: "5" },#}
+{#                minScheduleNotice: { hidden: true, value: "3" },#}
+{#                name: { hidden: true, value: "preferredAppointment" },#}
+{#                order: { hidden: true, value: "12" },#}
+{#                qid: { toolbar: false, value: "input_25" },#}
+{#                reminderEmails: {#}
+{#                    hidden: true,#}
+{#                    value: {#}
+{#                        schedule: [{ value: "2", unit: "hour" }],#}
+{#                        emailSettings: {#}
+{#                            PDFPassword: "",#}
+{#                            attachPDF: "false",#}
+{#                            updateEmail: "true",#}
+{#                            type: "APPOINTMENT_REMINDER",#}
+{#                            to: [#}
+{#                                {#}
+{#                                    id: "24",#}
+{#                                    value: "{email}",#}
+{#                                    name: "Email",#}
+{#                                    text: "Email",#}
+{#                                    isValid: "true",#}
+{#                                    isQuestion: "true",#}
+{#                                },#}
+{#                            ],#}
+{#                            subject: "Reminder: Your appointment is on {preferredAppointment}",#}
+{#                senderName: "JotForm",#}
+{#                replyTo: "louay.est68@gmail.com",#}
+{#                branding21Email: "1",#}
+{#        },#}
+{#        },#}
+{#        },#}
+{#            type: { hidden: true, value: "control_appointment" },#}
+{#            useReminderEmails: { hidden: true, value: "Yes" },#}
+{#            id: { toolbar: false, value: "25" },#}
+{#            qname: { toolbar: false, value: "q25_preferredAppointment" },#}
+{#            cdnconfig: { CDN: "https://cdn.jotfor.ms/" },#}
+{#            passive: false,#}
+{#                formProperties: {#}
+{#                products: false,#}
+{#                    highlightLine: "Enabled",#}
+{#                    coupons: false,#}
+{#                    useStripeCoupons: false,#}
+{#                    taxes: false,#}
+{#                    comparePaymentForm: "",#}
+{#                    paymentListSettings: false,#}
+{#                    newPaymentUIForNewCreatedForms: false,#}
+{#                    formBackground: "#fff",#}
+{#                    newAppointment: false,#}
+{#            },#}
+{#            formID: 230415772523553,#}
+{#                isPaymentForm: false,#}
+{#                isOpenedInPortal: false,#}
+{#                isCheckoutForm: false,#}
+{#                themeVersion: "v2",#}
+{#        });#}
+
+{#            JotForm.isNewSaveAndContinueLaterActive = true;#}
+{#            /*INIT-END*/#}
+{#        });#}
+
+{#        JotForm.prepareCalculationsOnTheFly([null,null,null,null,null,null,null,null,null,{"name":"dateOf","qid":"9","text":"Date of Birth","type":"control_birthdate"},{"name":"haveYou","qid":"10","text":"Have you ever applied to our facility before?","type":"control_radio"},null,null,null,null,null,null,null,null,{"name":"doctorAppointment","qid":"19","text":"Doctor Appointment Request Form","type":"control_head"},null,null,{"name":"gender","qid":"22","text":"Gender","type":"control_dropdown"},{"name":"phoneNumber23","qid":"23","text":"Phone Number","type":"control_phone"},{"name":"email","qid":"24","subLabel":"example@example.com","text":"Email","type":"control_email"},{"name":"preferredAppointment","qid":"25","text":"Preferred Appointment Date ","type":"control_appointment"},{"name":"name","qid":"26","text":"Name","type":"control_fullname"},{"name":"divider","qid":"27","text":"Divider","type":"control_divider"},null,{"name":"whichProcedure","qid":"29","text":"Which procedure do you want to make an appointment for?","type":"control_dropdown"},{"name":"asset203163A1Cc30B6D","qid":"30","text":"aphrodte-removebg-preview%20(1).63ecd497752554.43945874","type":"control_image"},{"name":"input31","qid":"31","text":"\nAPHRODITE\nZone Industrielle Chotrana II, B.P. 160 Pole Technologique El Ghazela 2083 Ariana Tunis، 2083\n\nAphrodite.maternite@yahoo.com\nwww.Aphrodite.com\n(+216 ) 53413551\n\n","type":"control_text"},{"name":"soumission","qid":"32","text":"Soumission","type":"control_button"}]);#}
+{#        setTimeout(function() {#}
+{#            JotForm.paymentExtrasOnTheFly([null,null,null,null,null,null,null,null,null,{"name":"dateOf","qid":"9","text":"Date of Birth","type":"control_birthdate"},{"name":"haveYou","qid":"10","text":"Have you ever applied to our facility before?","type":"control_radio"},null,null,null,null,null,null,null,null,{"name":"doctorAppointment","qid":"19","text":"Doctor Appointment Request Form","type":"control_head"},null,null,{"name":"gender","qid":"22","text":"Gender","type":"control_dropdown"},{"name":"phoneNumber23","qid":"23","text":"Phone Number","type":"control_phone"},{"name":"email","qid":"24","subLabel":"example@example.com","text":"Email","type":"control_email"},{"name":"preferredAppointment","qid":"25","text":"Preferred Appointment Date ","type":"control_appointment"},{"name":"name","qid":"26","text":"Name","type":"control_fullname"},{"name":"divider","qid":"27","text":"Divider","type":"control_divider"},null,{"name":"whichProcedure","qid":"29","text":"Which procedure do you want to make an appointment for?","type":"control_dropdown"},{"name":"asset203163A1Cc30B6D","qid":"30","text":"aphrodte-removebg-preview%20(1).63ecd497752554.43945874","type":"control_image"},{"name":"input31","qid":"31","text":"\nAPHRODITE\nZone Industrielle Chotrana II, B.P. 160 Pole Technologique El Ghazela 2083 Ariana Tunis، 2083\n\nAphrodite.maternite@yahoo.com\nwww.Aphrodite.com\n(+216 ) 53413551\n\n","type":"control_text"},{"name":"soumission","qid":"32","text":"Soumission","type":"control_button"}]);}, 20);#}
+{#    </script>#}
+{#</head>#}
+{#<body>#}
+{#<form class="jotform-form" action="" method="post" name="form_230415772523553" id="230415772523553" accept-charset="utf-8" autocomplete="on"><input type="hidden" name="formID" value="230415772523553" /><input type="hidden" id="JWTContainer" value="" /><input type="hidden" id="cardinalOrderNumber" value="" />#}
+{#    <div role="main" class="form-all">#}
+{#        <style>#}
+{#            .form-all:before#}
+{#            {#}
+{#                background: none;#}
+{#            }#}
+{#        </style>#}
+{#    <div id="calendrier">#}
+{#    </div>#}
+
+{#    <li class="form-line" data-type="control_appointment" id="id_25"><label class="form-label form-label-top" id="label_25" for="input_25"> Preferred Appointment Date </label>#}
+{#        <div id="cid_25" class="form-input-wide" data-layout="full">#}
+{#            <div id="input_25" class="appointmentFieldWrapper jfQuestion-fields"><input class="appointmentFieldInput" name="q25_preferredAppointment[implementation]" value="new" id="input_25implementation" /><input class="appointmentFieldInput " name="q25_preferredAppointment[date]" id="input_25_date" data-timeformat="" /><input class="appointmentFieldInput" name="q25_preferredAppointment[duration]" value="30" id="input_25_duration" /><input class="appointmentFieldInput" name="q25_preferredAppointment[timezone]" value="America/New_York (GMT-4:00)" id="input_25_timezone" />#}
+{#                <div class="appointmentField"></div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </li>#}
+{#    <!DOCTYPE html>#}
+{#    <html lang="en">#}
+{#    <head>#}
+{#        <meta charset="UTF-8">#}
+{#        <title>Date and Time Picker</title>#}
+{#        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">#}
+{#        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">#}
+{#    </head>#}
+{#    <body>#}
+{#    <div class="container">#}
+{#        <h1>Date and Time Picker</h1>#}
+{#        <div class="form-group">#}
+{#            <label for="datetimepicker">Select Date and Time</label>#}
+{#            <div class="input-group date" id="datetimepicker" data-target-input="nearest">#}
+{#                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker" />#}
+{#                <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">#}
+{#                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+
+{#    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>#}
+{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>#}
+{#    <script>#}
+{#        $(function () {#}
+{#            $('#datetimepicker').datetimepicker({#}
+{#                format: 'YYYY-MM-DD HH:mm:ss'#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{#    </body>#}
+{#    </html>#}
+{#{% endblock %}#}
+
+{#{% block javascripts %}#}
+{#    <script>#}
+{#        window.onload = () => {#}
+{#            let calendarElt = document.querySelector("#calendrier")#}
+{#            let calendar = new FullCalendar.Calendar(calendarElt, {#}
+{#                initialView: 'dayGridMonth',#}
+{#                locale:'fr',#}
+
+{#            })#}
+{#            calendar.render()#}
+{#        }#}
+{#    </script>#}
+    <html>
+    <head>
+        <title>Patient Appointment Request</title>
+        <style>
+            /* Calendar styling */
+            #calendar {
+                margin-bottom: 20px;
+                border: 1px solid #ccc;
+                width: 300px;
+                height: 300px;
+            }
+            #calendar td {
+                border: 1px solid #ccc;
+                text-align: center;
+                padding: 5px;
+            }
+            #calendar td:hover {
+                background-color: #eee;
+                cursor: pointer;
+            }
+            #calendar .today {
+                background-color: #eee;
+            }
+        </style>
+    </head>
+    <body>
+    <h1>Patient Appointment Request</h1>
+    <form action="[insert action URL]" method="post">
+        <label for="appointment-type">Type of Appointment:</label>
+        <input type="text" id="appointment-type" name="appointment-type" required><br><br>
+        <label for="preferred-date">Preferred Date:</label>
+        <input type="date" id="preferred-date" name="preferred-date" required>
+        <div id="calendar"></div><br><br>
+        <label for="preferred-time">Preferred Time:</label>
+        <select id="preferred-time" name="preferred-time" required>
+            <option value="">Select a time</option>
+            <option value="09:00">09:00 AM</option>
+            <option value="09:30">09:30 AM</option>
+            <option value="10:00">10:00 AM</option>
+            <option value="10:30">10:30 AM</option>
+            <option value="11:00">11:00 AM</option>
+            <option value="11:30">11:30 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="12:30">12:30 PM</option>
+            <option value="13:00">01:00 PM</option>
+            <option value="13:30">01:30 PM</option>
+            <option value="14:00">02:00 PM</option>
+            <option value="14:30">02:30 PM</option>
+            <option value="15:00">03:00 PM</option>
+            <option value="15:30">03:30 PM</option>
+            <option value="16:00">04:00 PM</option>
+            <option value="16:30">04:30 PM</option>
+            <option value="17:00">05:00 PM</option>
+            <option value="17:30">05:30 PM</option>
+        </select><br><br>
+        <input type="submit" value="Submit Request">
+    </form>
+
+    <script>
+        // Generate calendar for current month and year
+        function generateCalendar(month, year) {
+            var daysInMonth = new Date(year, month+1, 0).getDate();
+            var firstDayOfMonth = new Date(year, month, 1).getDay();
+            var table = document.createElement("table");
+            var tbody = document.createElement("tbody");
+            var date = 1;
+
+            for (var i = 0; i < 6; i++) {
+                var row = document.createElement("tr");
+
+                for (var j = 0; j < 7; j++) {
+                    if (i == 0 && j < firstDayOfMonth) {
+                        var cell = document.createElement("td");
+                        var cellText = document.createTextNode("");
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                    } else if (date > daysInMonth) {
+                        break;
+                    } else {
+                        var cell = document.createElement("td");
+                        var cellText = document.createTextNode(date);
+                        if (date == new Date().getDate() && year == new Date().getFullYear() && month == new Date().getMonth()) {
+                            cell.classList.add("today");
+                        }
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                        date++;
+                    }
+                }
+                tbody.appendChild(row);
+            }
+            table.appendChild(tbody);
+            document.getElementById("calendar").appendChild(table);
+
+            // Add event listener to calendar cells to set preferred date input value
+            var calendarCells = document.querySelectorAll("#calendar td");
+            calendarCells.forEach(cell => {
+                cell.addEventListener("click", function() {
+                    var selectedDay = cell.textContent.padStart(2, "0");
+                    var selectedMonth = (month + 1).toString().padStart(2, "0");
+                    document.getElementById("preferred-date").value = `${year}-${selectedMonth}-${selectedDay}`;
+                });
+            });
+        }
+
+        // Get current month and year for calendar generation
+        var currentDate = new Date();
+        var currentMonth = currentDate.getMonth();
+        var currentYear = currentDate.getFullYear();
+        generateCalendar(currentMonth, currentYear);
+    </script>
+{% endblock %}

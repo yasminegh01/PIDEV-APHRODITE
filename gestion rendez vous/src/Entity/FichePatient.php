@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FichePatientRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FichePatientRepository::class)]
@@ -13,6 +14,7 @@ class FichePatient
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Ignore]
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
@@ -37,6 +39,7 @@ class FichePatient
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
+    #[Ignore]
     private ?AppointmentRequest $rendezVous = null;
 
     public function getId(): ?int

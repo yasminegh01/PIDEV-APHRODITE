@@ -26,8 +26,8 @@
                 <td>{{ fiche_patient.medicament }}</td>
                 <td>{{ fiche_patient.progres }}</td>
                 <td>
-                    <a href="{{ path('app_fiche_patient_show', {'id': fiche_patient.id}) }}">show</a>
-                    <a href="{{ path('app_fiche_patient_edit', {'id': fiche_patient.id}) }}">edit</a>
+                    <a href="{{ path('app_fiche_patient_show', {'id': fiche_patient.id}) }}" class="btn btn-dark" role="button">show</a>
+                    <a href="{{ path('app_fiche_patient_edit', {'id': fiche_patient.id}) }}" class="btn btn-secondary" role="button">edit</a>
                 </td>
             </tr>
         {% else %}

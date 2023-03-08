@@ -24,6 +24,7 @@
                 <th scope="col">Appointment date</th>
                 <th scope="col">Type</th>
                 <th scope="col">Lien</th>
+                <th scope="col">status</th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +42,7 @@
                 <td>{{ appointment_request.appointmentdate ? appointment_request.appointmentdate|date('Y-m-d') : '' }}</td>
                 <td>{{ appointment_request.type }}</td>
                 <td>{{ appointment_request.lien }}</td>
+                <td>{{ appointment_request.status }}</td>
             </tr>
         {% else %}
             <tr>

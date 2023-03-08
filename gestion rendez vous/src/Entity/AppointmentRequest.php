@@ -6,10 +6,12 @@ use App\Repository\AppointmentRequestRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: AppointmentRequestRepository::class)]
 class AppointmentRequest
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -26,9 +28,6 @@ class AppointmentRequest
     private ?string $lastname = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[ORM\NotNull(message:"The birthday field cannot be null.")]
-//    #[Assert\Date]
-    #[Assert\GreaterThanOrEqual("18 years ago")]
     private ?\DateTimeInterface $birthday = null;
 
     #[ORM\Column(length: 255)]
@@ -37,7 +36,6 @@ class AppointmentRequest
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:'The value {{ value }} is not valid.')]
-    #[Assert\Length(min: 8,minMessage: "phone number should be 8 caracter")]
     private ?string $phonenumber = null;
 
     #[ORM\Column(length: 255)]
@@ -55,26 +53,24 @@ class AppointmentRequest
     private ?string $appointmentprocedure = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\NotBlank(message:"field is required")]
-//    #[Assert\Date]
-    #[Assert\GreaterThanOrEqual("18 years ago")]
+
     private ?\DateTimeInterface $appointmentdate = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:"field is required")]
     private ?string $type = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:"field is required")]
     private ?string $lien = null;
-
+    /** @Ignore() */
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    #[Assert\NotBlank(message:"field is required")]
     private ?\DateTimeInterface $appointmentime = null;
-
+    /** @Ignore() */
     #[ORM\ManyToOne(inversedBy: 'appointmentRequests')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $id_patient = null;
+
+    #[ORM\Column(length: 10)]
+    private ?string $status = 'pending';
 
 
 
@@ -106,7 +102,7 @@ class AppointmentRequest
 
         return $this;
     }
-
+    /** @Ignore() */
     public function getBirthday(): ?\DateTimeInterface
     {
         return $this->birthday;
@@ -154,7 +150,7 @@ class AppointmentRequest
 
         return $this;
     }
-
+    /** @Ignore() */
     public function getNewOld(): ?string
     {
         return $this->new_old;
@@ -178,7 +174,7 @@ class AppointmentRequest
 
         return $this;
     }
-
+    /** @Ignore() */
     public function getAppointmentdate(): ?\DateTimeInterface
     {
         return $this->appointmentdate;
@@ -202,7 +198,7 @@ class AppointmentRequest
 
         return $this;
     }
-
+    /** @Ignore() */
     public function getLien(): ?string
     {
         return $this->lien;
@@ -226,7 +222,7 @@ class AppointmentRequest
 
         return $this;
     }
-
+    /** @Ignore() */
     public function getIdPatient(): ?User
     {
         return $this->id_patient;
@@ -235,6 +231,18 @@ class AppointmentRequest
     public function setIdPatient(?User $id_patient): self
     {
         $this->id_patient = $id_patient;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

@@ -6,12 +6,28 @@ use App\Entity\AppointmentRequest;
 use App\Form\AppointmentRequestType;
 use App\Repository\AppointmentRequestRepository;
 use App\Repository\FichePatientRepository;
+
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
+
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
+
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Validator\Constraints\Json;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Time;
+
 
 #[Route('/appointment/request')]
 #[IsGranted('IS_AUTHENTICATED')]
@@ -56,6 +72,52 @@ class AppointmentRequestController extends AbstractController
             'form' => $form,
         ]);
     }
+    //json
+
+
+
+
+
+
+
+
+
+
+
+//        $appointment = $entityManager
+//            ->getRepository(AppointmentRequest::class)
+//            ->findAll();
+//
+//        $json = $serializer->serialize($appointment, 'json');
+//        $formatted = $serializer->serialize($json, 'json', ['groups' => ['normal']]);
+//
+//        $jsonData = $request->getContent();
+//        $formData = json_decode($jsonData,true);
+//
+//       $name =$formData[1]['value'];
+//        $lastname=$formData[2]['value'];
+//        $birthday=$formData[3]['value'];
+//        $gender=$formData[4]['value'];
+//        $phonenumber=$formData[5]['value'];
+//        $email=$formData[6]['value'];
+//        $new_old=$formData[7]['value'];
+//        $appointmentprocedure=$formData[8]['value'];
+//        $appointmentdate=$formData[9]['value'];
+//        $type=$formData[10]['value'];
+//        $lien=$formData[11]['value'];
+//        $appointmentime=$formData[12]['value'];
+////
+////        $appointmentRequest = new AppointmentRequest();
+
+//
+////
+////        $jsonContent =$serializer->serialize($appointmentRequest);
+//        return new JsonResponse($formatted);
+
+
+
+
+
     #[Route('/new', name: 'app_appointment_request_new_admin', methods: ['GET', 'POST'])]
     public function new_admin(Request $request, AppointmentRequestRepository $appointmentRequestRepository): Response
     {
@@ -112,4 +174,34 @@ class AppointmentRequestController extends AbstractController
 
         return $this->redirectToRoute('app_appointment_request_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    //approve request
+    #[Route('/form/{id}/approve', name: 'form_approve', methods: ['GET','POST'])]
+    public function approve(AppointmentRequest $appointmentRequest,EntityManagerInterface $entityManager)
+    {
+
+        $appointmentRequest->setStatus("approved");
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_appointment_request_index', [], Response::HTTP_SEE_OTHER);
+
+    }
+//reject request
+    #[Route('/form/{id}/reject', name: 'form_reject', methods: ['GET'])]
+    public function reject( AppointmentRequest $appointmentRequest, EntityManagerInterface $entityManager)
+    {
+        $appointmentRequest->setStatus("rejected");
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_appointment_request_index', [], Response::HTTP_SEE_OTHER);
+
+    }
+
+    #[Route('/calendar123', name: 'app_calendar', methods: ['POST','GET'])]
+    public function calendar12()
+    {
+        return $this->render('admin/calendar/basecal.html.twig');
+    }
+
 }

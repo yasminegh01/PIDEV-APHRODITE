@@ -5,21 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25f927c2-f906-403d-b2ec-352938f82e74" name="Changes" comment="second push DONE ✔">
+      <change afterPath="$PROJECT_DIR$/templates/appointment_request/index1.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/calendar/basecal.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/calendar/main/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gestion rendez vous.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gestion rendez vous.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AppointmentAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AppointmentAdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AppointmentRequestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AppointmentRequestController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/FichePatientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FichePatientController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/AppointmentRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/AppointmentRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/FichePatient.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/FichePatient.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/appointment_admin/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_admin/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/appointment_admin/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_admin/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/appointment_admin/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_admin/new.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/appointment_admin/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_admin/show.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/appointment_request/_delete_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/_delete_form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/appointment_request/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/_form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/appointment_request/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/appointment_request/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/appointment_request/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/new.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/appointment_request/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/show.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/appointment_request/showrdv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/showrdv.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/fiche_patient/_delete_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/_delete_form.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/fiche_patient/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/fiche_patient/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/fiche_patient/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/fiche_patient/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/new.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/fiche_patient/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/show.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,6 +160,14 @@
       <path value="$PROJECT_DIR$/vendor/nette/schema" />
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
+      <path value="$PROJECT_DIR$/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/tattali/calendar-bundle" />
     </include_path>
   </component>
   <component name="ProjectId" id="2LagOsO8bJ9zoof7bLM6OWwlouk" />
@@ -156,23 +176,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Lou/PIDEV-APHRODITE/gestion rendez vous/templates",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Lou/PIDEV-APHRODITE/gestion rendez vous/templates&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Lou\PIDEV-APHRODITE\gestion rendez vous\templates" />
@@ -182,6 +202,7 @@
       <recent name="C:\Users\gheri\OneDrive\Bureau\PiDev\templates\admin\diagnostic" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Lou\PIDEV-APHRODITE\gestion rendez vous\templates" />
       <recent name="C:\Users\Lou\PIDEV-APHRODITE\gestion rendez vous\templates\appointment_request" />
       <recent name="E:\workstation esprit\PiDev\templates\admin" />
     </key>
@@ -215,7 +236,24 @@
       <workItem from="1676976199306" duration="8452000" />
       <workItem from="1677012441750" duration="4186000" />
       <workItem from="1677068077585" duration="6403000" />
-      <workItem from="1677163186697" duration="28385000" />
+      <workItem from="1677163186697" duration="28561000" />
+      <workItem from="1677227858750" duration="2323000" />
+      <workItem from="1677347690506" duration="1743000" />
+      <workItem from="1677438957189" duration="19454000" />
+      <workItem from="1677533730392" duration="1501000" />
+      <workItem from="1677578160230" duration="296000" />
+      <workItem from="1677587013259" duration="474000" />
+      <workItem from="1677601587048" duration="530000" />
+      <workItem from="1677613420162" duration="1946000" />
+      <workItem from="1677696566686" duration="603000" />
+      <workItem from="1677707648932" duration="1842000" />
+      <workItem from="1677785608307" duration="9869000" />
+      <workItem from="1677834777743" duration="3821000" />
+      <workItem from="1677969642149" duration="1096000" />
+      <workItem from="1678012411215" duration="6490000" />
+      <workItem from="1678028822021" duration="7124000" />
+      <workItem from="1678220943465" duration="2521000" />
+      <workItem from="1678271503106" duration="2275000" />
     </task>
     <task id="LOCAL-00001" summary="crud done ✔✔">
       <created>1676933481626</created>

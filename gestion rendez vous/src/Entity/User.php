@@ -1,5 +1,6 @@
 <?php
 
+
 /*
  * This file is part of the Symfony package.
  *
@@ -9,7 +10,9 @@
  * file that was distributed with this source code.
  */
 
+
 namespace App\Entity;
+
 
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,6 +22,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Serializer\Annotation\Exclude;
+
 
 /**
  * Defines the properties of the User entity to represent the application users.
@@ -30,94 +37,118 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
+
+
+
+
+
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'user')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    /** @Ignore() */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
+
     #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank]
     private ?string $fullName = null;
+
 
     #[ORM\Column(type: Types::STRING, unique: true)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 50)]
     private ?string $username = null;
 
+
     #[ORM\Column(type: Types::STRING, unique: true)]
     #[Assert\Email]
     private ?string $email = null;
 
+
     #[ORM\Column(type: Types::STRING)]
     private ?string $password = null;
+
 
     /**
      * @var string[]
      */
     #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
-
+    /** @Ignore() */
     #[ORM\OneToMany(mappedBy: 'id_patient', targetEntity: AppointmentRequest::class)]
     private Collection $appointmentRequests;
+
 
     public function __construct()
     {
         $this->appointmentRequests = new ArrayCollection();
     }
 
+
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function setFullName(string $fullName): void
     {
         $this->fullName = $fullName;
     }
 
+
     public function getFullName(): ?string
     {
         return $this->fullName;
     }
+
 
     public function getUserIdentifier(): string
     {
         return (string) $this->username;
     }
 
+
     public function getUsername(): string
     {
         return $this->getUserIdentifier();
     }
+
 
     public function setUsername(string $username): void
     {
         $this->username = $username;
     }
 
+
     public function getEmail(): ?string
     {
         return $this->email;
     }
+
 
     public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
+
     public function getPassword(): ?string
     {
         return $this->password;
     }
 
+
     public function setPassword(string $password): void
     {
         $this->password = $password;
     }
+
 
     /**
      * Returns the roles or permissions granted to the user for security.
@@ -126,13 +157,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
 
+
         // guarantees that a user always has at least one role for security
         if (empty($roles)) {
             $roles[] = 'ROLE_USER';
         }
 
+
         return array_unique($roles);
     }
+
 
     /**
      * @param string[] $roles
@@ -141,6 +175,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->roles = $roles;
     }
+
 
     /**
      * Returns the salt that was originally used to encode the password.
@@ -153,8 +188,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // the salt value is built-in and you don't have to generate one
         // See https://en.wikipedia.org/wiki/Bcrypt
 
+
         return null;
     }
+
 
     /**
      * Removes sensitive data from the user.
@@ -167,6 +204,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+
     /**
      * @return array{int|null, string|null, string|null}
      */
@@ -175,6 +213,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // add $this->salt too if you don't use Bcrypt or Argon2i
         return [$this->id, $this->username, $this->password];
     }
+
 
     /**
      * @param array{int|null, string, string} $data
@@ -189,6 +228,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return(string)$this->getId();
     }
 
+
     /**
      * @return Collection<int, AppointmentRequest>
      */
@@ -197,6 +237,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->appointmentRequests;
     }
 
+
     public function addAppointmentRequest(AppointmentRequest $appointmentRequest): self
     {
         if (!$this->appointmentRequests->contains($appointmentRequest)) {
@@ -204,8 +245,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $appointmentRequest->setIdPatient($this);
         }
 
+
         return $this;
     }
+
 
     public function removeAppointmentRequest(AppointmentRequest $appointmentRequest): self
     {
@@ -216,8 +259,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             }
         }
 
+
         return $this;
     }
-    
-    
+
+
 }

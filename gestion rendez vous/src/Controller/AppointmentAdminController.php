@@ -82,7 +82,7 @@ class AppointmentAdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_appointment_request_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_appointment_request_delete', methods: ['GET','POST'])]
     public function delete(Request $request, AppointmentRequest $appointmentRequest, AppointmentRequestRepository $appointmentRequestRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$appointmentRequest->getId(), $request->request->get('_token'))) {
@@ -91,4 +91,7 @@ class AppointmentAdminController extends AbstractController
 
         return $this->redirectToRoute('app_appointment_request_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
 }
