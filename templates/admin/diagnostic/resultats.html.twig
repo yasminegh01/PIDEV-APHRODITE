@@ -272,15 +272,19 @@
                                                 <hr>
                                                 {{ include('admin/diagnostic/_delete_form_resultat.html.twig') }}
                                             </td>
+                                        <tr>
+                                            <td>
+                                                <a href="{{ path('app_diagnostic_admin_search_sort') }}">return to diagnostic list</a></tr>
+                                        <a class="btn btn-md btn-gradient circle"  href="{{ path ('imp',{'id': resultat.id}) }}">Imprimer <i class="fas fa-angle-right"></i></a>
+
+                                        </td> </tr>
                                         </tr>
+
                                     {% endfor %}
 
                                     </tbody>
 
-                                    <tr>
-                                        <td>
-                                        <a href="{{ path('app_diagnostic_admin_search_sort') }}">return to diagnostic list</a></tr>
-                                    </td> </tr>
+
                                 </table>
                             </div>
                         </div>

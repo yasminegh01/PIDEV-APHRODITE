@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use Twilio\Rest\Client;
 #[Route('/diagnostic')]
 class DiagnosticController extends AbstractController
 {
@@ -74,6 +74,40 @@ class DiagnosticController extends AbstractController
 }*/
     }
 
+// Define a controller action that handles the button click
+    #[Route('/', name: 'handle_call', methods: ['POST','GET'])]
+
+   /*public function handle_call(): Response
+    {
+        // Twilio account SID and auth token
+        $sid = 'AC3851c53ef419c26d52f4dbf13660e77f';
+        $token = '67fbfb5938f7bd6b749ecc19b22844c3';
+
+        // Initialize the Twilio REST client with your account SID and auth token
+        $twilio = new Client($sid, $token);
+
+        // Phone number to dial
+        $to = ' +216 52 515 038 '; // Replace XXXX with the remaining digits of the phone number you want to call
+
+        // Twilio phone number to use as the caller ID
+        $from = '+15073997751';
+
+        // URL of the TwiML document that instructs Twilio how to handle the call
+        $twimlUrl = 'https://api.twilio.com/2010-04-01/Accounts/AC3851c53ef419c26d52f4dbf13660e77f/Calls.json';
+
+        // Initiate a phone call using the Twilio REST API
+        $call = $twilio->calls->create(
+            $to,
+            $from,
+            array(
+                'url' => $twimlUrl
+            )
+        );
+
+        // Return a response object indicating that the call was initiated
+        return new Response('Call initiated! Call SID: ' . $call->sid);
+    }
+*/
 
     /**
      * @Route("/sort", name="app_diagnostic_sort", methods={"GET"})

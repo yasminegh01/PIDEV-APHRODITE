@@ -7,6 +7,7 @@ use App\Entity\Resultat;
 use App\Form\ResultatType;
 use App\Repository\DiagnosticRepository;
 use App\Repository\ResultatRepository;
+use Dompdf\Dompdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,12 +17,15 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Dompdf\Domdpf;
+use Dompdf\Options;
+use Knp\Snappy\Pdf;
 
 #[Route('/resultat')]
 class ResultatController extends AbstractController
 {
-    #[Route('/admin', name: 'app_resultat_index', methods: ['GET','POST'])]
-    public function index(ResultatRepository $resultatRepository,Request $request ): Response
+    #[Route('/admin', name: 'app_resultat_index', methods: ['GET', 'POST'])]
+    public function index(ResultatRepository $resultatRepository, Request $request): Response
     {
 
         $searchTerm = $request->request->get('searchTerm');
@@ -37,10 +41,10 @@ class ResultatController extends AbstractController
             'sortOrder' => $sortOrder,
         ]);
 
-      /*  return $this->render('admin/diagnostic/resultats.html.twig', [
-            'resultats' => $resultatRepository->findAll(),
-        ]);
-      */
+        /*  return $this->render('admin/diagnostic/resultats.html.twig', [
+              'resultats' => $resultatRepository->findAll(),
+          ]);
+        */
     }
 
     #[Route('/new', name: 'app_resultat_new', methods: ['GET', 'POST'])]
@@ -124,18 +128,6 @@ class ResultatController extends AbstractController
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     #[Route('/{id}', name: 'app_resultat_show', methods: ['GET'])]
     public function show(Resultat $resultat): Response
     {
@@ -143,7 +135,6 @@ class ResultatController extends AbstractController
             'resultat' => $resultat,
         ]);
     }
-
 
 
     #[Route('/{id}/edit', name: 'app_resultat_edit', methods: ['GET', 'POST'])]
@@ -167,7 +158,7 @@ class ResultatController extends AbstractController
     #[Route('/{id}', name: 'app_resultat_delete', methods: ['POST'])]
     public function delete(Request $request, Resultat $resultat, ResultatRepository $resultatRepository): Response
     {
-            $resultatRepository->remove($resultat, true);
+        $resultatRepository->remove($resultat, true);
 
 
         return $this->redirectToRoute('app_resultat_index', [], Response::HTTP_SEE_OTHER);
@@ -175,7 +166,7 @@ class ResultatController extends AbstractController
 
     // **************** affichage JSON
     #[Route('/JSON/getAll', name: 'app_diagnostic_JSON', methods: ['GET'])]
-    public function getAllResultatAction(SerializerInterface $serializer, ResultatRepository $resultatRepository )
+    public function getAllResultatAction(SerializerInterface $serializer, ResultatRepository $resultatRepository)
     {
         $resultat = $resultatRepository->findAll();
         $json = $serializer->serialize($resultat, 'json', [
@@ -184,15 +175,17 @@ class ResultatController extends AbstractController
 
         return new JsonResponse($json, 200, [], true);
     }
+
 // ******************** JSON supprimer
     #[Route('/JSON/delete', name: 'app_resultat_delete', methods: ['GET'])]
-    public function deleteDiagnosticAction(Request $request ,  ResultatRepository $resultatRepository) {
+    public function deleteDiagnosticAction(Request $request, ResultatRepository $resultatRepository)
+    {
         $id = $request->get("id");
 
         $resultat = $resultatRepository->find($id);
 
-        if($resultat != null) {
-            $resultatRepository->remove($resultat,true);
+        if ($resultat != null) {
+            $resultatRepository->remove($resultat, true);
 
             $serializer = new Serializer([new ObjectNormalizer()]);
             $formatted = $serializer->normalize("Resultat has been deleted successfully.");
@@ -203,5 +196,42 @@ class ResultatController extends AbstractController
         return new JsonResponse($formatted);
     }
 
+
+    /**
+     * @Route ("/Imprimer/{id}" ,name="imp")
+     */
+
+    public function pdf($id, ResultatRepository $resultatRepository)
+    {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        $resultat = $resultatRepository->find($id);
+
+        $html = $this->renderView('admin/diagnostic/imp_pdf.html.twig',
+            ['resultat' => $resultat
+            ]);
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+
+        // Render the HTML as PDF
+        $dompdf->render();
+        $pdfFilePath = 'C:\Users\gheri\OneDrive\Bureau\PiDev';
+       // readfile('https://symfony.com/installer');
+        file_put_contents($pdfFilePath, $dompdf->output());
+        $response = new Response(file_get_contents($pdfFilePath));
+        $response->headers->set('Content-Type', 'application/pdf');
+        $response->headers->set('Content-Disposition', 'attachment; filename="document.pdf"');
+        return $response;
+
+
+}
 
 }
