@@ -18,6 +18,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Serializer\Annotation\Exclude;
 
 /**
  * Defines the properties of the Post entity to represent the blog posts.
@@ -36,6 +39,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(fields: ['slug'], errorPath: 'title', message: 'post.slug_unique')]
 class Post
 {
+    /** @Ignore() */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
@@ -61,14 +65,17 @@ class Post
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTime $publishedAt;
-
+/** @Ignore() 
+ *  @MaxDepth(3) 
+*/
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
     /**
      * @var Collection<int, Comment>
-     */
+    */
+      /** @Ignore() */
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', orphanRemoval: true, cascade: ['persist'])]
     #[ORM\OrderBy(['publishedAt' => 'DESC'])]
     private Collection $comments;
@@ -76,6 +83,8 @@ class Post
     /**
      * @var Collection<int, Tag>
      */
+
+      /** @Ignore() */
     #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
     #[ORM\JoinTable(name: 'post_tag')]
     #[ORM\OrderBy(['name' => 'ASC'])]

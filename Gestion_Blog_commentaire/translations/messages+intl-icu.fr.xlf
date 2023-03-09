@@ -370,6 +370,14 @@
                 <source>notification.comment_created.description</source>
                 <target><![CDATA[Votre article "{title}" a reçu un nouveau commentaire. Vous pouvez lire le commentaire en suivant <a href="{link}">ce lien</a>]]></target>
             </trans-unit>
+            <trans-unit id="notification.post_created">
+                <source>notification.post_created</source>
+                <target>Nouvelle article publiee !</target>
+            </trans-unit>
+            <trans-unit id="notification.post_created.description">
+                <source>notification.post_created.description</source>
+                <target><![CDATA[un article "{title}" a ete publiee. lire l'article via  <a href="{link}">ce lien</a>]]></target>
+            </trans-unit>
 
             <trans-unit id="help.app_description">
                 <source>help.app_description</source>

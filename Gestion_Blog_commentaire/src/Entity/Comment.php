@@ -15,6 +15,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use function Symfony\Component\String\u;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 /**
  * Defines the properties of the Comment entity to represent the blog comments.
@@ -34,6 +35,7 @@ class Comment
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
+    /** @Ignore() */
 
     #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
@@ -46,20 +48,23 @@ class Comment
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTime $publishedAt;
+    /** @Ignore() */
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
+
     public function __construct()
     {
         $this->publishedAt = new \DateTime();
     }
+    /** @Ignore() */
 
     #[Assert\IsTrue(message: 'comment.is_spam')]
     public function isLegitComment(): bool
     {
-        $containsInvalidCharacters = null !== u($this->content)->indexOf('@');
+        $containsInvalidCharacters = null !== u($this->content)->indexOf('fuck you');
 
         return !$containsInvalidCharacters;
     }

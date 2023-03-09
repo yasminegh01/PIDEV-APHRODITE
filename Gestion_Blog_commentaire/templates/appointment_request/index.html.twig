@@ -1,0 +1,60 @@
+{% extends 'admin/aside.html.twig' %}
+
+{% block title %}AppointmentRequest index{% endblock %}
+
+{% block body %}
+
+<div >
+    <h1>AppointmentRequest index</h1>
+
+    <div>
+    <table style="width: content-box;">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">Birthday</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Phonenumber</th>
+                <th scope="col">Email</th>
+                <th scope="col">New_old</th>
+                <th scope="col">Appointmentprocedure</th>
+                <th scope="col">Appointmentdate</th>
+                <th scope="col">Type</th>
+                <th scope="col">Lien</th>
+                <th scope="col">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for appointment_request in appointment_requests %}
+            <tr>
+                <td>{{ appointment_request.id }}</td>
+                <td>{{ appointment_request.name }}</td>
+                <td>{{ appointment_request.lastname }}</td>
+                <td>{{ appointment_request.birthday ? appointment_request.birthday|date('Y-m-d') : '' }}</td>
+                <td>{{ appointment_request.gender }}</td>
+                <td>{{ appointment_request.phonenumber }}</td>
+                <td>{{ appointment_request.email }}</td>
+                <td>{{ appointment_request.newOld }}</td>
+                <td>{{ appointment_request.appointmentprocedure }}</td>
+                <td>{{ appointment_request.appointmentdate ? appointment_request.appointmentdate|date('Y-m-d') : '' }}</td>
+                <td>{{ appointment_request.type }}</td>
+                <td>{{ appointment_request.lien }}</td>
+                <td>
+                    <a href="{{ path('app_appointment_request_show', {'id': appointment_request.id}) }}">show</a>
+                    <a href="{{ path('app_appointment_request_edit', {'id': appointment_request.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+    <a href="{{ path('app_appointment_request_new_admin') }}">Create new</a>
+</div>
+{% endblock %}

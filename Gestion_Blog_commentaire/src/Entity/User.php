@@ -12,11 +12,16 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Serializer\Annotation\Exclude;
 
 /**
  * Defines the properties of the User entity to represent the application users.
@@ -28,10 +33,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
+
+
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'user')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+      /** @Ignore() */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
@@ -58,6 +67,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
+      /** @Ignore() */
+    #[ORM\OneToMany(mappedBy: 'id_patient', targetEntity: AppointmentRequest::class)]
+    private Collection $appointmentRequests;
+
+    public function __construct()
+    {
+        $this->appointmentRequests = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -98,7 +115,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->email = $email;
     }
-
+/** @Ignore() */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -176,7 +193,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     public function __toString()
     {
-        return(string)$this->getFullName();
+        return(string)$this->getId();
+    }
+
+    /**
+     * @return Collection<int, AppointmentRequest>
+     */
+    public function getAppointmentRequests(): Collection
+    {
+        return $this->appointmentRequests;
+    }
+
+    public function addAppointmentRequest(AppointmentRequest $appointmentRequest): self
+    {
+        if (!$this->appointmentRequests->contains($appointmentRequest)) {
+            $this->appointmentRequests->add($appointmentRequest);
+            $appointmentRequest->setIdPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppointmentRequest(AppointmentRequest $appointmentRequest): self
+    {
+        if ($this->appointmentRequests->removeElement($appointmentRequest)) {
+            // set the owning side to null (unless already changed)
+            if ($appointmentRequest->getIdPatient() === $this) {
+                $appointmentRequest->setIdPatient(null);
+            }
+        }
+
+        return $this;
     }
     
     

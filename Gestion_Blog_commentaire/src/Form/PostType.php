@@ -12,8 +12,10 @@
 namespace App\Form;
 
 use App\Entity\Post;
+use App\Entity\Tag;
 use App\Form\Type\DateTimePickerType;
 use App\Form\Type\TagsInputType;
+// use App\Form\RatingType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +23,9 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\String\Slugger\SluggerInterface;
-
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 /**
  * Defines the form used to create and manipulate blog posts.
  *
@@ -32,9 +36,18 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class PostType extends AbstractType
 {
     // Form types are services, so you can inject other services in them if needed
-    public function __construct(
-        private SluggerInterface $slugger
-    ) {
+
+    // public function __construct(
+    //     private SluggerInterface $slugger
+    // ) {
+    // }
+
+    private $entityManager;
+
+    public function __construct(private SluggerInterface $slugger,EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+        
     }
 
     /**
@@ -50,7 +63,12 @@ class PostType extends AbstractType
         // server-side validation errors from the browser. To temporarily disable
         // this validation, set the 'required' attribute to 'false':
         // $builder->add('title', null, ['required' => false, ...]);
+        $tags = $this->entityManager->getRepository(Tag::class)->findAll();
 
+        $tagChoices = [];
+        foreach ($tags as $tag) {
+            $tagChoices[$tag->getName()] = $tag->getId();
+        }
         $builder
             ->add('title', null, [
                 'attr' => ['autofocus' => true],
@@ -60,7 +78,7 @@ class PostType extends AbstractType
                 // 'help' => 'help.post_summary',
                 'label' => 'label.summary',
             ])
-            ->add('content', null, [
+            ->add('content', CKEditorType::class, [
                 'attr' => ['rows' => 20],
                 'help' => 'help.post_content',
                 'label' => 'label.content',
@@ -72,10 +90,23 @@ class PostType extends AbstractType
                     'readonly' => true, // This attribute makes the field read-only
                 ],  
             ])
+            // ->add('tags', TagsInputType::class, [
+            //     'label' => 'label.tags',
+            //     'expanded' => true,
+            //     'multiple' => true,
+            //     'choices' => $tagChoices,
+            // ])
             ->add('tags', TagsInputType::class, [
                 'label' => 'label.tags',
                 'required' => false,
             ])
+
+            // ->add('rating', RatingType::class, [
+            //     'label' => 'Rating',
+            //     'required' => false,
+            // ])
+
+
             // form events let you modify information or fields at different steps
             // of the form handling process.
             // See https://symfony.com/doc/current/form/events.html

@@ -1,0 +1,43 @@
+{% extends 'aside.html.twig' %}
+
+{% block title %}FichePatient index{% endblock %}
+
+{% block body %}
+    <div class="container body-container">
+    <h1>FichePatient index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Symptome</th>
+                <th>Medicament</th>
+                <th>Progres</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fiche_patient in fiche_patients %}
+            <tr>
+                <td>{{ fiche_patient.id }}</td>
+                <td>{{ fiche_patient.name }}</td>
+                <td>{{ fiche_patient.symptome }}</td>
+                <td>{{ fiche_patient.medicament }}</td>
+                <td>{{ fiche_patient.progres }}</td>
+                <td>
+                    <a href="{{ path('app_fiche_patient_show', {'id': fiche_patient.id}) }}">show</a>
+                    <a href="{{ path('app_fiche_patient_edit', {'id': fiche_patient.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_fiche_patient_new') }}">Create new</a>
+    </div>
+{% endblock %}

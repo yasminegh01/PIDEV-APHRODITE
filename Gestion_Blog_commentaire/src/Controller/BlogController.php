@@ -28,6 +28,18 @@ use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Entity\Reclamation;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Validator\Constraints\Json;
+use Symfony\Component\Serializer\SerializerInterface;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+
+
 
 /**
  * Controller used to manage blog contents in the public part of the site.
@@ -75,29 +87,230 @@ class BlogController extends AbstractController
     #[Route('/posts/{slug}', methods: ['GET'], name: 'blog_post')]
     public function postShow(Post $post): Response
     {
-        // Symfony's 'dump()' function is an improved version of PHP's 'var_dump()' but
-        // it's not available in the 'prod' environment to prevent leaking sensitive information.
-        // It can be used both in PHP files and Twig templates, but it requires to
-        // have enabled the DebugBundle. Uncomment the following line to see it in action:
-        //
-        // dump($post, $this->getUser(), new \DateTime());
-        //
-        // The result will be displayed either in the Symfony Profiler or in the stream output.
-        // See https://symfony.com/doc/current/profiler.html
-        // See https://symfony.com/doc/current/templates.html#the-dump-twig-utilities
-        //
-        // You can also leverage Symfony's 'dd()' function that dumps and
-        // stops the execution
-
         return $this->render('blog/post_show.html.twig', ['post' => $post]);
     }
 
-    /**
-     * NOTE: The ParamConverter mapping is required because the route parameter
-     * (postSlug) doesn't match any of the Doctrine entity properties (slug).
-     *
-     * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html#doctrine-converter
-     */
+
+      #[Route('/api/displayPosts', methods: ['GET'], name: 'display_post')]
+      public function displayPosts(EntityManagerInterface $entityManager,SerializerInterface $serializer)
+      {
+        // $posts = $entityManager
+        //     ->getRepository(Post::class)
+        //     ->findAll();
+
+            $posts = $entityManager
+            ->getRepository(Post::class)
+            ->createQueryBuilder('p')
+            ->orderby('p.id')
+            ->select('p.id,p.title,p.slug,p.summary,p.content,p.publishedAt')
+            ->getQuery()
+            ->getResult();
+        $json = $serializer->serialize($posts, 'json');
+        $formatted = $serializer->serialize($json, 'json', ['groups' => ['normal']]);
+
+
+        //$serializer = new Serializer([new ObjectNormalizer()]);
+        return new JsonResponse(json_decode($json));
+        // return new JsonResponse($formatted, 200, [], JSON_UNESCAPED_UNICODE);
+        // return new JsonResponse($formatted);
+ 
+      }
+
+    #[Route('/api/newPosts', name: 'app_new_blog', methods: ['GET', 'POST'])]
+    public function NewPostAction(Request $request,PostRepository $postRepository,EntityManagerInterface $entityManager,SerializerInterface $serializer): JsonResponse
+    {
+        $post = new Post();
+        $title = $request->get('title');
+        $author = $request->get('author');
+        $author = $entityManager->getRepository(User::class)->find($author);
+        $post->setAuthor($author);
+        $slug = $request->get('slug');
+        $summary = $request->get('summary');
+        $content = $request->get('content');
+        $publishedAt = $request->get('publishedAt');
+
+
+        $publishedAt = new \DateTime('now');
+        
+        $post->setTitle($title);
+        $post->setAuthor($author);
+        $post->setSlug($slug);
+        $post->setSummary($summary);
+        $post->setContent($content);
+        $post->setPublishedAt($publishedAt);
+
+        $postRepository->save($post,true);
+        
+        $json = $serializer->serialize($post, 'json');
+        $formatted = $serializer->serialize($json, 'json', ['groups' => ['normal']]);
+        $formatted = $serializer->normalize($post);
+        return new JsonResponse($formatted);
+    }
+
+    #[Route('/api/editPosts', name: 'app_blog_edit_json', methods: ['GET'])]
+    public function editPostAction(Request $request,PostRepository $postRepository,EntityManagerInterface $entityManager,SerializerInterface $serializer): JsonResponse
+        {
+            $post = $postRepository->find($request->get('id'));
+
+            if (!$post) {
+                $formatted = ['error' => 'Post not found.'];
+                return new JsonResponse($formatted);
+            }
+            //$post = new Post();
+            $title = $request->get('title');
+            $author = $request->get('author');
+            $author = $entityManager->getRepository(User::class)->find($author);
+            $post->setAuthor($author);
+            $slug = $request->get('slug');
+            $summary = $request->get('summary');
+            $content = $request->get('content');
+            $publishedAt = $request->get('publishedAt');
+
+
+            $publishedAt = new \DateTime('now');
+            
+            $post->setTitle($title);
+            $post->setAuthor($author);
+            $post->setSlug($slug);
+            $post->setSummary($summary);
+            $post->setContent($content);
+            $post->setPublishedAt($publishedAt);
+
+            $postRepository->save($post,true);
+            
+            $json = $serializer->serialize($post, 'json');
+            $formatted = $serializer->serialize($json, 'json', ['groups' => ['normal']]);
+            $formatted = $serializer->normalize($post);
+            return new JsonResponse($formatted);
+        }
+
+    #[Route('/api/deletePosts', name: 'app_blog_delete_json', methods: ['GET'])]   
+    public function deletePostAction(Request $request,PostRepository $postRepository,EntityManagerInterface $entityManager,SerializerInterface $serializer): JsonResponse
+    {
+            $id = $request->get("id");
+            $post = $entityManager->getRepository(Post::class)->find($id);
+            if($post!=null ) {
+                $entityManager->remove($post);
+                $entityManager->flush();
+
+
+                $serialize = new Serializer([new ObjectNormalizer()]);
+                $formatted = $serialize->normalize("Post a ete supprimee avec success.");
+                return new JsonResponse($formatted);
+            }
+        return new JsonResponse("id reclamation invalide.");
+    }
+
+    #[Route('/api/displayComments', methods: ['GET'], name: 'display_comments')]
+    public function displayComments(EntityManagerInterface $entityManager,SerializerInterface $serializer)
+    {
+        // $comments = $entityManager
+        //     ->getRepository(Comment::class)
+        //     ->createQueryBuilder('c')
+        //     ->orderby('c.id')
+        //     ->select('c.id,c.post,c.author,c.content,c.publishedAt')
+        //     ->getQuery()
+        //     ->getResult();
+    $comments = $entityManager
+        ->getRepository(Comment::class)
+        ->findAll();
+        $json = $serializer->serialize($comments, 'json');
+        $formatted = $serializer->serialize($json, 'json', ['groups' => ['normal']]);
+
+
+        //$serializer = new Serializer([new ObjectNormalizer()]);
+        return new JsonResponse(json_decode($json));
+        // return new JsonResponse($formatted, 200, [], JSON_UNESCAPED_UNICODE);
+        // return new JsonResponse($formatted);
+    // $json = $serializer->serialize($comments, 'json');
+    // $formatted = $serializer->serialize($json, 'json', ['groups' => ['normal']]);
+    //     return new JsonResponse($formatted);
+    }
+    #[Route('/api/newComments', name: 'app_new_Comments', methods: ['GET', 'POST'])]
+    public function NewCommentsAction(Request $request,PostRepository $postRepository,EntityManagerInterface $entityManager,SerializerInterface $serializer): JsonResponse
+    {   $comment = new Comment();
+
+        $postId = $request->get('idpost');
+        $post = $entityManager->getRepository(Post::class)->find($postId);
+
+        $author = $request->get('author');
+        // echo ($author);
+        $author = $entityManager->getRepository(User::class)->find($author);
+        // echo ($author);
+        
+        $content = $request->get('content');
+        $publishedAt = $request->get('publishedAt');
+        $publishedAt = new \DateTime('now');
+
+        $comment->setContent($content);
+        $comment->setPublishedAt($publishedAt);
+        $comment->setAuthor($author);
+        // echo ($author);
+        $comment->setPost($post);
+
+
+        //$postRepository->save($comment,true);
+        $entityManager->persist($comment);
+        $entityManager->flush();
+        
+        
+        $json = $serializer->serialize($comment, 'json');
+        $formatted = $serializer->serialize($json, 'json', ['groups' => ['normal']]);
+        $formatted = $serializer->normalize($comment);
+        return new JsonResponse($formatted);
+    }
+    #[Route('/api/editComments', name: 'app_edit_Comments', methods: ['GET', 'POST'])]
+    public function EditCommentsAction(Request $request,PostRepository $postRepository,EntityManagerInterface $entityManager,SerializerInterface $serializer): JsonResponse
+    {   //$comment = new Comment();
+        $comment = $request->get('id');
+        $comment = $entityManager->getRepository(Comment::class)->find($comment);
+
+        if (!$comment) {
+            $formatted = ['error' => 'Comment not found.'];
+            return new JsonResponse($formatted);
+        }
+
+        $postId = $request->get('idpost');
+        $post = $entityManager->getRepository(Post::class)->find($postId);
+        $author = $request->get('author');
+        $author = $entityManager->getRepository(User::class)->find($author);
+        $content = $request->get('content');
+        $publishedAt = $request->get('publishedAt');
+        $publishedAt = new \DateTime('now');
+
+        $comment->setContent($content);
+        $comment->setPublishedAt($publishedAt);
+        $comment->setAuthor($author);
+        // echo ($author);
+        $comment->setPost($post);
+
+
+        //$postRepository->save($comment,true);
+        $entityManager->persist($comment);
+        $entityManager->flush();
+        
+        
+        $json = $serializer->serialize($comment, 'json');
+        $formatted = $serializer->serialize($json, 'json', ['groups' => ['normal']]);
+        $formatted = $serializer->normalize($comment);
+        return new JsonResponse($formatted);
+    }
+    #[Route('/api/deleteComments', name: 'app_Comments_delete_json', methods: ['GET'])]   
+    public function deleteCommentsAction(Request $request,PostRepository $postRepository,EntityManagerInterface $entityManager,SerializerInterface $serializer): JsonResponse
+    {
+            $id = $request->get("id");
+            $comment = $entityManager->getRepository(Comment::class)->find($id);
+            if($comment!=null ) {
+                $entityManager->remove($comment);
+                $entityManager->flush();
+
+                $serialize = new Serializer([new ObjectNormalizer()]);
+                $formatted = $serialize->normalize("Comments a ete supprimee avec success.");
+                return new JsonResponse($formatted);
+            }
+        return new JsonResponse("id reclamation invalide.");
+    }
+
     #[Route('/comment/{postSlug}/new', methods: ['POST'], name: 'comment_new')]
     #[IsGranted('IS_AUTHENTICATED')]
     public function commentNew(

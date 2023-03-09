@@ -14,6 +14,7 @@ namespace App\Controller\Admin;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Form\PostType;
+use App\Event\PostCreatedEvent;
 use App\Repository\PostRepository;
 use App\Security\PostVoter;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +25,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+
 
 /**
  * Controller used to manage blog contents in the backend.
@@ -75,9 +82,12 @@ class BlogController extends AbstractController
         #[CurrentUser] User $user,
         Request $request,
         EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher,
+        MailerInterface $mailer
     ): Response {
         $post = new Post();
         $post->setAuthor($user);
+        
 
         // See https://symfony.com/doc/current/form/multiple_buttons.html
         $form = $this->createForm(PostType::class, $post)
@@ -86,18 +96,21 @@ class BlogController extends AbstractController
 
         $form->handleRequest($request);
 
-        // the isSubmitted() method is completely optional because the other
-        // isValid() method already checks whether the form is submitted.
-        // However, we explicitly add it to improve code readability.
-        // See https://symfony.com/doc/current/forms.html#processing-forms
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($post);
             $entityManager->flush();
-
-            // Flash messages are used to notify the user about the result of the
-            // actions. They are deleted automatically from the session as soon
-            // as they are accessed.
-            // See https://symfony.com/doc/current/controller.html#flash-messages
+            
+                // $email = (new TemplatedEmail())
+                // ->From('noreply@Aphrodite.com' )
+                // ->To('test@test.com') // $users should be an array of email addresses to send the email to
+                // ->htmlTemplate('emails/new_post_published.html.twig');
+                // try {
+                //     $mailer->send($email);
+                // } catch (TransportExceptionInterface $e) {
+                            
+                // }
+            $eventDispatcher->dispatch(new PostCreatedEvent($post));
             $this->addFlash('success', 'post.created_successfully');
 
             /** @var SubmitButton $submit */

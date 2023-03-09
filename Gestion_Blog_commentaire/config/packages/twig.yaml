@@ -7,3 +7,7 @@ twig:
 when@test:
     twig:
         strict_variables: true
+
+# twig:
+#     paths:
+#         '%kernel.project_dir%/vendor/brokoskokoli/star-rating-bundle/Resources/views': BrokoskokoliStarRatingBundle

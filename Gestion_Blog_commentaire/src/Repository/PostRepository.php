@@ -88,6 +88,11 @@ class PostRepository extends ServiceEntityRepository
 
         return $result;
     }
+    public function save(Post $post): void
+    {
+        $this->_em->persist($post);
+        $this->_em->flush();
+    }
 
     /**
      * Transforms the search string into an array of search terms.

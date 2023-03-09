@@ -25,6 +25,7 @@ class CommentController extends AbstractController
             ->getRepository(Comment::class)
             // ->findAll();
             ->findBy(['author' => $this->getUser()]);
+            
 
             
         return $this->render('comment/index.html.twig', [
@@ -44,6 +45,7 @@ class CommentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($comment);
+            $entityManager->flush();
             $this->addFlash('success', 'comment.created_successfully');
 
             return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
@@ -70,6 +72,7 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
             $this->addFlash('success', 'comment.updated_successfully');
 
             return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
@@ -86,6 +89,7 @@ class CommentController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
             $entityManager->remove($comment);
+            $entityManager->flush();
             $this->addFlash('success', 'comment.deleted_successfully');
         }
 

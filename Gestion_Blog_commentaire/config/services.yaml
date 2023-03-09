@@ -7,7 +7,7 @@ parameters:
     locale: 'en'
     # This parameter defines the codes of the locales (languages) enabled in the application
     app_locales: ar|en|fr|de|es|cs|nl|ru|uk|ro|pt_BR|pl|it|ja|id|ca|sl|hr|zh_CN|bg|tr|lt|bs|sr_Cyrl|sr_Latn|eu
-    app.notifications.email_sender: anonymous@example.com
+    app.notifications.email_sender: Ashraf@Aphrodite.com
 
 services:
     # default configuration for services in *this* file
@@ -31,6 +31,8 @@ services:
     # when the service definition only contains arguments, you can omit the
     # 'arguments' key and define the arguments just below the service class
     App\EventSubscriber\CommentNotificationSubscriber:
+        $sender: '%app.notifications.email_sender%'
+    App\EventSubscriber\PostNotificationSubscriber:
         $sender: '%app.notifications.email_sender%'
 
     Symfony\Component\Security\Http\Logout\LogoutUrlGenerator: '@security.logout_url_generator'

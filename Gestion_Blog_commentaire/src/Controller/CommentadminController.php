@@ -20,7 +20,7 @@ class CommentadminController extends AbstractController
     public function index(EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser(); // Get the logged-in user
-        echo ($user);
+        //echo ($user);
         $comments = $entityManager
             ->getRepository(Comment::class)
             ->findAll();
@@ -41,7 +41,7 @@ class CommentadminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($comment);
-            
+            $entityManager->flush();
             $this->addFlash('success', 'comment.created_successfully');
             return $this->redirectToRoute('admin_app_comment_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -67,6 +67,7 @@ class CommentadminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
             $this->addFlash('success', 'comment.updated_successfully');
 
             return $this->redirectToRoute('admin_app_comment_index', [], Response::HTTP_SEE_OTHER);
@@ -83,6 +84,7 @@ class CommentadminController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
             $entityManager->remove($comment);
+            $entityManager->flush();
             $this->addFlash('success', 'comment.deleted_successfully');
         }
 

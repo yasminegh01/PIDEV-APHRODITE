@@ -370,6 +370,14 @@
                 <source>notification.comment_created.description</source>
                 <target><![CDATA[Your post "{title}" has received a new comment. You can read the comment by following <a href="{link}">this link</a>]]></target>
             </trans-unit>
+            <trans-unit id="notification.post_created">
+                <source>notification.post_created</source>
+                <target>New post was published !</target>
+            </trans-unit>
+            <trans-unit id="notification.post_created.description">
+                <source>notification.post_created.description</source>
+                <target><![CDATA[The post "{title}" has published. You can read the post by following <a href="{link}">this link</a>]]></target>
+            </trans-unit>
 
             <trans-unit id="help.app_description">
                 <source>help.app_description</source>

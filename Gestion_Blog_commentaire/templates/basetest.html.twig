@@ -3,6 +3,11 @@
 {% block body_id 'admin_post_index' %}
     {% block body %}
     <head>
+      {# <!-- make sure that jquery is included --!> #}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="{{ asset('bundles/starrating/js/rating.js') }}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/starrating/css/rating.css') }}" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -44,11 +49,11 @@
             {% endblock %}
 
             {% block sidebar %}
-                <div class="section actions">
+                {# <div class="section actions">
                     <a href="{{ path('admin_post_new') }}" class="btn btn-lg btn-block btn-success">
                         <i class="fa fa-plus" aria-hidden="true"></i> {{ 'action.create_post'|trans }}
                     </a>
-                </div>
+                </div> #}
                 
             {% endblock %}
 </div>
