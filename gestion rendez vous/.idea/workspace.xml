@@ -4,34 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25f927c2-f906-403d-b2ec-352938f82e74" name="Changes" comment="second push DONE ✔">
-      <change afterPath="$PROJECT_DIR$/templates/appointment_request/index1.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/calendar/basecal.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/calendar/main/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gestion rendez vous.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gestion rendez vous.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="25f927c2-f906-403d-b2ec-352938f82e74" name="Changes" comment="second third DONE ✔">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AppointmentAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AppointmentAdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/AppointmentRequestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AppointmentRequestController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/FichePatientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FichePatientController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/AppointmentRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/AppointmentRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/FichePatient.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/FichePatient.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/AppointmentRequestType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/AppointmentRequestType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/aside.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/aside.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/appointment_request/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/appointment_request/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/show.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/appointment_request/showrdv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/appointment_request/showrdv.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/fiche_patient/_delete_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/_delete_form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/fiche_patient/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/_form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/fiche_patient/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/fiche_patient/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/fiche_patient/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/new.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/fiche_patient/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fiche_patient/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/calendar/main/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/calendar/main/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +233,9 @@
       <workItem from="1678012411215" duration="6490000" />
       <workItem from="1678028822021" duration="7124000" />
       <workItem from="1678220943465" duration="2521000" />
-      <workItem from="1678271503106" duration="2275000" />
+      <workItem from="1678271503106" duration="8382000" />
+      <workItem from="1678309380901" duration="459000" />
+      <workItem from="1678361750455" duration="16902000" />
     </task>
     <task id="LOCAL-00001" summary="crud done ✔✔">
       <created>1676933481626</created>
@@ -269,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677184785671</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="second third DONE ✔">
+      <created>1678278255184</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1678278255184</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -317,6 +306,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="crud done ✔✔" />
     <MESSAGE value="second push DONE ✔" />
-    <option name="LAST_COMMIT_MESSAGE" value="second push DONE ✔" />
+    <MESSAGE value="second third DONE ✔" />
+    <option name="LAST_COMMIT_MESSAGE" value="second third DONE ✔" />
   </component>
 </project>

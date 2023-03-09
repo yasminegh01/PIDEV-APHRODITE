@@ -31,7 +31,7 @@
                 <th scope="col">create fiche patient</th>
             </tr>
         </thead>
-        <tbody>
+            <tbody>
         {% for appointment_request in appointment_requests %}
 
             <tr>
@@ -44,8 +44,8 @@
                 <td>{{ appointment_request.email }}</td>
                 <td>{{ appointment_request.newOld }}</td>
                 <td>{{ appointment_request.appointmentprocedure }}</td>
-                <td>{{ appointment_request.appointmentdate ? appointment_request.appointmentdate|date('Y-m-d') : '' }}</td>
-                <td>{{ appointment_request.appointmentime ? appointment_request.appointmentime|date('H:i:s') : '' }}</td>
+{#                <td>{{ appointment_request.appointmentdate ? appointment_request.appointmentdate|date('Y-m-d') : '' }}</td>#}
+                <td>{{ appointment_request.appointmentime ? appointment_request.appointmentime|date('H') }}</td>
                 <td>{{ appointment_request.type }}</td>
                 <td>{{ appointment_request.lien }}</td>
                 <td>

@@ -16,6 +16,7 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Security\Core\Security;
 class AppointmentRequestType extends AbstractType
 {
@@ -61,7 +62,20 @@ class AppointmentRequestType extends AbstractType
                 )
             ))
             ->add('appointmentdate',DateType::class,['widget' => 'single_text','label' =>'Preferred Appointment Date'])
-            ->add('appointmentime')
+            ->add('appointmentime',choiceType::class, [
+                'widget' => 'single_text',
+                'input' => 'datetime',
+//                'minutes' => range(0, 59, 30), // sets 30-minute intervals
+//                'attr' => [
+//                    'min' => '09:00',
+//                    'max' => '17:00',
+//                ],
+                'choices'=>array(
+                    '09:00'=>'09:00',
+                    '09:30'=>'09:30'
+
+                )
+            ])
             ->add('type',choiceType::class,array(
                 'placeholder'=>'-SELECT-',
                 'empty_data' => null,

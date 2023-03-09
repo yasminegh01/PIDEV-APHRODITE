@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Validator\Constraints\Json;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\Time;
@@ -33,13 +33,18 @@ use Symfony\Component\Validator\Constraints\Time;
 #[IsGranted('IS_AUTHENTICATED')]
 class AppointmentRequestController extends AbstractController
 {
+    #[Route('/calendar123', name: 'app_calendar1', methods: ['GET'])]
+    public function calendar12(AppointmentRequestRepository $appointmentRequestRepository,FichePatientRepository $fichePatientRepository): Response
+    {
+        return $this->render('calendar/main/index.html.twig',['appointment_requests' => $appointmentRequestRepository->findAll(),]);
+    }
+
     #[Route('/', name: 'app_appointment_request_index', methods: ['GET'])]
     public function index(AppointmentRequestRepository $appointmentRequestRepository,FichePatientRepository $fichePatientRepository): Response
     {
         return $this->render('appointment_request/index.html.twig', [
             'appointment_requests' => $appointmentRequestRepository->findAll(),
             'fiche_patients' => $fichePatientRepository->findAll(),
-
         ]);
     }
     #[Route('/showrdv', name: 'app_appointment_show', methods: ['GET'])]
@@ -198,10 +203,5 @@ class AppointmentRequestController extends AbstractController
 
     }
 
-    #[Route('/calendar123', name: 'app_calendar', methods: ['POST','GET'])]
-    public function calendar12()
-    {
-        return $this->render('admin/calendar/basecal.html.twig');
-    }
 
 }
