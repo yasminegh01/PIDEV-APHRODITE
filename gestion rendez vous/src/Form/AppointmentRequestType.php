@@ -17,6 +17,7 @@ use App\Entity\Post;
 use App\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Security\Core\Security;
 class AppointmentRequestType extends AbstractType
 {
@@ -62,20 +63,16 @@ class AppointmentRequestType extends AbstractType
                 )
             ))
             ->add('appointmentdate',DateType::class,['widget' => 'single_text','label' =>'Preferred Appointment Date'])
-            ->add('appointmentime',choiceType::class, [
-                'widget' => 'single_text',
-                'input' => 'datetime',
-//                'minutes' => range(0, 59, 30), // sets 30-minute intervals
-//                'attr' => [
-//                    'min' => '09:00',
-//                    'max' => '17:00',
+            ->add('appointmentime')
+//            ->add('appointmentime', TimeType::class, [
+//                'widget' => 'choice',
+//                'input' => 'string',
+//                'minutes' => range(0, 59, 30),
+//                'required' => true,
+//                'constraints' => [
+//                    new NotBlank(),
 //                ],
-                'choices'=>array(
-                    '09:00'=>'09:00',
-                    '09:30'=>'09:30'
-
-                )
-            ])
+//            ])
             ->add('type',choiceType::class,array(
                 'placeholder'=>'-SELECT-',
                 'empty_data' => null,
@@ -96,6 +93,22 @@ class AppointmentRequestType extends AbstractType
                 
             ])
         ;
+    }
+
+    private function getAvailableTimes()
+    {
+        $startTime = strtotime('09:00');
+        $endTime = strtotime('17:00');
+        $interval = 1800; // 30 minutes in seconds
+        $times = [];
+
+        while ($startTime <= $endTime) {
+            $time = date('H:i', $startTime);
+            $times[$time] = date('h:i A', $startTime);
+            $startTime += $interval;
+        }
+
+        return $times;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

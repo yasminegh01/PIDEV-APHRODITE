@@ -9,6 +9,7 @@ use App\Repository\FichePatientRepository;
 
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Monolog\DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,13 +61,16 @@ class AppointmentRequestController extends AbstractController
     public function new(Request $request, AppointmentRequestRepository $appointmentRequestRepository): Response
     {
         $user = $this->getUser();
-        //echo ($user);
+      echo ($user);
         $appointmentRequest = new AppointmentRequest();
         $appointmentRequest->setIdPatient($user);
         $form = $this->createForm(AppointmentRequestType::class, $appointmentRequest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            $appointmentimeString = $form->get('appointmentime')->getData();
+//            $appointmentime = \DateTime::createFromFormat('H:i', $appointmentimeString);
+//            $appointmentRequest->setAppointmentime($appointmentime);
             $appointmentRequestRepository->save($appointmentRequest, true);
 
             return $this->redirectToRoute('app_base', [], Response::HTTP_SEE_OTHER);
