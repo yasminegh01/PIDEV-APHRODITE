@@ -1,0 +1,70 @@
+    {% extends 'admin/aside.html.twig' %}
+
+    
+    {% block body %}
+
+            
+            <div class="row">
+                <div class="col-12">
+
+
+
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                    <a href="{{ path('app_produit_new') }}">Create new</a>
+                                    <a href="{{ path('produit_list') }}">PDF</a>
+
+
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nom</th>
+                                            <th>Quantite</th>
+                                            <th>Prix</th>
+                                            <th>Categorie</th>
+                                            <th>Description</th>
+                                            <th>promo</th>
+                                            <th>Image</th>
+                                            <th>actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for produit in produits %}
+                                            <tr>
+                                                <td>{{ produit.id }}</td>
+                                                <td>{{ produit.nom }}</td>
+                                                <td>{{ produit.quantite }}</td>
+                                                <td>{{ produit.prix }}</td>
+                                                <td>{{ produit.categorie }}</td>
+                                                <td>{{ produit.description }}</td>
+                                                <td>{{ produit.getPromoPourcent() }}%</td>
+                                                <td><img src="{{produit.image}}" alt="" style="width:100px;"></td>
+                                                <td>
+                                                    <form method="post" action="{{ path('app_produit_delete', {'id': produit.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produit.id) }}">
+                                                        <button class="btn">Delete</button>
+                                                    </form>                                                    
+                                                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="7">no records found</td>
+                                            </tr>
+                                        {% endfor %}
+                                     </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+           
+    {% endblock %}
+

@@ -1,0 +1,46 @@
+    {% extends 'admin/aside.html.twig' %}
+
+    
+    {% block body %}
+                <div class="row">
+                
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                            </div>
+
+                            <h1> Promotion</h1>
+                            {{ form_start(form,{attr:{'novalidate':'novalidate'}}) }}
+                            <div class="form-group">
+                                {{ form_label(form.dateDebutAt, 'Debut') }}
+                                {{ form_widget(form.dateDebutAt, { 'attr': {'class': 'form-control form-control-line'} }) }}
+                                {{ form_errors(form.dateDebutAt) }}
+                            </div>
+                            <p style="color:red;">{{erreurDebut}}
+                            <div class="form-group">
+                                {{ form_label(form.dateFinAt, 'Fin') }}
+                                {{ form_widget(form.dateFinAt, { 'attr': {'class': 'form-control form-control-line'} }) }}
+                                {{ form_errors(form.dateFinAt) }}
+                            </div>
+                            <p style="color:red;">{{erreurFin}}
+
+                            <div class="form-group">
+                                {{ form_label(form.pourcentage, 'pourcentage %') }}
+                                {{ form_widget(form.pourcentage, { 'attr': {'class': 'form-control form-control-line'} }) }}
+                                {{ form_errors(form.pourcentage) }}
+                            </div>
+                            
+                            
+                            <button type="submit" class="btn btn-success text-white">Save</button>
+                            {{ form_end(form) }}
+
+                             <a href="{{ path('app_promotion_index') }}">back to list</a>
+
+
+                        </div>
+                    </div>
+            </div>
+           
+    {% endblock %}
+

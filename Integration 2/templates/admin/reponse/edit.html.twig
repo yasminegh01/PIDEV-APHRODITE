@@ -1,0 +1,13 @@
+{% extends 'admin/aside.html.twig' %}
+
+{% block title %}Edit Reponse{% endblock %}
+
+{% block body %}
+    <h1>Edit Reponse</h1>
+
+    {{ include('admin/reponse/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_reclamation') }}">back to list</a>
+
+
+{% endblock %}

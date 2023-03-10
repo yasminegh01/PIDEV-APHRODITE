@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Reclamation index{% endblock %}
+
+{% block body %}
+
+<div class="page-section pt-5">
+    <div class="container">
+    <div class="col-lg-8">
+        <nav aria-label="Breadcrumb">
+            <ol class="breadcrumb bg-transparent py-0 mb-5">
+                <li class="breadcrumb-item"><a href="index.html">Profile</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Mes reclamation</li>
+            </ol>
+        </nav>
+    </div>
+
+    <table class="table table-hover mb-5 ">
+        <thead>
+            <tr>
+
+                <th>Titre</th>
+                <th>Message</th>
+                <th>Etat</th>
+                <th>Message recu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+
+                <td>{{ reclamation.titre }}</td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalCenter{{ reclamation.id }}">
+                        <i class="fa fa-comment" aria-hidden="true"></i>
+                    </button>
+
+                    <div class="modal fade" id="exampleModalCenter{{ reclamation.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="modal-title" id="exampleModalLongTitle">Message envoyé</h6>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ reclamation.message }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+
+                {#                <td>{{ reclamation.etat ? 'Yes' : 'No' }}</td>#}
+                <td>{% if reclamation.Reponse is not null and reclamation.Reponse.reponse is not empty  %}
+                        <h6> <span class="badge badge-pill badge-success">Terminé</span></h6>
+                    {% else %}
+                        <h6> <span class="badge badge-pill badge-secondary">En cours</span></h6>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if reclamation.Reponse is not null and reclamation.Reponse.reponse is not empty %}
+                        <button type="button" class="btn-sm btn-success" data-toggle="modal" data-target="#exampleModalCenter{{ reclamation.Reponse.id }}">
+                            <i class="fa fa-comment" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="modal fade" id="exampleModalCenter{{ reclamation.Reponse.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title" id="exampleModalLongTitle">Message envoyé</h6>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ reclamation.Reponse.reponse }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% else %}
+                        <span class="text-muted">Pas encore</span>
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    {% if reclamation.Reponse is not null and reclamation.Reponse.reponse is not empty  %}
+                        <span class="text-muted">Terminé</span>
+                    {% else %}
+                        <button class="btn-sm btn-light ">
+                            <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">Modifier</a>
+                        </button>
+
+
+                        {{ include('reclamation/_delete_form.html.twig') }}
+                    {% endif %}
+
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucune reclamation</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_new') }}">Create new</a>
+
+</div>
+</div>
+{% endblock %}

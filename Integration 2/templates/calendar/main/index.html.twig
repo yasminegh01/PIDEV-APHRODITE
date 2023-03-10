@@ -1,0 +1,68 @@
+{% extends 'admin/aside.html.twig' %}
+{% block body %}
+<head>
+    <meta charset='utf-8' />
+    <title> calendar </title>
+
+
+
+</head>
+<body>
+
+<h1>Appointment Booking For</h1>
+
+
+
+ <div class="row flex-nowrap overflow-auto">
+
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+
+<script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            selectable: true,
+            select: function(start, end, jsEvent, view) {
+                var title = prompt('Enter appointment title:');
+                if (title) {
+                    $('#calendar').fullCalendar('renderEvent', {
+                        title: title,
+                        start: start,
+                        end: end,
+                        allDay: false
+                    }, true);
+                }
+                $('#calendar').fullCalendar('unselect');
+            },
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            defaultView: 'month',
+            eventLimit: true,
+            editable: false,
+            events: [
+                // Add pre-booked appointments here as events with title, start, and end properties
+                {% for appointment_request in appointment_requests %}
+                {
+                    title: 'type : {{ appointment_request.type }} for: {{ appointment_request.name }}',
+                    start: '{{ appointment_request.appointmentdate ? appointment_request.appointmentdate|date('Y-m-d') : '' }}T{{ appointment_request.appointmentime ? appointment_request.appointmentime|date('H:i:s') : '' }}',
+                    end: moment('{{ appointment_request.appointmentdate ? appointment_request.appointmentdate|date('Y-m-d') : '' }}T{{ appointment_request.appointmentime ? appointment_request.appointmentime|date('H:i:s') : '' }}').add(30, 'minutes').format('YYYY-MM-DDT HH:mm:ss'),
+                    description: '{{ appointment_request.type }}',
+                },
+                {% endfor %}
+            ],
+            editable: false,
+            eventResizableFromStart: true,
+            slotDuration: '00:30:00',
+            minTime: '08:00:00',
+            maxTime: '17:30:00'
+        });
+    });
+</script>
+<div id='calendar'></div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Reclamation{% endblock %}
+
+{% block body %}
+<div class="page-section pb-0">
+    <div class="container">
+        <div class="row d-flex justify-content-center" >
+            <div class="col-lg-7 py-3 wow fadeInUp flex align-items-center" >
+                <h1>Vous n'etes pas trop satisfer !!</h1>
+                <p class="text-grey mb-4 mt-4">Lorem ipsum dolor sit amet sed diam voluptua. At vero eos et accusam et justo duo dolores! Placeat voluptates esse ut optio facilis!</p>
+
+            </div>
+            <div class="col-lg-3 wow fadeInRight" data-wow-delay="400ms">
+                <div class="img-place custom-img-1">
+                    <img src="../assets/img/non-satisfait.png" alt="">
+                </div>
+            </div>
+        </div>
+
+
+    {{ include('reclamation/_form.html.twig') }}
+
+
+    <button class="btn btn-light ">
+        <a href="{{ path('app_reclamation_index') }}">Retour</a>
+    </button>
+    </div>
+</div>
+{% endblock %}

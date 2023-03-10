@@ -1,0 +1,14 @@
+{% extends 'admin/aside.html.twig' %}
+
+{% block title %}New Reponse{% endblock %}
+
+{% block body %}
+    <h2>Envoyer une Reponse</h2>
+<hr>
+    <h4>Titre de la réclamation : {{ reclamation.getTitre() }}</h4>
+    <h6>Contenu de la réclamation : {{ reclamation.getMessage() }}</h6>
+<br>
+    {{ include('admin/reponse/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_reclamation') }}">Retour</a>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'admin/aside.html.twig' %}
+
+{% block title %}AppointmentRequest index{% endblock %}
+
+{% block body %}
+
+<div >
+    <h1>create new appoitment</h1>
+
+    <div>
+        <a href="{{ path('app_appointment_admin_new') }}" class="btn btn-info" role="button">Add new appointment</a>
+        <div class="row flex-nowrap overflow-auto">
+    <table class="table table-bordered" >
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">Birthday</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Email</th>
+                <th scope="col">New/old</th>
+                <th scope="col">Appointment procedure</th>
+                <th scope="col">Appointment date</th>
+                <th scope="col">Appointment time</th>
+                <th scope="col">Type</th>
+                <th scope="col">Lien</th>
+                <th scope="col">Actions</th>
+                <th scope="col">status</th>
+                <th scope="col">create fiche patient</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for appointment_request in appointment_requests %}
+
+            <tr>
+                <td>{{ appointment_request.id }}</td>
+                <td>{{ appointment_request.name }}</td>
+                <td>{{ appointment_request.lastname }}</td>
+                <td>{{ appointment_request.birthday ? appointment_request.birthday|date('Y-m-d') : '' }}</td>
+                <td>{{ appointment_request.gender }}</td>
+                <td>{{ appointment_request.phonenumber }}</td>
+                <td>{{ appointment_request.email }}</td>
+                <td>{{ appointment_request.newOld }}</td>
+                <td>{{ appointment_request.appointmentprocedure }}</td>
+                <td>{{ appointment_request.appointmentdate ? appointment_request.appointmentdate|date('Y-m-d') : '' }}</td>
+                <td>{{ appointment_request.appointmentime ? appointment_request.appointmentime|date('H:i:s') : '' }}</td>
+                <td>{{ appointment_request.type }}</td>
+                <td>{{ appointment_request.lien }}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href="{{ path('app_appointment_request_show', {'id': appointment_request.id}) }}" class="btn btn-success" role="button">show</a>
+                    <a href="{{ path('app_appointment_request_edit', {'id': appointment_request.id}) }}" class="btn btn-primary" role="button">edit</a>
+                    {% if appointment_request.status == 'pending' %}
+                        <a href="{{ path('form_approve', {'id': appointment_request.id}) }}" class="btn btn-secondary" role="button">Approve</a>
+                        <a href="{{ path('form_reject', {'id': appointment_request.id}) }}" class="btn btn-danger" role="button">Reject</a>
+                    {% endif %}
+
+                    </div>
+                </td>
+
+                <td> <a class="btn btn-secondary" role="button" disabled="true"> {{ appointment_request.status }}</a></td>
+{#                    {% for fiche in fiche_patients %}#}
+{#                    {% endfor %}#}
+{#{% if fiche_patients.rendezVous == null  %}#}
+                <td><a href="{{ path('app_fiche_patient_new', {'id': appointment_request.id}) }}" class="btn btn-dark" role="button">Create </a>
+
+                </td>
+{#                {% else %}#}
+{#                    <h6>created</h6>#}
+{#                    {% endif %}#}
+
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        </div>
+    </div>
+
+
+</div>
+    <div id="calendar-holder"></div>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css">
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
+    {% endblock %}
+{% endblock %}

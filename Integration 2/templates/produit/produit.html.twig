@@ -1,0 +1,264 @@
+{% extends 'base.html.twig' %}
+
+{% block blog %} active {% endblock %}
+
+{% block body %}
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvHg2E3bOHns4yCQJ4ogiFR9wllEg4Z0E"></script>
+
+  <script type="text/javascript">
+
+  function initialize() {
+  // Creating map object
+  var map = new google.maps.Map(document.getElementById('map_canvas'), {
+  zoom: 12,
+  center: new google.maps.LatLng(28.47399, 77.026489),
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+  // creates a draggable marker to the given coords
+  var vMarker = new google.maps.Marker({
+  position: new google.maps.LatLng(document.getElementById('txtLat').value, document.getElementById('txtLng').value),
+    label: {
+      text: "Aphrodite",
+      color: "#000000",
+      fontWeight: "bold"
+    },
+  draggable: true
+  });
+  // adds a listener to the marker
+  // gets the coords when drag event ends
+  // then updates the input with the new coords
+  google.maps.event.addListener(vMarker, 'dragend', function (evt) {
+  $("#txtLat").val(evt.latLng.lat().toFixed(6));
+  $("#txtLng").val(evt.latLng.lng().toFixed(6));
+  map.panTo(evt.latLng);
+  });
+  // centers the map on markers coords
+  map.setCenter(vMarker.position);
+  // adds the marker on the map
+  vMarker.setMap(map);
+  }
+
+
+  </script>
+
+
+
+
+
+
+
+<body  onload="initialize()">
+
+  <div class="page-banner overlay-dark bg-image" style="background-image: url(../assets/img/bg_image_1.jpg);">
+    <div>
+      <div style="display: none;" id="myDIVR">
+        <label for="latitude">
+          Latitude:
+        </label>
+
+        {% for produit in produits %}
+        <input id="txtLat" name="txtLat" type="hidden" style="color:black" value="{{ produit.lat}}" onchange="initialize();" />
+
+
+        <label for="longitude">
+          Longitude:
+        </label>
+        <input id="txtLng" name="txtLng" type="hidden" style="color:black" value="{{ produit.lon }}" onchange="initialize();" />
+      </div>
+      {% endfor %}
+      <div id="map_canvas" style="width: auto; height: 200px;">
+      </div>
+
+
+
+
+    </div>
+
+
+
+
+    <div class="banner-section">
+      <br>
+      <br>
+      <br>
+
+      <div class="container text-center wow fadeInUp">
+        <nav aria-label="Breadcrumb">
+          <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Produit</li>
+          </ol>
+        </nav>
+        <h1 class="font-weight-normal">Nos Produit</h1>
+      </div> <!-- .container -->
+    </div> <!-- .banner-section -->
+  </div> <!-- .page-banner -->
+
+  <div class="page-section">
+    <div class="container">
+    <div class="col-lg-8 wow fadeInUp">
+          <h1 class="text-center mb-3"></h1>
+          <div class="text-lg">
+<p><p>Nous vous invitons à visiter notre magasin Aphrodite .
+Une large sélection d'articles vous attendent !
+Adresse : voir sur google maps "Aphrodite"</p></p>          </div>
+        </div>          
+        <br>        <br>
+        <br>
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="row">
+        {% for produit in produits %}
+                {# <td>{{ produit.id }}</td>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.quantite }}</td>
+                <td>{{ produit.prix }}</td>
+                <td>{{ produit.categorie }}</td>
+                <td>{{ produit.description }}</td> #}
+            <div class="col-sm-6 py-3">
+              <div class="card-blog">
+                <div class="header">
+                  <div class="post-category">
+                  {% if  produit.getPromoPourcent() %}
+                    
+                    <a href="#">{{ produit.getPromoPourcent() }}%</a>
+                  {% endif %}
+                  </div>
+                  <a href="blog-details" class="post-thumb">
+                    <img src="{{produit.image}}" alt="">
+                  </a>
+                </div>
+                <div class="body">
+                  <h5 class="post-title"><a href="blog-details.html">{{ produit.nom }}</a></h5>
+                  <div class="site-info">
+                    <div class="avatar mr-2">
+                      
+                      <h4>{{ produit.prix }}Dt</h4>
+
+                    </div>
+                    <br>
+                  {% if  produit.getPromoPourcent() %}
+
+                    <h2 style="color:red;"> {{produit.prix -( produit.getPromoPourcent() * produit.prix)/100}}Dt</h2>
+                  {% endif %}
+
+                    <span > {{produit.categorie}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+
+            
+
+           
+
+            <div class="col-12 my-5">
+              <nav aria-label="Page Navigation">
+                {# <ul class="pagination justify-content-center">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                  </li>
+                  <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                  </li>
+                </ul> #}
+                <div class="navigation">
+                    {{ knp_pagination_render(produits) }}
+                </div>
+              </nav>
+            </div>
+          </div> <!-- .row -->
+        </div>
+        <div class="col-lg-4">
+          <div class="sidebar">
+            <div class="sidebar-block">
+              <h3 class="sidebar-title">Search</h3>
+              <form action="#" class="search-form">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+                  <button type="submit" class="btn"><span class="icon mai-search"></span></button>
+                </div>
+              </form>
+            </div>
+            <div class="sidebar-block">
+              <h3 class="sidebar-title">Categories</h3>
+              <ul class="categories">
+              
+
+
+                <li><a href="{{path('app_produit_triMed')}}">medicament bio </a></li>
+                <li><a href="{{path('app_produit_triVit')}}">vitamins </a></li>
+                <li><a href="{{path('app_produit_triVet')}}">vetements </a></li>
+                
+              </ul>
+            </div>
+
+            <div class="sidebar-block">
+              <h3 class="sidebar-title"></h3>
+
+
+
+              <div class="blog-item">
+
+                <div class="content">
+                  <p class="text-secondary"></p>
+
+                </div>
+              </div>
+
+            </div>
+
+            <div class="sidebar-block">
+              <h3 class="sidebar-title">Partage </h3>
+              <div class="tagcloud">
+<!--
+                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                  <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook mr-2 icon-inline text-primary"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Facebook</h6>
+                  <span class="text-secondary"><div class="fb-share-button" data-href={{app.request.uri}} data-layout="box_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div></span>
+                </li>
+-->
+
+
+                  <table>
+                  <!-- Facebook -->
+                  <td><a target="_blank" title="Facebook" href="https://www.facebook.com/sharer.php?u=" + (encodeURIComponent() rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"><img src="{{ asset('images/facebook_icon.png') }}" alt="Facebook" /></a></td>
+
+                  <!-- Twitter -->
+                  <td><a target="_blank" title="Twitter" href="https://twitter.com/share?url=https://bit.ly/2sI7H3v" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;"><img src="{{ asset('images/twitter_icon.png') }}" alt="Twitter" /></a></td>
+                  <!-- //Twitter -->
+
+                  <!-- Google + -->
+                  <td><a target="_blank" title="Google +" href="https://plus.google.com/share?url=https://tontonduweb.com/previews-warc/genieCivil/article1.html" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=650');return false;"><img src="{{ asset('images/gplus_icon.png') }}" alt="Google Plus" /></a></td>
+                  <!-- //Google + -->
+
+                  <!-- Linkedin -->
+                  <td> <a target="_blank" title="Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://tontonduweb.com/previews-warc/genieCivil/article1.html" rel="nofollow" onclick="javascript:window.open(this.href, '','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=650');return false;"><img src="{{ asset('images/linkedin_icon.png') }}" alt="Linkedin" /></a></td>
+                  <!-- //Linkedin -->
+
+                  <!-- Email -->
+                  <td> <a target="_blank" title="Envoyer par mail" href="mailto:?Subject=Regarde ça c'est cool !&amp;Body=regarde%20cet%20article%20c'est%20super !%20 https://tontonduweb.com/previews-warc/genieCivil/article1.html" rel="nofollow"><img src="{{ asset('images/email_icon.png') }}" alt="email" /></a></td>
+                  <!-- //Email -->
+                </table>
+              </div>
+            </div>
+
+            <div class="sidebar-block">
+              <h3 class="sidebar-title">Paragraph</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+            </div>
+          </div>
+        </div> 
+      </div> <!-- .row -->
+    </div> <!-- .container -->
+  </div> <!-- .page-section -->
+</body>
+
+{% endblock %}

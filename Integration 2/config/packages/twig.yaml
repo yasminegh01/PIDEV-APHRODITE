@@ -1,0 +1,13 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    form_themes:
+        - 'form/layout.html.twig'
+        - 'form/fields.html.twig'
+
+when@test:
+    twig:
+        strict_variables: true
+
+# twig:
+#     paths:
+#         '%kernel.project_dir%/vendor/brokoskokoli/star-rating-bundle/Resources/views': BrokoskokoliStarRatingBundle

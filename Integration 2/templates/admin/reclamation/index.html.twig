@@ -1,0 +1,106 @@
+{% extends './admin/aside.html.twig' %}
+
+
+    {% block body %}
+
+        <div class="page-section pt-5">
+        <div class="container">
+
+        <table class="table table-hover mb-5 ">
+            <thead>
+            <tr>
+
+                <th>Titre</th>
+                <th>Message recu</th>
+
+                <th>Actions</th>
+                <th>Message à envoyé</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for reclamation in reclamations %}
+                <tr>
+
+                    <td>{{ reclamation.titre }}</td>
+                    <td>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter{{ reclamation.id }}">
+                            <i class="fa fa-comment" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="modal fade" id="exampleModalCenter{{ reclamation.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title" id="exampleModalLongTitle">Message envoyé</h6>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ reclamation.message }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    <td>
+
+                        {{ include('admin/reclamation/_delete_reclamation.html.twig') }}
+                    </td>
+
+                    <td>
+                        {% if reclamation.Reponse is not null and reclamation.Reponse.reponse is not empty  %}
+                            <a href="{{ path('app_admin_reponse_edit', {'id': reclamation.Reponse.id}) }}">Modifier</a>
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter{{ reclamation.Reponse.id }}">
+                                <i class="fa fa-comment" aria-hidden="true"></i>
+                            </button>
+
+                            <div class="modal fade" id="exampleModalCenter{{ reclamation.Reponse.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h6 class="modal-title" id="exampleModalLongTitle">Message envoyé</h6>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ reclamation.Reponse.reponse }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        {% else %}
+                            <a href="{{ path('app_admin_reponse_new', {'id': reclamation.id}) }}">Repandre</a>
+                        {% endif %}
+
+
+
+                    </td>
+
+
+
+                </tr>
+
+
+            {% else %}
+                <tr>
+                    <td colspan="5">Pas de reclamation</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        </div>
+        </div>
+
+    {% endblock %}
+
+

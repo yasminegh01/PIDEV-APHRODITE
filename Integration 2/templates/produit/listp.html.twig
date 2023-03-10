@@ -1,0 +1,38 @@
+{% block body %}
+    <h1 align= "center"> LISTE DES PRODUITS   </h1>
+
+<br>
+<br>
+<br>
+<center>
+<div >
+                                <table class="table "style="margin-left:10px;width:1000px;">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Quantite</th>
+                                            <th>Prix</th>
+                                            <th>Categorie</th>
+                                            <th>Description</th>
+                                            <th>promo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for produit in produits %}
+                                            <tr>
+                                                <td>{{ produit.nom }}</td>
+                                                <td>{{ produit.quantite }}</td>
+                                                <td>{{ produit.prix }}</td>
+                                                <td>{{ produit.categorie }}</td>
+                                                <td>{{ produit.description }}</td>
+                                                <td>{{ produit.getPromoPourcent() }}%</td>
+                                                
+                                            </tr>
+                                        
+                                        {% endfor %}
+                                     </tbody>
+                                </table>
+                            </div>
+
+</center>
+{% endblock %}

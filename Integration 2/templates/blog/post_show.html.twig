@@ -1,0 +1,218 @@
+{% extends 'basetest.html.twig' %}
+
+
+{% block main %}
+    <h1>{{ post.title }}</h1>
+                {% if app.session.flashBag.has('success') %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                        {% for message in app.flashes('success') %}
+                            {{ message|trans }}
+                        {% endfor %}
+
+                    </div>
+                    <script>
+                    //5 sec bech thidde
+                        document.addEventListener("DOMContentLoaded", function() {
+                            const alert = document.querySelector('.alert');
+                            alert.classList.add('show');
+                            setTimeout(function() {
+                                alert.classList.remove('show');
+                            }, 5000);
+                        });
+                    </script>
+                {% endif %}
+    <p class="post-metadata">
+        <span class="metadata"><i class="fa fa-calendar"></i> {{ post.publishedAt|format_datetime('long', 'medium', '', 'UTC') }}</span>
+        <span class="metadata"><i class="fa fa-user"></i> {{ post.author.fullName }}</span>
+    </p>
+
+    {{ post.content|markdown_to_html|sanitize_html }}
+    {# {{ 'fffdf'|rating }} #}
+    {% if not post.tags.empty %}
+    <p class="post-tags">
+        {% for tag in post.tags %}
+            <a href="{{ path('blog_index', {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}"
+               class="label label-{{ tag.name == app.request.query.get('tag') ? 'success' : 'default' }}" style="color: black;"
+            >
+                <i class="fa fa-tag"></i> {{ tag.name }}
+            </a>
+        {% endfor %}
+    </p>
+{% endif %}
+{# <div class="row align-items-center">
+  <div class="col-md-12"> #}
+    <div class="rating col-2 col-sm-3 text-center" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rating System</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+    <div align="center" style="background: #fff; padding: 2px; font-size: 15px; color: white;">
+        <i class="fa fa-star fa-1x" data-index="0"></i>
+        <i class="fa fa-star fa-1x" data-index="1"></i>
+        <i class="fa fa-star fa-1x" data-index="2"></i>
+        <i class="fa fa-star fa-1x" data-index="3"></i>
+        <i class="fa fa-star fa-1x" data-index="4"></i>
+        <br><br>
+        <?php echo round($avg,2) ?>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+    <script>
+var ratedIndex = -1, uID = 0;
+$(document).ready(function () {
+    resetStarColors();
+
+    if (localStorage.getItem('ratedIndex') != null) {
+        setStars(parseInt(localStorage.getItem('ratedIndex')));
+        uID = localStorage.getItem('uID');
+    }
+
+    $('.fa-star').on('click', function () {
+        ratedIndex = parseInt($(this).data('index')) + 1;
+        localStorage.setItem('ratedIndex', ratedIndex);
+        saveToTheDB();
+        showAverage();
+    });
+
+    $('.fa-star').mouseover(function () {
+        resetStarColors();
+        var currentIndex = parseInt($(this).data('index')) + 1;
+        setStars(currentIndex);
+    });
+
+    $('.fa-star').mouseleave(function () {
+        resetStarColors();
+
+        if (ratedIndex != -1)
+            setStars(ratedIndex);
+    });
+
+    showAverage();
+});
+
+function saveToTheDB() {
+    var currentUrl = window.location.pathname;
+    var ratingUrl = currentUrl + '/rating';
+    $.ajax({
+        url: ratingUrl,
+        method: "POST",
+        dataType: 'json',
+        data: {
+            save: 1,
+            uID: uID,
+            ratedIndex: ratedIndex
+        },
+        success: function (r) {
+            uID = r.id;
+            localStorage.setItem('uID', uID);
+        }
+    });
+}
+
+function setStars(max) {
+    for (var i = 0; i <= max - 1; i++)
+        $('.fa-star:eq(' + i + ')').css('color', 'green');
+}
+
+function resetStarColors() {
+    $('.fa-star').css('color', 'grey');
+}
+
+function showAverage() {
+    var currentUrl = window.location.pathname;
+    var ratingUrl = currentUrl + '/rating';
+    $.ajax({
+        url: ratingUrl,
+        method: "GET",
+        dataType: 'json',
+        data: {
+            get_avg: 1
+        },
+        success: function (r) {
+            var avg = parseInt(r.avg);
+            if(avg > 0) {
+              $('#average').text(avg);
+              setStars(avg);
+            }
+        }
+    });
+}
+
+
+</script>
+</body>
+    </div>
+  {# </div>
+</div> #}
+    <div id="post-add-comment" class="well">
+        {# The 'IS_AUTHENTICATED_FULLY' role ensures that the user has entered
+        their credentials (login + password) during this session. If they
+        are automatically logged via the 'Remember Me' functionality, they won't
+        be able to add a comment.
+        See https://symfony.com/doc/current/security/remember_me.html#forcing-the-user-to-re-authenticate-before-accessing-certain-resources
+        #}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {{ render(controller('App\\Controller\\BlogController::commentForm', {'id': post.id})) }}
+        {% else %}
+            <p>
+                <a class="btn btn-success" href="{{ path('security_login', {'redirect_to': app.request.pathInfo}) }}">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i> {{ 'action.sign_in'|trans }}
+                </a>
+                {{ 'post.to_publish_a_comment'|trans }}
+            </p>
+        {% endif %}
+    </div>
+
+    <h3>
+        <i class="fa fa-comments" aria-hidden="true"></i> {{ 'post.num_comments'|trans({ 'count': post.comments|length }) }}
+    </h3>
+
+            {% for comment in post.comments %}
+        <div class="row post-comment">
+        <a name="comment_{{ comment.id }}"></a>
+        <h4 class="col-sm-3">
+        {{ comment.author.fullName }} {{ 'post.commented_on'|trans }}
+        {{ comment.publishedAt|format_datetime('medium', 'short', '', 'UTC') }}
+        </h4>
+        <div class="col-sm-6">
+        {{ comment.content|markdown_to_html|sanitize_html }}
+        </div>
+        {% if app.user and app.user.id == comment.author.id %}
+        <div class="col-sm-3 d-flex align-items-center justify-content-end">
+            <a href="{{ path('app_comment_edit', {'id': comment.id}) }}" >{{ 'Edit'|trans }}</a> |
+            {{ include('comment/_delete_form.html.twig', {'comment': comment}) }}
+        </div>
+        {% endif %}
+        </div>
+        {% else %}
+        <div class="post-comment">
+        <p>{{ 'post.no_comments'|trans }}</p>
+        </div>
+        {% endfor %}
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="{{ asset('//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-63e82e09228fbc03') }}"></script>
+
+{% endblock %}
+
+{% block sidebar %}
+    {% if is_granted('edit', post) %}
+        <div class="section">
+            <a class="btn btn-lg btn-block btn-success" href="{{ path('admin_post_edit', {id: post.id}) }}">
+                <i class="fa fa-edit" aria-hidden="true"></i> {{ 'action.edit_post'|trans }}
+            </a>
+        </div>
+    {% endif %}
+
+    {# the parent() function includes the contents defined by the parent template
+      ('base.html.twig') for this block ('sidebar'). This is a very convenient way
+      to share common contents in different templates #}
+    
+
+
+{% endblock %}
+

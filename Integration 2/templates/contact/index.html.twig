@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block contact %} active {% endblock %}
+{% block body %}
+
+    <div class="page-banner overlay-dark bg-image" style="background-image: url(../assets/img/bg_image_1.jpg);">
+        <div class="banner-section">
+            <div class="container text-center wow fadeInUp">
+                <nav aria-label="Breadcrumb">
+                    <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                    </ol>
+                </nav>
+                <h1 class="font-weight-normal">Contact</h1>
+            </div> <!-- .container -->
+        </div> <!-- .banner-section -->
+    </div>
+
+    <div class="bg-white p-5 contact-form">
+        <div class="form-group">
+            {{ form_start(form) }}
+            {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+
+
+        </div>
+        <div class="form-group">
+            {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+
+        </div>
+        <div class="form-group">
+            {{ form_row(form.message, {'attr': {'class': 'form-control'}}) }}
+
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Send" class="btn btn-primary py-3 px-5">
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+    </div>
+{% endblock %}

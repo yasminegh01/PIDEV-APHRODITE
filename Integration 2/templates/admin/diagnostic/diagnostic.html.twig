@@ -1,0 +1,155 @@
+{% extends 'admin/aside.html.twig' %}
+
+
+{% block body %}
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-12">
+
+
+
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+
+
+                                <h4 class="card-title">you have {{ diagnostics | length }} diagnostics </h4>
+
+                            </div>
+                            <div class="table-responsive">
+                                <a href="{{ path('app_diagnostic_new_admin') }}" >ajouter</a>
+                                <table class="table table-hover" id="dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Overweight</th>
+                                        <th scope="col">Cigarettes</th>
+                                        <th scope="col">Recently Injured</th>
+                                        <th scope="col">High Cholesterol</th>
+                                        <th scope="col">Hyper Tension</th>
+                                        <th scope="col">Diabetes</th>
+                                        <th scope="col">Symptoms</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Actions</th>
+                                        <th scope="col">Result</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for diagnostic in diagnostics %}
+                                        <tr>
+                                            <th scope="row">{{ diagnostic.id }}</th>
+                                            <td>{{ diagnostic.age }}</td>
+                                            <td>{{ diagnostic.overweight }}</td>
+                                            <td>{{ diagnostic.cigarettes }}</td>
+                                            <td>{{ diagnostic.RecentlyInjured }}</td>
+                                            <td>{{ diagnostic.highCholesterol }}</td>
+                                            <td>{{ diagnostic.hyperTension }}</td>
+                                            <td>{{ diagnostic.diabetes }}</td>
+                                            <td>{{ diagnostic.symptoms|join(', ') }}</td>
+                                            <td>{{ diagnostic.date|date('d/m/Y H:i') }}</td>
+                                            <td>
+                                                <a href="{{ path('app_diagnostic_edit_admin', {'id': diagnostic.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+                                                <br>
+                                                <br>
+                                                {{ include('admin/diagnostic/_delete_form.html.twig') }}
+                                            </td>
+                                            <td>
+                                                {% if diagnostic.resultat is not null %}
+                                                    {{ diagnostic.resultat.action }}({{ diagnostic.resultat.possibility }}%)
+                                                {% else %}
+                                                    N/A
+                                                    <hr>
+                                                    <a href="{{ path('app_diagnostic_resultat_admin', {'id': diagnostic.id}) }}" class="btn btn-info btn-primary">saisir resultat</a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+
+                                    {% endfor %}
+                                    </tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('app_resultat_index') }}">return to result list</a></tr>
+                                    </td> </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+{% block javascript %}
+<script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
+<!--Wave Effects -->
+<script src="{{ asset('dist/js/waves.js') }}"></script>
+<!--Menu sidebar -->
+<script src="{{ asset('dist/js/sidebarmenu.js') }}"></script>
+<!--Custom JavaScript -->
+<script src="{{ asset('dist/js/custom.js') }}"></script>
+
+</body>
+
+</html>
+{% endblock %}
