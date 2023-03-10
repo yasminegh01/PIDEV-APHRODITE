@@ -274,18 +274,21 @@
                                             </td>
                                         <tr>
                                             <td>
-                                                <a href="{{ path('app_diagnostic_admin_search_sort') }}">return to diagnostic list</a></tr>
-                                        <a class="btn btn-md btn-gradient circle"  href="{{ path ('imp',{'id': resultat.id}) }}">Imprimer <i class="fas fa-angle-right"></i></a>
+
 
                                         </td> </tr>
+
                                         </tr>
 
                                     {% endfor %}
+
 
                                     </tbody>
 
 
                                 </table>
+                                <a class="btn btn btn-primary" href="{{ path('app_diagnostic_admin_search_sort') }}">return to diagnostic list</a></tr>
+
                             </div>
                         </div>
 

@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Diagnostic;
 use App\Entity\Resultat;
 use App\Form\ResultatType;
-use App\Repository\DiagnosticRepository;
 use App\Repository\ResultatRepository;
+use Dompdf\Domdpf;
 use Dompdf\Dompdf;
+use Dompdf\Options;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,9 +18,6 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
-use Dompdf\Domdpf;
-use Dompdf\Options;
-use Knp\Snappy\Pdf;
 
 #[Route('/resultat')]
 class ResultatController extends AbstractController
@@ -46,6 +44,7 @@ class ResultatController extends AbstractController
           ]);
         */
     }
+
 
     #[Route('/new', name: 'app_resultat_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ResultatRepository $resultatRepository): Response
@@ -177,7 +176,7 @@ class ResultatController extends AbstractController
     }
 
 // ******************** JSON supprimer
-    #[Route('/JSON/delete', name: 'app_resultat_delete', methods: ['GET'])]
+  /*  #[Route('/JSON/delete', name: 'app_resultat_delete', methods: ['GET'])]
     public function deleteDiagnosticAction(Request $request, ResultatRepository $resultatRepository)
     {
         $id = $request->get("id");
@@ -194,8 +193,33 @@ class ResultatController extends AbstractController
 
         $formatted = ["error" => "Invalid resultat ID."];
         return new JsonResponse($formatted);
-    }
+    }*/
+    #[Route('/pdf/{id}',name: 'resultat.pdf')]
+    public function generatePdf(Resultat $resultat=null, \App\Service\PdfService $pdf){
+$html=$this->render('resultat/show.html.twig',['resultat'=>$resultat , 'diagnostic' => $resultat->getDiagnostic()]);
 
+        $pdfFile = $pdf->showPdfFile($html);
+        $response = new Response($pdfFile);
+        $response->headers->set('Content-Type', 'application/pdf');
+
+        return $response;
+    }
+    /*#[Route('/pdf/{id}', name: 'resultat.pdf')]
+    public function generatePdf(Resultat $resultat = null, \App\Service\PdfService $pdf)
+    {
+        if (!$resultat) {
+            throw $this->createNotFoundException('Resultat not found');
+        }
+
+        $html = $this->render('resultat/show.html.twig', ['resultat' => $resultat]);
+        $pdfFile = $pdf->showPdfFile($html);
+
+        $response = new Response($pdfFile);
+        $response->headers->set('Content-Type', 'application/pdf');
+
+        return $response;
+    }
+*/
 
     /**
      * @Route ("/Imprimer/{id}" ,name="imp")

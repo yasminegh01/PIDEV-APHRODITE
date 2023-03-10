@@ -12,6 +12,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -133,7 +136,7 @@ class DiagnosticController extends AbstractController
     }
 
     #[Route('/new', name: 'app_diagnostic_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, DiagnosticRepository $diagnosticRepository,SerializerInterface $serializer, ResultatRepository $resultatRepository): JsonResponse
+    public function new(Request $request,MailerInterface $mailer, DiagnosticRepository $diagnosticRepository,SerializerInterface $serializer, ResultatRepository $resultatRepository): JsonResponse
     {
         $jsonData = $request->getContent();
 
@@ -169,6 +172,21 @@ class DiagnosticController extends AbstractController
 
         $diagnosticRepository->save($diagnostic, true);
         $resultatRepository->save($resultat,true);
+
+        if ($resultat->getUrgency()=='yes'){
+            $mail = (new Email())
+                ->from('services.aphrodite@gmail.com')
+                ->to('yasmine.gheribi@esprit.tn')
+                //->cc('cc@example.com')
+                //->bcc('bcc@example.com')
+                //->replyTo('fabien@example.com')
+                //->priority(Email::PRIORITY_HIGH)
+                ->subject('urgency case!')
+                ->text('urgent case!')
+                ->html('result with urgent case check');
+
+            $mailer->send($mail);
+        }
 
         $jsonContent = $serializer->serialize($resultat, 'json');
 
@@ -249,7 +267,7 @@ class DiagnosticController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $diagnosticRepository->save($diagnostic, true);
 
-            return $this->redirectToRoute('app_diagnostic_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_diagnostic_admin_search_sort', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('diagnostic/edit.html.twig', [
@@ -309,7 +327,7 @@ class DiagnosticController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $diagnosticRepository->save($diagnostic, true);
 
-            return $this->redirectToRoute('app_diagnostic_index_admin', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_diagnostic_admin_search_sort', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/diagnostic/new.html.twig', [
@@ -344,7 +362,7 @@ class DiagnosticController extends AbstractController
         $diagnosticRepository->remove($diagnostic, true);
 
 
-        return $this->redirectToRoute('app_diagnostic_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_diagnostic_admin_search_sort', [], Response::HTTP_SEE_OTHER);
     }
 
     // ******************** JSON supprimer
@@ -373,7 +391,7 @@ class DiagnosticController extends AbstractController
         $diagnosticRepository->remove($diagnostic, true);
 
 
-        return $this->redirectToRoute('app_diagnostic_index_admin', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_diagnostic_admin_search_sort', [], Response::HTTP_SEE_OTHER);
     }
 
 
@@ -411,7 +429,7 @@ class DiagnosticController extends AbstractController
         $resultat->setAction($actions[random_int(0,6)]);
         $resultat->setDiagnostic($diagnostic);
         $resultat->setPossibility(random_int(0,100));
-        $resultat->setUrgency('No');
+        $resultat->setUrgency('yes');
         $resultat->setDoctorNote('Waitin to doctors to respond ...');
 
         return $resultat;

@@ -1,0 +1,252 @@
+{% extends 'base.html.twig' %}
+
+    <div class="page-banner overlay-dark bg-image" style="background-image: url(../assets/img/bg_image_1.jpg);">
+        <div class="banner-section">
+            <div class="container text-center wow fadeInUp">
+                <nav aria-label="Breadcrumb">
+                    <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Diagnostic</li>
+                    </ol>
+                </nav>
+                <h1 class="font-weight-normal">diagnostics</h1>
+            </div> <!-- .container -->
+        </div> <!-- .banner-section -->
+    </div> <!-- .page-banner -->
+
+    <div class="page-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div id="calendar-holder"></div>
+                </div>
+            </div>
+        </div> <!-- .container -->
+    </div> <!-- .page-section -->
+    <style>
+        #welcome-step,#patient-step,#symptom-step,#disease-step {
+            border: 4px solid #ccc;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 10px;
+        }
+        .symptoms-container {
+            display: flex;
+        }
+
+        .symptoms-buttons {
+            display: flex;
+            align-items: flex-start;
+            margin-right: 20px;
+            display: inline-block;
+            width: 90%;
+            padding: 6px 12px;
+            background-color: #E1EBE8;
+            color: #6E807A;
+            border-radius: 4px;
+            transition: all .2s ease;
+        }
+
+        .symptom-button {
+            margin-bottom: 10px;
+        }
+
+        .selected-symptoms {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .selected-symptom {
+            background-color: #0c5f96;
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 1rem;
+            font-size: 1rem;
+            margin: 5px;
+            display: inline-block;
+
+        }
+
+
+    </style>
+    <div class="page-section">
+        <div class="container">
+            <h1 class="text-center wow fadeInUp">diagnose</h1>
+            <p class="text-center wow fadeInUp">it only takes 3 minutes <i class="wi wi-time-1"></i></p>
+
+
+
+        // Gestionnaire d'événement pour le bouton suivant de la deuxième étape
+        nextBtn2.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            let selectedWho = null;
+
+            // Boucle pour vérifier quel bouton radio est sélectionné
+            whoRadios.forEach(function(radio) {
+                if (radio.checked) {
+                    selectedWho = radio.value;
+                }
+            });
+
+            // Vérifier si une option est sélectionnée avant de passer à l'étape suivante
+            if (selectedWho) {
+                showStep(diseaseStep);
+            } else {
+                alert('Please select an option to continue.');
+            }
+        });
+
+        // Gestionnaire d'événement pour le bouton retour de la deuxième étape
+        backBtn1.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            showStep(welcomeStep);
+        });
+
+        // Gestionnaire d'événement pour le bouton retour de la troisième étape
+        backBtn2.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            showStep(diseaseStep);
+        });
+
+        // Gestionnaire d'événement pour le bouton retour 3
+        backBtn3.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            showStep(patientStep);
+        });
+
+        nextBtn3.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            showStep(symptomStep);
+        });
+
+        // Gestionnaire d'événement pour les cases à cocher des symptômes
+        /* symptomCheckboxes.forEach(function(checkbox) {
+         checkbox.addEventListener('change', function(event) {
+         let selectedSymptoms = [];
+
+         // Boucle pour récupérer les symptômes sélectionnés
+         symptomCheckboxes.forEach(function(checkbox) {
+         if (checkbox.checked) {
+         selectedSymptoms.push(checkbox.value);
+         }
+         });
+
+         // Afficher le nombre de symptômes sélectionnés
+         const symptomsCount = document.getElementById('symptoms-count');
+         symptomsCount.textContent = selectedSymptoms.length;
+         });
+         });*/
+
+        const range = document.getElementById('age-range');
+        const rangeValue = document.getElementById('range-value');
+        range.addEventListener('DOMContentLoaded', () => {
+            rangeValue.textContent = range.value;
+        });
+        range.addEventListener('input', () => {
+            rangeValue.textContent = range.value;
+        });
+
+        const symptomButtons = document.querySelectorAll('.symptom-button');
+        const selectedSymptomsContainer = document.querySelector('.selected-symptoms');
+        const symptoms = [];
+
+
+        symptomButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                event.preventDefault();
+                const symptom = button.getAttribute('data-symptom');
+                const selectedSymptom = document.createElement('button');
+                selectedSymptom.textContent = symptom;
+                selectedSymptom.classList.add('selected-symptom');
+                selectedSymptom.addEventListener('click', () => {
+                    selectedSymptom.remove();
+                    symptoms.splice(symptoms.indexOf(symptom), 1);
+                });
+                const alreadySelected = [...selectedSymptomsContainer.children].some((child) => {
+                    return child.textContent === symptom;
+                });
+                if (!alreadySelected) {
+                    selectedSymptomsContainer.appendChild(selectedSymptom);
+                    symptoms.push(symptom);
+                }
+                //  selectedSymptomsContainer.appendChild(selectedSymptom);
+            });
+        });
+
+        $(document).ready(function() {
+            // Attach an event listener to the form's submit button
+            $('.main-form').on('submit', function(event) {
+                // Prevent the default form submission
+                event.preventDefault();
+                var formData = $('.main-form').serializeArray();
+                formData.push({name: 'age', value: $('.main-form #age-range').val()});
+                formData.push({name: 'symptoms', value: symptoms});
+                console.log(JSON.stringify(formData));
+                // Create an AJAX request object
+                $.ajax({
+                    url: '{{ path('app_diagnostic_new') }}', // Replace with the actual route URL
+                    method: 'POST', // Use the HTTP POST method
+                    contentType: 'application/json', // Set the content type to JSON
+                    dataType: 'json',
+                    data: JSON.stringify(formData), // Serialize the form data as a JSON object
+                    success: function (response, status) {
+                        var html = "<h3 class='sidebar-title'>Test Result</h3>";
+                        html += '<h4 class="sidebar-title">patient age :'+ formData["age"] +'</h4>'
+                        html += '<hr>'
+                        html += '<p>Patient is overweight or obese : '+ formData["overweight"] +'</p>'
+                        html += '<p>Patient smokes cigarettes : '+ formData["cigarettes"] +'</p>'
+                        html += '<p>Patient has been recently injured : '+ formData["recentlyInjured"] +'</p>'
+                        html += '<p>Patient has high cholesterol : '+ formData["cholesterol"] +'</p>'
+                        html += '<p>Patient has hypertension : '+ formData["hyperTension"] +'</p>'
+                        html += '<p>Patient has diabetes : '+ formData["diabetes"] +'</p>'
+                        html += '<br><br><br>'
+                        html += '<h1 class="sidebar-title">Diagnosis Report</h1>'
+                        html += '<p>action :<h3>'+ response.action+'</h3></p>'
+                        html += '<p>possibilty :<h3>'+ response.possibility+'%</h3></p>'
+                        html += '<p>urgency :<h3>'+ response.urgency+'</h3></p>'
+                        html += '<p>doctor notes :<h3>'+ response.doctorNote+'</h3></p>'
+                        $('#test-result').html(html);
+
+
+                        showStep(resultStep);
+                        alert('Diagnostic added successfully!');
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert('Error: please enter all your data' + textStatus);
+                    },
+                });
+
+
+            });
+        });
+
+
+    </script>
+    <!-- GetButton.io widget -->
+    <script type="text/javascript">
+        (function () {
+            var options = {
+                call: "190", // Call phone number
+                call_to_action: "Urgency Call", // Call to action
+                button_color: "#EA2E1E", // Color of button
+                position: "right", // Position may be 'right' or 'left'
+            };
+            var proto = 'https:', host = "getbutton.io", url = proto + '//static.' + host;
+            var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+            s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+            var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+        })();
+    </script>
+    <!-- /GetButton.io widget -->
+
+
+
+
+
+{% endblock %}
+

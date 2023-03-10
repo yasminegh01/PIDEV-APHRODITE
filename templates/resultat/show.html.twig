@@ -1,39 +1,111 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-{% block title %}Resultat{% endblock %}
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-{% block body %}
-    <h1>Resultat</h1>
+    <meta name="copyright" content="Aphrotdite,INC, https://Aphrotdite.com/">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ resultat.id }}</td>
-            </tr>
-            <tr>
-                <th>Action</th>
-                <td>{{ resultat.action }}</td>
-            </tr>
-            <tr>
-                <th>Possibility</th>
-                <td>{{ resultat.possibility }}</td>
-            </tr>
-            <tr>
-                <th>DoctorNote</th>
-                <td>{{ resultat.doctorNote }}</td>
-            </tr>
-            <tr>
-                <th>Urgency</th>
-                <td>{{ resultat.urgency }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <title>Aphrotdite - votre grossesse notre engagement</title>
 
-    <a href="{{ path('app_resultat_index') }}">back to list</a>
+    <link rel="stylesheet" href="{{ asset('../assets/css/maicons.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('../assets/css/bootstrap.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('../assets/vendor/owl-carousel/css/owl.carousel.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('../assets/vendor/animate/animate.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('../assets/css/theme.css') }}">
+</head>
+<body>
+<div class="page-banner overlay-dark bg-image" style="background-image: url(../assets/img/bg_image_1.jpg);">
+    <div class="banner-section">
+        <div class="container text-center wow fadeInUp">
+            <h1 class="font-weight-normal">diagnostic</h1>
+        </div> <!-- .container -->
+    </div> <!-- .banner-section -->
+</div> <!-- .page-banner -->
+
+<div class="page-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div id="calendar-holder"></div>
+            </div>
+        </div>
+    </div> <!-- .container -->
+</div> <!-- .page-section -->
+<style>
+    #welcome-step,#patient-step,#symptom-step,#disease-step {
+        border: 4px solid #ccc;
+        border-radius: 20px;
+        padding: 20px;
+        margin: 10px;
+    }
+    .symptoms-container {
+        display: flex;
+    }
+
+    .symptoms-buttons {
+        display: flex;
+        align-items: flex-start;
+        margin-right: 20px;
+        display: inline-block;
+        width: 90%;
+        padding: 6px 12px;
+        background-color: #E1EBE8;
+        color: #6E807A;
+        border-radius: 4px;
+        transition: all .2s ease;
+    }
+
+    .symptom-button {
+        margin-bottom: 10px;
+    }
+
+    .selected-symptoms {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .selected-symptom {
+        background-color: #0c5f96;
+        color: #fff;
+        padding: 0.5rem;
+        border-radius: 1rem;
+        font-size: 1rem;
+        margin: 5px;
+        display: inline-block;
+
+    }
 
 
-    <a href="{{ path('app_resultat_edit', {'id': resultat.id}) }}">edit</a>
+</style>
 
-    {{ include('resultat/_delete_form.html.twig') }}
-{% endblock %}
+<div>
+    <div class="sidebar-block" id="test-result">
+        <h3 class="sidebar-title">Test Result</h3>
+        <h4 class="sidebar-title">patient age : {{ diagnostic.age }}</h4>
+        <hr>
+        <p>Patient is overweight or obese : {{ diagnostic.overweight }}</p>
+        <p>Patient smokes cigarettes : {{ diagnostic.cigarettes }}</p>
+        <p>Patient has been recently injured : {{ diagnostic.recentlyInjured }}</p>
+        <p>Patient has high cholesterol : {{ diagnostic.highCholesterol }}</p>
+        <p>Patient has hypertension : {{ diagnostic.hyperTension }}</p>
+        <p>Patient has diabetes : {{ diagnostic.diabetes }}</p>
+        <br><br><br>
+        <h1 class="sidebar-title">Diagnosis Report</h1>
+        <p>action :<h3>{{ resultat.action }}</h3></p>
+        <p>possibilty :<h3>{{ resultat.possibility }}%</h3></p>
+        <p>urgency :<h3>{{ resultat.urgency }}</h3></p>
+        <p>doctor notes :<h3>{{ resultat.doctorNote }}</h3></p>
+
+
+
+    </div>
+</div>
+</body>
+</html>

@@ -19,7 +19,7 @@ class Diagnostic
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::INTEGER)]
    #[Assert\Range(min: 10,max: 50)]
     private ?int $age = null;
 

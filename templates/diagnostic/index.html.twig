@@ -26,52 +26,52 @@
             </div>
         </div> <!-- .container -->
     </div> <!-- .page-section -->
-<style>
-    #welcome-step,#patient-step,#symptom-step,#disease-step {
-        border: 4px solid #ccc;
-        border-radius: 20px;
-        padding: 20px;
-        margin: 10px;
-    }
-    .symptoms-container {
-        display: flex;
-    }
+    <style>
+        #welcome-step,#patient-step,#symptom-step,#disease-step {
+            border: 4px solid #ccc;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 10px;
+        }
+        .symptoms-container {
+            display: flex;
+        }
 
-    .symptoms-buttons {
-        display: flex;
-        align-items: flex-start;
-        margin-right: 20px;
-        display: inline-block;
-        width: 90%;
-        padding: 6px 12px;
-        background-color: #E1EBE8;
-        color: #6E807A;
-        border-radius: 4px;
-        transition: all .2s ease;
-    }
+        .symptoms-buttons {
+            display: flex;
+            align-items: flex-start;
+            margin-right: 20px;
+            display: inline-block;
+            width: 90%;
+            padding: 6px 12px;
+            background-color: #E1EBE8;
+            color: #6E807A;
+            border-radius: 4px;
+            transition: all .2s ease;
+        }
 
-    .symptom-button {
-        margin-bottom: 10px;
-    }
+        .symptom-button {
+            margin-bottom: 10px;
+        }
 
-    .selected-symptoms {
-        display: flex;
-        flex-wrap: wrap;
-    }
+        .selected-symptoms {
+            display: flex;
+            flex-wrap: wrap;
+        }
 
-    .selected-symptom {
-        background-color: #0c5f96;
-        color: #fff;
-        padding: 0.5rem;
-        border-radius: 1rem;
-        font-size: 1rem;
-        margin: 5px;
-        display: inline-block;
+        .selected-symptom {
+            background-color: #0c5f96;
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 1rem;
+            font-size: 1rem;
+            margin: 5px;
+            display: inline-block;
 
-    }
+        }
 
 
-</style>
+    </style>
     <div class="page-section">
         <div class="container">
             <h1 class="text-center wow fadeInUp">diagnose</h1>
@@ -99,31 +99,31 @@
                     <table>
                         <tr>
                             <td width="200px">
-                    <div>
-                        <label for="age-range">Age:</label>
-                        <span id="range-value"></span>
-                        <input type="range" id="age-range" class="age-range">
+                                <div>
+                                    <label for="age-range">Age:</label>
+                                    <span id="range-value"></span>
+                                    <input type="range" id="age-range" min="15" max="50"class="age-range">
 
-                    </div>
+                                </div>
                             </td>
                             <td width="200px">
-                    <div>
-                        <label>For whom is this test?</label>
-                        <div>
-                            <div class="col-sm-6 py-2 ">
-                            <label>
-                                <input type="radio" name="who-radio" value="self" class="who-radio">
-                                Self
-                            </label>
-                            </div>
-                            <div class="col-sm-6 py-2 ">
-                            <label>
-                                <input type="radio" name="who-radio" value="other" class="who-radio">
-                                Other person
-                            </label>
-                            </div>
-                        </div>
-                    </div>
+                                <div>
+                                    <label>For whom is this test?</label>
+                                    <div>
+                                        <div class="col-sm-6 py-2 ">
+                                            <label>
+                                                <input type="radio" name="who-radio" value="self" class="who-radio">
+                                                Self
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-6 py-2 ">
+                                            <label>
+                                                <input type="radio" name="who-radio" value="other" class="who-radio">
+                                                Other person
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -137,134 +137,134 @@
                     <div class="row mb-3">
                         <div class="col-12 py-2  ">
 
-                                <table>
-                                    <tr>
-                                        <td><h4>I am overweight</h4></td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="overweight" value="Yes" class="who-radio">
-                                                Yes
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="overweight" value="No" class="who-radio">
-                                                No
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="overweight" value="don't know" class="who-radio">
-                                                I don't know
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><h4>I have been recently injured</h4></td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="recentlyInjured" value="Yes" class="who-radio">
-                                                Yes
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="recentlyInjured" value="No" class="who-radio">
-                                                No
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="recentlyInjured" value="don't know" class="who-radio">
-                                                I don't know
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><h4>I have high cholesterol</h4></td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="cholesterol" value="Yes" class="who-radio">
-                                                Yes
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="cholesterol" value="No" class="who-radio">
-                                                No
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="cholesterol" value="don't know" class="who-radio">
-                                                I don't know
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><h4>I have hypertensionl</h4></td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="hyperTension" value="Yes" class="who-radio">
-                                                Yes
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="hyperTension" value="No" class="who-radio">
-                                                No
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="hyperTension" value="don't know" class="who-radio">
-                                                I don't know
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><h4>I have diabetes</h4></td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="diabetes" value="Yes" class="who-radio">
-                                                Yes
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="diabetes" value="No" class="who-radio">
-                                                No
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="diabetes" value="don't know" class="who-radio">
-                                                I don't know
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><h4>I smoke cigarettes</h4></td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="cigarettes" value="Yes" class="who-radio">
-                                                Yes
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="cigarettes" value="No" class="who-radio">
-                                                No
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="radio" name="cigarettes" value="don't know" class="who-radio">
-                                                I don't know
-                                            </label>
-                                        </td>
-                                    </tr>
-                                </table>
+                            <table>
+                                <tr>
+                                    <td><h4>I am overweight</h4></td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="overweight" value="Yes" class="who-radio">
+                                            Yes
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="overweight" value="No" class="who-radio">
+                                            No
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="overweight" value="don't know" class="who-radio">
+                                            I don't know
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><h4>I have been recently injured</h4></td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="recentlyInjured" value="Yes" class="who-radio">
+                                            Yes
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="recentlyInjured" value="No" class="who-radio">
+                                            No
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="recentlyInjured" value="don't know" class="who-radio">
+                                            I don't know
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><h4>I have high cholesterol</h4></td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="cholesterol" value="Yes" class="who-radio">
+                                            Yes
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="cholesterol" value="No" class="who-radio">
+                                            No
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="cholesterol" value="don't know" class="who-radio">
+                                            I don't know
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><h4>I have hypertensionl</h4></td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="hyperTension" value="Yes" class="who-radio">
+                                            Yes
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="hyperTension" value="No" class="who-radio">
+                                            No
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="hyperTension" value="don't know" class="who-radio">
+                                            I don't know
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><h4>I have diabetes</h4></td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="diabetes" value="Yes" class="who-radio">
+                                            Yes
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="diabetes" value="No" class="who-radio">
+                                            No
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="diabetes" value="don't know" class="who-radio">
+                                            I don't know
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><h4>I smoke cigarettes</h4></td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="cigarettes" value="Yes" class="who-radio">
+                                            Yes
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="cigarettes" value="No" class="who-radio">
+                                            No
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="cigarettes" value="don't know" class="who-radio">
+                                            I don't know
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
 
                     </div>
@@ -280,7 +280,7 @@
                         <div class="symptoms-container">
                             <div class="symptoms-buttons">
                                 {% for symptom in symptoms %}
-                                <button class="symptom-button" data-symptom="{{ symptom }}">{{ symptom }}</button>
+                                    <button class="symptom-button" data-symptom="{{ symptom }}">{{ symptom }}</button>
                                 {% endfor %}
                             </div>
 
@@ -316,8 +316,9 @@
                     </div>
                     <hr>
                     <button type="button" id="" class="btn btn-primary">reload</button>
-                    <button type="button" id="" class="btn btn-primary">pdf</button>
-
+                    <br>
+                    <br>
+                    <a id="pdf-button"  ><button type="button" id="" class="btn btn-primary" >PDF</button> </a>
 
                 </div>
             </form>
@@ -372,88 +373,88 @@
         });
 
 
-    // Récupérer les éléments du DOM
-    const welcomeStep = document.getElementById('welcome-step');
-    const patientStep = document.getElementById('patient-step');
-    const diseaseStep = document.getElementById('disease-step');
-    const symptomStep = document.getElementById('symptom-step');
-    const resultStep = document.getElementById('result-step');
-    const nextBtn1 = document.getElementById('next-btn-1');
-    const nextBtn2 = document.getElementById('next-btn-2');
-    const nextBtn3 = document.getElementById('next-btn-3');
-    const backBtn1 = document.getElementById('back-btn-1');
-    const backBtn2 = document.getElementById('back-btn-2');
-    const backBtn3 = document.getElementById('back-btn-3');
-    const agreeCheckbox = document.getElementById('agree-checkbox');
-    const symptomCheckboxes = document.querySelectorAll('.symptom-checkbox');
-    const ageRange = document.getElementById('age-range');
-    const whoRadios = document.querySelectorAll('.who-radio');
+        // Récupérer les éléments du DOM
+        const welcomeStep = document.getElementById('welcome-step');
+        const patientStep = document.getElementById('patient-step');
+        const diseaseStep = document.getElementById('disease-step');
+        const symptomStep = document.getElementById('symptom-step');
+        const resultStep = document.getElementById('result-step');
+        const nextBtn1 = document.getElementById('next-btn-1');
+        const nextBtn2 = document.getElementById('next-btn-2');
+        const nextBtn3 = document.getElementById('next-btn-3');
+        const backBtn1 = document.getElementById('back-btn-1');
+        const backBtn2 = document.getElementById('back-btn-2');
+        const backBtn3 = document.getElementById('back-btn-3');
+        const agreeCheckbox = document.getElementById('agree-checkbox');
+        const symptomCheckboxes = document.querySelectorAll('.symptom-checkbox');
+        const ageRange = document.getElementById('age-range');
+        const whoRadios = document.querySelectorAll('.who-radio');
 
-    // Fonction pour afficher une étape spécifique et cacher les autres
-    function showStep(step) {
-    welcomeStep.style.display = 'none';
-    patientStep.style.display = 'none';
-    diseaseStep.style.display = 'none';
-    symptomStep.style.display = 'none';
-    resultStep.style.display = 'none';
+        // Fonction pour afficher une étape spécifique et cacher les autres
+        function showStep(step) {
+            welcomeStep.style.display = 'none';
+            patientStep.style.display = 'none';
+            diseaseStep.style.display = 'none';
+            symptomStep.style.display = 'none';
+            resultStep.style.display = 'none';
 
 
-    step.style.display = 'block';
-    }
+            step.style.display = 'block';
+        }
 
-    // Gestionnaire d'événement pour le bouton suivant de la première étape
-    nextBtn1.addEventListener('click', function(event) {
-    event.preventDefault();
+        // Gestionnaire d'événement pour le bouton suivant de la première étape
+        nextBtn1.addEventListener('click', function(event) {
+            event.preventDefault();
 
-    // Vérifier si la case à cocher est cochée avant de passer à l'étape suivante
-    if (agreeCheckbox.checked) {
-    showStep(patientStep);
-    } else {
-    alert('Please agree to the terms and conditions to continue.');
-    }
-    });
+            // Vérifier si la case à cocher est cochée avant de passer à l'étape suivante
+            if (agreeCheckbox.checked) {
+                showStep(patientStep);
+            } else {
+                alert('Please agree to the terms and conditions to continue.');
+            }
+        });
 
-    // Gestionnaire d'événement pour le bouton suivant de la deuxième étape
-    nextBtn2.addEventListener('click', function(event) {
-    event.preventDefault();
+        // Gestionnaire d'événement pour le bouton suivant de la deuxième étape
+        nextBtn2.addEventListener('click', function(event) {
+            event.preventDefault();
 
-    let selectedWho = null;
+            let selectedWho = null;
 
-    // Boucle pour vérifier quel bouton radio est sélectionné
-    whoRadios.forEach(function(radio) {
-    if (radio.checked) {
-    selectedWho = radio.value;
-    }
-    });
+            // Boucle pour vérifier quel bouton radio est sélectionné
+            whoRadios.forEach(function(radio) {
+                if (radio.checked) {
+                    selectedWho = radio.value;
+                }
+            });
 
-    // Vérifier si une option est sélectionnée avant de passer à l'étape suivante
-    if (selectedWho) {
-    showStep(diseaseStep);
-    } else {
-    alert('Please select an option to continue.');
-    }
-    });
+            // Vérifier si une option est sélectionnée avant de passer à l'étape suivante
+            if (selectedWho) {
+                showStep(diseaseStep);
+            } else {
+                alert('Please select an option to continue.');
+            }
+        });
 
-    // Gestionnaire d'événement pour le bouton retour de la deuxième étape
-    backBtn1.addEventListener('click', function(event) {
-    event.preventDefault();
+        // Gestionnaire d'événement pour le bouton retour de la deuxième étape
+        backBtn1.addEventListener('click', function(event) {
+            event.preventDefault();
 
-    showStep(welcomeStep);
-    });
+            showStep(welcomeStep);
+        });
 
-    // Gestionnaire d'événement pour le bouton retour de la troisième étape
-    backBtn2.addEventListener('click', function(event) {
-    event.preventDefault();
+        // Gestionnaire d'événement pour le bouton retour de la troisième étape
+        backBtn2.addEventListener('click', function(event) {
+            event.preventDefault();
 
-    showStep(diseaseStep);
-    });
+            showStep(diseaseStep);
+        });
 
-    // Gestionnaire d'événement pour le bouton retour 3
-    backBtn3.addEventListener('click', function(event) {
-    event.preventDefault();
+        // Gestionnaire d'événement pour le bouton retour 3
+        backBtn3.addEventListener('click', function(event) {
+            event.preventDefault();
 
-    showStep(patientStep);
-    });
+            showStep(patientStep);
+        });
 
         nextBtn3.addEventListener('click', function(event) {
             event.preventDefault();
@@ -461,23 +462,23 @@
             showStep(symptomStep);
         });
 
-    // Gestionnaire d'événement pour les cases à cocher des symptômes
-   /* symptomCheckboxes.forEach(function(checkbox) {
-    checkbox.addEventListener('change', function(event) {
-    let selectedSymptoms = [];
+        // Gestionnaire d'événement pour les cases à cocher des symptômes
+        /* symptomCheckboxes.forEach(function(checkbox) {
+         checkbox.addEventListener('change', function(event) {
+         let selectedSymptoms = [];
 
-    // Boucle pour récupérer les symptômes sélectionnés
-    symptomCheckboxes.forEach(function(checkbox) {
-    if (checkbox.checked) {
-    selectedSymptoms.push(checkbox.value);
-    }
-    });
+         // Boucle pour récupérer les symptômes sélectionnés
+         symptomCheckboxes.forEach(function(checkbox) {
+         if (checkbox.checked) {
+         selectedSymptoms.push(checkbox.value);
+         }
+         });
 
-    // Afficher le nombre de symptômes sélectionnés
-    const symptomsCount = document.getElementById('symptoms-count');
-    symptomsCount.textContent = selectedSymptoms.length;
-    });
-    });*/
+         // Afficher le nombre de symptômes sélectionnés
+         const symptomsCount = document.getElementById('symptoms-count');
+         symptomsCount.textContent = selectedSymptoms.length;
+         });
+         });*/
 
         const range = document.getElementById('age-range');
         const rangeValue = document.getElementById('range-value');
@@ -511,7 +512,7 @@
                     selectedSymptomsContainer.appendChild(selectedSymptom);
                     symptoms.push(symptom);
                 }
-              //  selectedSymptomsContainer.appendChild(selectedSymptom);
+                //  selectedSymptomsContainer.appendChild(selectedSymptom);
             });
         });
 
@@ -520,11 +521,17 @@
             $('.main-form').on('submit', function(event) {
                 // Prevent the default form submission
                 event.preventDefault();
-                var formData = $('.main-form').serializeArray();
+                const formData = $('.main-form').serializeArray();
                 formData.push({name: 'age', value: $('.main-form #age-range').val()});
                 formData.push({name: 'symptoms', value: symptoms});
-                console.log(JSON.stringify(formData));
+                // console.log(formData['age']);
+                //console.log(formData['age']);
                 // Create an AJAX request object
+                var dataObj = {};
+
+                $(formData).each(function(i, field){
+                    dataObj[field.name] = field.value;
+                });
                 $.ajax({
                     url: '{{ path('app_diagnostic_new') }}', // Replace with the actual route URL
                     method: 'POST', // Use the HTTP POST method
@@ -533,14 +540,14 @@
                     data: JSON.stringify(formData), // Serialize the form data as a JSON object
                     success: function (response, status) {
                         var html = "<h3 class='sidebar-title'>Test Result</h3>";
-                        html += '<h4 class="sidebar-title">patient age :'+ formData["age"] +'</h4>'
+                        html += '<h4 class="sidebar-title">patient age :'+ dataObj["age"] +'</h4>'
                         html += '<hr>'
-                        html += '<p>Patient is overweight or obese : '+ formData["overweight"] +'</p>'
-                        html += '<p>Patient smokes cigarettes : '+ formData["cigarettes"] +'</p>'
-                        html += '<p>Patient has been recently injured : '+ formData["recentlyInjured"] +'</p>'
-                        html += '<p>Patient has high cholesterol : '+ formData["cholesterol"] +'</p>'
-                        html += '<p>Patient has hypertension : '+ formData["hyperTension"] +'</p>'
-                        html += '<p>Patient has diabetes : '+ formData["diabetes"] +'</p>'
+                        html += '<p>Patient is overweight or obese : '+ dataObj["overweight"] +'</p>'
+                        html += '<p>Patient smokes cigarettes : '+ dataObj["cigarettes"] +'</p>'
+                        html += '<p>Patient has been recently injured : '+ dataObj["recentlyInjured"] +'</p>'
+                        html += '<p>Patient has high cholesterol : '+ dataObj["cholesterol"] +'</p>'
+                        html += '<p>Patient has hypertension : '+ dataObj["hyperTension"] +'</p>'
+                        html += '<p>Patient has diabetes : '+ dataObj["diabetes"] +'</p>'
                         html += '<br><br><br>'
                         html += '<h1 class="sidebar-title">Diagnosis Report</h1>'
                         html += '<p>action :<h3>'+ response.action+'</h3></p>'
@@ -548,6 +555,11 @@
                         html += '<p>urgency :<h3>'+ response.urgency+'</h3></p>'
                         html += '<p>doctor notes :<h3>'+ response.doctorNote+'</h3></p>'
                         $('#test-result').html(html);
+
+                        const pdfButton = document.getElementById('pdf-button');
+
+// Set the href attribute using the setResultatPdfUrl function
+                        pdfButton.setAttribute('href', '../resultat/pdf/'+response.id);
 
 
                         showStep(resultStep);
@@ -580,10 +592,6 @@
         })();
     </script>
     <!-- /GetButton.io widget -->
-
-
-
-
-
 {% endblock %}
+
 
